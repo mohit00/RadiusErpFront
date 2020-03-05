@@ -1,0 +1,89 @@
+
+<div class="m-033">
+  <button
+    mat-raised-button
+    color="primary"
+    [routerLink]="['/company/user/Add']"
+    routerLinkActive="router-link-active"
+    style="margin-bottom: 10px; float:right">
+  Add User
+
+  </button>
+  <div fxLayout="row wrap">
+  <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="100">
+      <mat-form-field class="margin-333"  >
+          <mat-label>Select Company</mat-label>
+
+          <mat-select (selectionChange)="change($event)" [(ngModel)] = "selectedCompany">
+            <mat-option   [value]="'all'">All
+            </mat-option>
+            <mat-option *ngFor="let list of companyLists" [value]="list.uuid">
+              {{list.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+</div>
+<div fxFlex="100" fxFlex.gt-sm="70" fxFlex.sm="100">
+  
+<mat-form-field class="margin-333" style="width: 100%">
+  <input 
+  matInput 
+  placeholder="Type to filter all columns" 
+  value=""
+  (keyup)='updateFilter($event)'>
+</mat-form-field>
+</div>
+</div>
+
+<div class="mat-box-shadow margin-333">
+    <ngx-datatable class="material bg-white" 
+    [columnMode]="'force'"  
+    [headerHeight]="50"
+    [footerHeight]="50" 
+    [rowHeight]="'auto'"
+    [limit]="8"
+    [rows]="rows"
+    [columns]="columns" >
+    <ngx-datatable-column name="id" [sortable]="true">
+        <ng-template    let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+          {{rowIndex + 1}}
+        </ng-template>
+      </ngx-datatable-column>
+        
+      <ngx-datatable-column name="Name" [sortable]="true">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.name}}
+            </ng-template>
+        </ngx-datatable-column>
+      <ngx-datatable-column name="Email" [sortable]="true">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.email}}
+            </ng-template>
+        </ngx-datatable-column>
+      <ngx-datatable-column name="Vertical" [sortable]="true">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.vertical}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Department" [sortable]="true">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.department}}
+              </ng-template>
+          </ngx-datatable-column>
+      <ngx-datatable-column name="created Date">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.createDate | date:'shortDate'}}
+          </ng-template>
+        </ngx-datatable-column>
+    
+      <ngx-datatable-column name="Action">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              <button mat-icon-button aria-label="Example icon-button with a heart icon" (click) = "departmentedit(row.uuid)">
+                  <mat-icon>edit</mat-icon>
+                </button> 
+                
+           </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
+</div>
+</div>

@@ -1,0 +1,126 @@
+<mat-card class="p-0">
+  <mat-card-title class="">
+    <div class="card-title-text">Material {{pageType}}</div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+
+
+    <form [formGroup]="firstFormGroup">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+          <mat-form-field appearance="outline">
+            <mat-label>Vendor</mat-label>
+            <mat-select    formControlName="verdoruuid"  (selectionChange)="getVendorMaterial()" [disabled] ="pageType != 'Add'">
+              <mat-option *ngFor ="let list of companyList" [value] ="list.uuid" >{{list.name}}  </mat-option>
+            </mat-select>   
+          </mat-form-field>
+        </div>
+        <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+          <mat-form-field appearance="outline">
+            <mat-label>Company Material</mat-label>
+            <mat-select    formControlName="companyuuid"  (selectionChange)="getCompanyMaterial()" [disabled] ="pageType != 'Add'">
+              <mat-option *ngFor ="let list of companyList" [value] ="list.uuid" >{{list.name}}  </mat-option>
+            </mat-select>   
+          </mat-form-field>
+        </div>
+        <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+          <mat-form-field appearance="outline">
+            <mat-label>Material</mat-label>
+            <mat-select   formControlName="materialuuid" [disabled] ="pageType != 'Add'" >
+              <mat-option   *ngFor ="let list of materialLsit" [value] ="list.uuid" >{{list.name}}  </mat-option>
+            </mat-select>                
+
+          </mat-form-field>
+        </div>
+        <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+          <mat-form-field appearance="outline">
+            <mat-label>Vendor Material Cost</mat-label>
+            <input matInput placeholder="Placeholder" formControlName="vendorCost" type ="number">
+
+          </mat-form-field>
+        </div>
+        
+           
+        
+      </div>
+      <button mat-raised-button color="primary" (click)="addMaterial();" *ngIf ="pageType == 'Add'">Add</button>
+      <button mat-raised-button color="primary" (click)="updateMaterial();"  *ngIf ="pageType != 'Add'">Update</button>
+      <button mat-raised-button color="warn"    style="margin-left: 5px;" *ngIf ="pageType == 'Add'"  [routerLink]="['/material']"
+      >Back</button>
+      <button mat-raised-button color="warn"    style="margin-left: 5px;" *ngIf ="pageType != 'Add'"  (click) ="backToAdd()"
+      >Back To Add</button>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-title class="">
+    <div class="card-title-text">Material List</div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+    <div fxLayout="row wrap">
+  
+      <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+          
+        <mat-form-field class="margin-333" style="width: 100%">
+          <input 
+          matInput 
+          placeholder="Type to filter all columns" 
+          value=""
+          (keyup)='updateFilter($event)'>
+        </mat-form-field>
+      </div>
+      </div>
+      
+      
+      <div class="mat-box-shadow margin-333">
+          <ngx-datatable class="material bg-white" 
+          [columnMode]="'force'"  
+          [headerHeight]="50"
+          [footerHeight]="50" 
+          [rowHeight]="'auto'"
+          [limit]="8"
+          [rows]="rows"
+          [columns]="columns" >
+          <ngx-datatable-column name="id" [sortable]="true">
+              <ng-template    let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+                {{rowIndex + 1}}
+              </ng-template>
+            </ngx-datatable-column>
+              
+            <ngx-datatable-column name="Name" [sortable]="true">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.name}}
+                  </ng-template>
+              </ngx-datatable-column>
+                  
+              <ngx-datatable-column name="Dimenstion">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.materialDimenstion}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Cost">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.vendorCost}}
+                </ng-template>
+              </ngx-datatable-column>
+            <ngx-datatable-column name="created Date">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.createDate | date:'shortDate'}}
+                </ng-template>
+              </ngx-datatable-column>
+          
+            <ngx-datatable-column name="Action">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <button mat-icon-button aria-label="Example icon-button with a heart icon" (click) = "vendorMaterialDetail(row)">
+                        <mat-icon>edit</mat-icon>
+                      </button> 
+                      
+                 </ng-template>
+              </ngx-datatable-column>
+          </ngx-datatable>
+      </div>
+</mat-card-content>
+</mat-card>
