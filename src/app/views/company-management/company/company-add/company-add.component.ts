@@ -80,6 +80,7 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
       isparent: [false],
       parentuuid: ['']
     });
+    this.selectCountry();
   }
   companyLists: any;
   async companyList() {
