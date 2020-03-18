@@ -48,7 +48,7 @@ if (this.href == '/material/Update') {
 }
 this.createForm();
   }
-  handleFileInput(files: any, type) { 
+  handleFileInput(files: any) { 
     this.materialPic = files
       //  for(var i=0;i<files.length;i++){
       //   this.materialPic.push(files[i])

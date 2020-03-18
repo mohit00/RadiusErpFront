@@ -83,6 +83,7 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
     this.selectCountry();
   }
   companyLists: any;
+  clientCompany:any;
   async companyList() {
 
     this.CompanyService.companyList().subscribe(res => {
@@ -94,7 +95,14 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
         }
 
       })
+       this.clientCompany = res.data.filter((data) => {
+        if (data.type.toLowerCase() == 'client') {
+          return true;
+        } else{
+          return false
+        }
 
+      }) 
     })
   }
   createCompany() {
@@ -115,8 +123,7 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
       }
       this.AppLoaderService.close();
 
-    })
-
+    }) 
   }
   updateCompany() {
     let datajson = { ...this.firstFormGroup.value, ...this.secondFormGroup.value };
@@ -135,15 +142,12 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
           this.Router.navigate(['company'])
         });
       }
-      this.AppLoaderService.close();
-
+      this.AppLoaderService.close(); 
     })
   }
   ngOnInit() {
-    this.companyList();
-
-    this.createForm();
-
+    this.companyList(); 
+    this.createForm(); 
     this.href = this.Router.url;
     if (this.href == '/company/Update') {
       this.pageType = "Update"
@@ -156,13 +160,11 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
   companyDetail() {
     this.CompanyService.companyDetail(sessionStorage.getItem("companySelecteduuid")).subscribe(res => {
       this.companyDetailS = res.data;
-      this.updateForm(this.companyDetailS);
-
+      this.updateForm(this.companyDetailS); 
     })
   }
 
-  updateForm(data) {
-
+  updateForm(data) { 
     let countryid = this.countryList.filter(res => {
       return res.name == data.country
     })[0].id
@@ -171,8 +173,7 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
       isparent = true;
     }
     let stateid
-    this.stateList = csc.getStatesOfCountry(countryid);
-
+    this.stateList = csc.getStatesOfCountry(countryid); 
     for (var i = 0; i < this.stateList.length; i++) {
       if (this.stateList[i].name == data.state) {
         stateid = this.stateList[i].id;

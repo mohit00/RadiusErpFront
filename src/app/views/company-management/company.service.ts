@@ -41,6 +41,26 @@ export class CompanyService {
       })
     );
   }
+  companyUnderList(data ): Observable<any> {
+
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.get(environment.LOCAL_BASE + `company/underCompany/${data}`,     {
+      headers: headerJson 
+      
+    }).pipe(
+      // eg. "map" without a dot before
+      map(data => {
+        return data;
+      }),
+      // "catchError" instead "catch"
+      catchError(error => {
+        alert("Something went wrong ;)");
+        return Observable.throw(error);
+      })
+    );
+  }
   companyDetail( data): Observable<any> {
 
     let headerJson = {

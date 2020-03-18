@@ -14,15 +14,13 @@ import { SharedMaterialModule } from 'app/shared/shared-material.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  MatTableDataSource 
-} from '@angular/material';
+ 
  @NgModule({
   declarations: [CompanyComponent, UserComponent, DepartmentComponent, VerticalComponent,  CompanyAddComponent, DepartmentAddComponent, VerticalAddComponent, UserAddComponent ],
   imports: [FlexLayoutModule,FormsModule, ReactiveFormsModule,
     CommonModule,NgxDatatableModule,SharedMaterialModule,
     CompanyManagementRoutingModule
   ],
-  providers:[MatTableDataSource]
+  providers:[]
 })
 export class CompanyManagementModule { }

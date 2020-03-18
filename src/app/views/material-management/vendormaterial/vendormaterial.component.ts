@@ -16,7 +16,7 @@ import {CompanyService} from '../../company-management/company.service';
 export class VendormaterialComponent implements OnInit {
   rows:any =[];
   temp:any =[];
- 
+  columns:any = [];
    constructor(private CompanyService:CompanyService,private materialService:materialService,private dialog:AppConfirmService,private AppLoaderService:AppLoaderService,private fb: FormBuilder,private Router:Router) { }
   href:any;
 
@@ -61,6 +61,25 @@ export class VendormaterialComponent implements OnInit {
         });
       })
   }
+  updateFilter(event) {
+    const val = event.target.value.toLowerCase();
+    var columns = Object.keys(this.temp[0]);
+    // Removes last "$$index" from "column"
+    columns.splice(columns.length - 1);
+    // console.log(columns);
+    if (!columns.length)
+      return;
+    const rows = this.temp.filter(function(d) {
+      for (let i = 0; i <= columns.length; i++) {
+        let column = columns[i];
+        // console.log(d[column]);
+        if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
+          return true;
+        }
+      }
+    });
+    this.rows = rows;
+  }
   ngOnInit() {
    this.departmentDetail();
    this.materialList();
@@ -80,6 +99,7 @@ this.createForm();
     this.rows =this.temp = [];
 
   }
+ 
   tet:any;
   remove(index, type) {
     this.materialPic.splice(index, 1);

@@ -105,23 +105,37 @@
                     <mat-option  [value]="'Company'">Company </mat-option>
                     <mat-option  [value]="'Vendor'">Vendor </mat-option>
                     <mat-option  [value]="'Client'">Client </mat-option>
+                    <mat-option  [value]="'Site'">Site </mat-option>
+
+                    
                   </mat-select>
                 </mat-form-field>                
              </div>
              
              <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20"  *ngIf ="secondFormGroup.value.type == 'Client'">
+              <mat-checkbox  formControlName="isparent">Is Parent Group</mat-checkbox>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20"  *ngIf ="secondFormGroup.value.type == 'Site'">
               <mat-checkbox  formControlName="isparent">Is Parent Client</mat-checkbox>
-
             </div>
              <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3" *ngIf ="secondFormGroup.value.isparent && secondFormGroup.value.type == 'Client'">
               <mat-form-field appearance="outline" >
-               <mat-label>Select Parent Company</mat-label>
+               <mat-label>Select Parent Group</mat-label>
                <mat-select  formControlName="parentuuid" >
                 <mat-option  *ngFor ="let list of companyLists" [value]="list.uuid">{{list.name}} </mat-option>
 
                 </mat-select>
              </mat-form-field>                
           </div>
+          <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3" *ngIf ="secondFormGroup.value.isparent && secondFormGroup.value.type == 'Site'">
+            <mat-form-field appearance="outline" >
+             <mat-label>Select Parent Client</mat-label>
+             <mat-select  formControlName="parentuuid" >
+              <mat-option  *ngFor ="let list of clientCompany" [value]="list.uuid">{{list.name}} </mat-option>
+
+              </mat-select>
+           </mat-form-field>                
+        </div>
           <!-- <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20">
 
             <mat-checkbox  >Is Managed By</mat-checkbox>

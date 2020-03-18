@@ -115,16 +115,17 @@ export class NavigationService {
   
       ]
     },{
-      name: "Order Management",
+      name: "Work Management",
       type: "dropDown",
       tooltip: "Dashboard",
       icon: "dashboard",
-      state: "dashboard",
+      state: "workorder",
       sub: [
-        { name: "Work Order", state: "default" },
-        { name: "Project Team Order", state: "default" },
+        { name: "Payment Term", state: "/payment" },
+        { name: "Site Material", state: "/sitematerial" },
 
-        { name: "Purchase Order", state: "default" },
+        { name: "Work Order", state: "/" },
+
   
       ]
     }

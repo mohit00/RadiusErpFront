@@ -1,0 +1,269 @@
+<mat-card class="p-0">
+  <mat-card-title class="">
+    <div class="card-title-text">Company {{pageType}}</div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+    <mat-horizontal-stepper [linear]="true">
+      <mat-step [stepControl]="firstFormGroup">
+        <ng-template matStepLabel>Work Order Info</ng-template>
+
+        <form [formGroup]="firstFormGroup">
+          <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+              <mat-form-field class="margin-333" appearance="outline">
+                <mat-label>Select Company</mat-label>
+                <mat-select (selectionChange)="change('company')" formControlName="parentuuid">
+                  <mat-option *ngFor="let list of companyLists" [value]="list.uuid">
+                    {{list.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+              <mat-form-field class="margin-333" appearance="outline">
+                <mat-label>Select Group</mat-label>
+                <mat-select (selectionChange)="clientOfgroup(firstFormGroup.value.groupuuid,'group')" formControlName="groupuuid">
+                  <mat-option *ngFor="let list of companyGroupLists" [value]="list.uuid">
+                    {{list.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+              <mat-form-field class="margin-333" appearance="outline">
+                <mat-label>Select Client</mat-label>
+                <mat-select (selectionChange)="clientOfgroup(firstFormGroup.value.clientuuid,'client')" formControlName="clientuuid">
+                  <mat-option *ngFor="let list of clientCompany" [value]="list.uuid">
+                    {{list.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+              <mat-form-field class="margin-333" appearance="outline">
+                <mat-label>Select Site</mat-label>
+                <mat-select   formControlName="siteuuid" (selectionChange)=getsiteMaterialGet()>
+                  <mat-option *ngFor="let list of companySiteLists" [value]="list.uuid">
+                    {{list.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+              <mat-form-field class="margin-333" appearance="outline">
+                <mat-label>WO No.</mat-label>
+                <input matInput placeholder="Placeholder" formControlName="woNo">
+
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+              <mat-form-field class="margin-333" appearance="outline">
+                <mat-label>WO Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="woDate"> 
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+              <mat-form-field class="margin-333" appearance="outline">
+                <mat-label>Vertical</mat-label>
+                <mat-select formControlName="verticaluuid" (selectionChange)="changeDepartment()">
+                  <mat-option *ngFor="let list of verticalList" [value]="list.uuid">
+                    {{list.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+              <mat-form-field class="margin-333" appearance="outline">
+                <mat-label>Department</mat-label>
+                <mat-select formControlName="deptuuid">
+                  <mat-option *ngFor="let list of departmentList" [value]="list.uuid">
+                    {{list.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+              <div fxFlex="100" fxFlex.gt-sm="80" fxFlex.sm="80">
+
+              <mat-form-field class="margin-333" appearance="outline" >
+                <mat-label>Payment Term</mat-label>
+                <mat-select  multiple   [(ngModel)]= "selectedPayment"  [ngModelOptions]="{standalone: true}">
+                  <mat-option *ngFor="let list of paymentList" [value]="list.name">
+                    {{list.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" (click) ="addPaymentTerm();" style=" padding-top: 11px;
+                font-size: 47px;cursor: pointer;">add_box</mat-icon>
+
+</div>
+            </div>
+<div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+     <table class="default-table mat-box-shadow mb-24" style="width: 100%">
+      <thead>
+        <tr>
+          <th width="30%"> Term</th>
+          <th>Value</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="paymentTermList.length>0; else paymentTermNoData">
+        <tr *ngFor="let item of paymentTermList;let index = index">
+          <td>{{ item.name }}</td>
+          <td nowrap> 
+            <mat-form-field  appearance="outline">
+            <mat-label>Value</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]= "item.value"  [ngModelOptions]="{standalone: true}" >
+           <span matSuffix style="font-weight: 600;
+           font-size: 20px;">%</span>
+
+          </mat-form-field></td>
+
+
+          <td nowrap>
+
+
+            <button mat-raised-button color="warn" class="mx-4" (click)="remove(index)">
+              <mat-icon aria-hidden="false" aria-label="Example home icon" (click) ="addPaymentTerm();" style="  cursor: pointer;">delete_sweep</mat-icon>
+
+            </button>
+           </td>
+        </tr>
+      </tbody>
+      <ng-template #paymentTermNoData>
+        <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
+      </ng-template>
+    </table>
+   
+</div>
+          </div>
+          <div>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <ng-template matStepLabel>Work Order Material</ng-template>
+
+        <form [formGroup]="secondFormGroup">
+          <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+              <div fxFlex="100" fxFlex.gt-sm="80" fxFlex.sm="80">
+
+              <mat-form-field class="margin-333" appearance="outline" >
+                <mat-label>Seelct Site Material</mat-label>
+                <mat-select      [(ngModel)]= "selectedSiteMaterial"  [ngModelOptions]="{standalone: true}">
+                  <mat-option *ngFor="let list of siteMaterialList" [value]="list.uuid">
+                    {{list.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" (click) ="addSiteMaterial();" style=" padding-top: 11px;
+                font-size: 47px;cursor: pointer;">add_box</mat-icon>
+
+</div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+              <table class="default-table mat-box-shadow mb-24" style="width: 100%">
+               <thead>
+                 <tr>
+                   <th width="30%"> Material</th>
+                   <th>QTY</th>
+                   <th>unit</th>
+                   <th>rate</th>
+                   
+                   <th>tax</th>
+
+                   <th>Actions</th>
+                 </tr>
+               </thead>
+               <tbody *ngIf="siteselectedMaterialList.length>0; else siteMaterialListNoData">
+                 <tr *ngFor="let item of siteselectedMaterialList;let index = index">
+                   <td>{{ item.name }}</td>
+                   <td nowrap> <mat-form-field  appearance="outline">
+                     <mat-label>QTY</mat-label>
+                     <input matInput placeholder="Placeholder" type ="number"  [(ngModel)]= "item.qty"  [ngModelOptions]="{standalone: true}">
+         
+                   </mat-form-field></td>
+         
+                   <td nowrap> <mat-form-field  appearance="outline">
+                    <mat-label>unit</mat-label>
+                    <input matInput placeholder="Placeholder"type ="number"    [(ngModel)]= "item.unit"  [ngModelOptions]="{standalone: true}">
+        
+                  </mat-form-field></td>  <td nowrap> <mat-form-field  appearance="outline">
+                    <mat-label>rate</mat-label>
+                    <input matInput placeholder="Placeholder" type ="number"  [(ngModel)]= "item.rate"  [ngModelOptions]="{standalone: true}" >
+        
+                  </mat-form-field></td>
+                  <td nowrap> <mat-form-field  appearance="outline">
+                    <mat-label>tax</mat-label>
+                    <input matInput placeholder="Placeholder" type ="number"  [(ngModel)]= "item.tax"  [ngModelOptions]="{standalone: true}" >
+                  </mat-form-field>
+                </td>
+                
+                   <td nowrap>
+         
+         
+                     <button mat-raised-button color="warn" class="mx-4" (click)="removeSite(index)">
+                       <mat-icon aria-hidden="false" aria-label="Example home icon"   style="  cursor: pointer;">delete_sweep</mat-icon>
+         
+                     </button>
+                    </td>
+                 </tr>
+               </tbody>
+               <ng-template #siteMaterialListNoData>
+                 <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
+               </ng-template>
+             </table>
+            
+         </div>
+            <!-- <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20">
+
+            <mat-checkbox  >Is Managed By</mat-checkbox>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="30">
+            
+              <mat-form-field appearance="outline" >
+                <mat-label>Select Company</mat-label>
+                <mat-select>
+                  <mat-option>None</mat-option>
+                
+
+                  
+                </mat-select>
+              </mat-form-field>
+              </div> -->
+          </div>
+          <div>
+            <button mat-raised-button color="accent" matStepperPrevious style="margin-right: 5px;">Back</button>
+
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <div>
+          <mat-icon class="pt-1" [style.fontSize]="'36px'">check</mat-icon>
+        </div>
+        <div class="pb-1 mb-1"> You Are Done.</div>
+        <div fxLayout="row">
+          <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+          <span fxFlex="8px"></span>
+          <button mat-raised-button color="primary" (click)="createCompany();" *ngIf="pageType == 'Add'">Submit</button>
+          <button mat-raised-button color="primary" (click)="updateCompany();" *ngIf="pageType == 'Update'">Update</button>
+          <button mat-raised-button color="primary" (click)="Appendwo();" *ngIf="pageType == 'Append'">Append</button>
+
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card-content>
+</mat-card>

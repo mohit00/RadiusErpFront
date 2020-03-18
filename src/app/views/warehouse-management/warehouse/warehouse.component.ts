@@ -30,7 +30,7 @@ export class WarehouseComponent implements OnInit {
   ngOnInit() {
     this.getCompanyList();
   }
-  change(){
+  change(event){
     this.warehouseService.warehouseList(this.selectedCompany).subscribe(res=>{
       this.rows= this.temp =  res.data;
 
