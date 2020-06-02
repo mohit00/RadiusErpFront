@@ -1,3 +1,4 @@
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { egretAnimations } from 'app/shared/animations/egret-animations';
@@ -10,13 +11,13 @@ import { NavigationService } from 'app/shared/services/navigation.service';
 import { ICountry, IState, ICity } from 'country-state-city'
 import csc from 'country-state-city'
 import { CompanyService } from '../../company.service';
+import { IndianStatesCode } from './indianStatescode';
 
 @Component({
   selector: 'app-company-add',
   templateUrl: './company-add.component.html',
   styleUrls: ['./company-add.component.scss'],
-  animations: egretAnimations
-
+  animations: egretAnimations 
 })
 export class CompanyAddComponent implements OnInit, OnDestroy {
   pageType: any;
@@ -26,33 +27,35 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
   stateList: any;
   cityList: any;
   href: any;
-  constructor(private CompanyService: CompanyService, private navService: NavigationService,
+  currenturl:any;
+  selectedPage:any;
+  constructor(private IndianStatesCode:IndianStatesCode,private CompanyService: CompanyService, private navService: NavigationService,
     private Router: Router, private fb: FormBuilder, private AppLoaderService: AppLoaderService, private dialog: AppConfirmService) {
+      this.currenturl = Router.url;
+       if(this.currenturl == '/company/Add'){
+        this.selectedPage = 0;
+
+      }else if(this.currenturl == '/company/under/Add'){
+        this.selectedPage = 1;
+
+      }
     this.countryList = csc.getAllCountries();
     this.cityList = [];
   }
+ 
   selectCountry() {
-    this.stateList = csc.getStatesOfCountry(this.firstFormGroup.value.country1);
+ 
+    this.stateList = csc.getStatesOfCountry(this.firstFormGroup.value.country1);    
+
     this.cityList = [];
 
   }
   selectState() {
-    this.cityList = csc.getCitiesOfState(this.firstFormGroup.value.state1);
-
-
+    this.cityList = csc.getCitiesOfState(this.firstFormGroup.value.state1); 
   }
   public hasfirstError = (controlName: string, errorName: string) => {
     return this.firstFormGroup.controls[controlName].hasError(errorName);
-  }
-  //  "name":"Cleo county",
-  //  "Address":"H 98 sector 63",
-  //  "country":"India",
-  //  "city":"Noida",
-  //  "state":"UP",
-  //  "zipcode":"201301",
-  //  "PAN":"BCGPN6150D",
-  //  "GSTno":"52134214241",
-  //  "type":"client",
+  } 
   createForm() {
     this.firstFormGroup = this.fb.group({
       name: ['', [
@@ -68,49 +71,83 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
       zipcode: ['', [
       ]],
       phoneNumber: ['', [
-      ]]
+      ]],
+      website: ['', [
+      ]],
+      stateCode:['']
     });
     this.secondFormGroup = this.fb.group({
       PAN: ['', [
       ]],
       GSTno: ['', [
       ]],
-      type: ['', [
+      cnino:[''],
+      type: [this.companyType, [
       ]],
       isparent: [false],
-      parentuuid: ['']
+      parentuuid: [''],
+      iscompany:[false]
     });
     this.selectCountry();
   }
   companyLists: any;
   clientCompany:any;
+  companyListData:any = [];
   async companyList() {
 
     this.CompanyService.companyList().subscribe(res => {
-      this.companyLists = res.data.filter((data) => {
-        if (data.type.toLowerCase() == 'group') {
-          return true;
-        } else if (data.type.toLowerCase() == 'all') {
-          return true;
-        }
-
-      })
-       this.clientCompany = res.data.filter((data) => {
-        if (data.type.toLowerCase() == 'client') {
-          return true;
-        } else{
-          return false
-        }
-
-      }) 
+      this.companyLists = res.data ;
+      this.companyListData = res.data
+   
     })
   }
-  createCompany() {
+  selectType(){
+    if(this.secondFormGroup.value.type == 'All'){
+      
+    }else if(this.secondFormGroup.value.type == 'Group'){
+      this.companyLists = this.companyListData.filter(res=>{
+        if(res.type == "All"){
+          return true;
+        }else{
+          return false;
+
+        }
+      })
+    }else if(this.secondFormGroup.value.type == 'Vendor'){
+      this.companyLists = this.companyListData.filter(res=>{
+        return true;
+
+      })
+    }else if(this.secondFormGroup.value.type == 'Site'){
+      this.companyLists = this.companyListData.filter(res=>{
+        if(res.type == "Group"){
+          return true;
+        }else{
+          return false;
+
+        }
+      })
+    }
+  }
+  createCompany() { 
     let datajson = { ...this.firstFormGroup.value, ...this.secondFormGroup.value };
+ 
     datajson.country = this.countryList.filter((data) => { return data.id === datajson.country1 })[0].name
+  
+ 
     datajson.state = this.stateList.filter((data) => { return data.id === datajson.state1 })[0].name
     datajson.city = this.cityList.filter((data) => { return data.id === datajson.city1 })[0].name;
-    this.AppLoaderService.open();
+    datajson.stateCode = this.IndianStatesCode.States.filter(
+      res=>{
+ 
+        if(res.name.toLowerCase().trim() == datajson.state.toLowerCase().trim()){
+          return true
+        }else{
+          return false;
+        }
+      }
+    )[0].code.toString() ;
+     this.AppLoaderService.open();
     this.CompanyService.companyCreate(datajson).subscribe(res => {
       if (res.code == "200") {
         let datasend = {
@@ -145,11 +182,33 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
       this.AppLoaderService.close(); 
     })
   }
+  pagedatatype:any ='';
+  companyType:any = '';
   ngOnInit() {
     this.companyList(); 
-    this.createForm(); 
+ 
+    this.pagedatatype = 0;
+
     this.href = this.Router.url;
-    if (this.href == '/company/Update') {
+    if (this.href == '/company/Add') {
+      this.companyType = 'All'
+
+    }else
+    if (this.href == '/company/Client/Add') {
+
+      this.pagedatatype = 1;
+    }else if (this.href == '/company/Vendor/Add') {
+      this.companyType = 'Vendor'
+
+    }
+    
+    if (this.href == '/company/Client/Update') {
+      this.pagedatatype = 1;
+    }else if (this.href == '/company/Vendor/Update') {
+     
+    }
+    this.createForm(); 
+      if (this.href.split("/")[this.href.split("/").length - 1] == 'Update') {
       this.pageType = "Update"
       this.companyDetail();
     } else {

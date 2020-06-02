@@ -61,8 +61,15 @@
   </mat-form-field>
  
 </div>
-
-  <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+<div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20">
+  <mat-form-field appearance="outline">
+    <mat-label>Website</mat-label>
+    <input matInput placeholder="Placeholder"   formControlName="website"  >
+    
+  </mat-form-field>
+ 
+</div>
+  <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
     <mat-form-field appearance="outline" class="textareaForm">
       <mat-label>Address</mat-label>
       <textarea matInput placeholder="Address"  formControlName="Address"    ></textarea>
@@ -81,14 +88,22 @@
         <form [formGroup]="secondFormGroup">
           <div fxLayout="row wrap">
 
-            <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3">
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
               <mat-form-field appearance="outline">
                 <mat-label>GST Number</mat-label>
                 <input matInput placeholder="Placeholder"    formControlName="GSTno"  >
                 
               </mat-form-field>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3">
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+              <mat-form-field appearance="outline">
+                <mat-label>CNI</mat-label>
+                <input matInput placeholder="Placeholder"   formControlName="cnino"  >
+                
+              </mat-form-field>
+             
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
               <mat-form-field appearance="outline">
                 <mat-label>PAN Number</mat-label>
                 <input matInput placeholder="Placeholder"    formControlName="PAN"  >
@@ -96,26 +111,35 @@
               </mat-form-field>
             </div>
            
-            <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3" >
-                 <mat-form-field appearance="outline" >
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25"  *ngIf ="pagedatatype == 1" >
+                 <mat-form-field appearance="outline"  >
                   <mat-label>Company Type</mat-label>
-                  <mat-select  formControlName="type" >
-                     <mat-option  [value]="'All'">All </mat-option>
+                  <mat-select  formControlName="type"  (selectionChange)="selectType()">
+ 
                      <mat-option  [value]="'Group'">Group </mat-option>
-                    <mat-option  [value]="'Company'">Company </mat-option>
-                    <mat-option  [value]="'Vendor'">Vendor </mat-option>
-                    <mat-option  [value]="'Client'">Client </mat-option>
-                    <mat-option  [value]="'Site'">Site </mat-option>
+                      <mat-option  [value]="'Site'">Site </mat-option>
 
                     
                   </mat-select>
                 </mat-form-field>                
              </div>
-             
-             <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20"  *ngIf ="secondFormGroup.value.type == 'Client'">
-              <mat-checkbox  formControlName="isparent">Is Parent Group</mat-checkbox>
+             <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20"  *ngIf ="secondFormGroup.value.type == 'Group'">
+              <mat-checkbox  formControlName="iscompany">Is Company</mat-checkbox>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20"  *ngIf ="secondFormGroup.value.type == 'Site'">
+            <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3" *ngIf =" secondFormGroup.value.type != 'All'">
+              <mat-form-field appearance="outline" >
+               <mat-label>Select Parent Company</mat-label>
+               <mat-select  formControlName="parentuuid" >
+                 
+                <mat-option  *ngFor ="let list of companyLists" [value]="list.uuid">{{list.name}} </mat-option>
+
+                </mat-select>
+             </mat-form-field>                
+          </div>
+             <!-- <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20"  *ngIf ="secondFormGroup.value.type == 'Client'">
+              <mat-checkbox  formControlName="isparent">Is Parent Group</mat-checkbox>
+            </div> -->
+            <!-- <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20"  *ngIf ="secondFormGroup.value.type == 'Site'">
               <mat-checkbox  formControlName="isparent">Is Parent Client</mat-checkbox>
             </div>
              <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3" *ngIf ="secondFormGroup.value.isparent && secondFormGroup.value.type == 'Client'">
@@ -126,7 +150,7 @@
 
                 </mat-select>
              </mat-form-field>                
-          </div>
+          </div> -->
           <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3" *ngIf ="secondFormGroup.value.isparent && secondFormGroup.value.type == 'Site'">
             <mat-form-field appearance="outline" >
              <mat-label>Select Parent Client</mat-label>

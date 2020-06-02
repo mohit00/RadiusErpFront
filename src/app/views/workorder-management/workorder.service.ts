@@ -217,6 +217,24 @@ export class WorkorderService {
       })
     );
   }
+  workorderGetByUser(  ): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.get(environment.LOCAL_BASE + `workorder/get/byUser`,    {
+      headers: headerJson 
+    }).pipe(
+      // eg. "map" without a dot before
+      map(data => {
+        return data;
+      }),
+      // "catchError" instead "catch"
+      catchError(error => {
+        alert("Something went wrong ;)");
+        return Observable.throw(error);
+      })
+    );
+  }
   workorderAppendList(data ): Observable<any> {
     let headerJson = {
       'authorization': 'Bearer ' + sessionStorage.getItem("access")
@@ -302,6 +320,22 @@ export class WorkorderService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
+        alert("Something went wrong ;)");
+        return Observable.throw(error);
+      })
+    );
+  }
+  chalanCreate(data ): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.post(environment.LOCAL_BASE + `chalan/create`,data,    {
+      headers: headerJson 
+    }).pipe(
+       map(data => {
+        return data;
+      }),
+       catchError(error => {
         alert("Something went wrong ;)");
         return Observable.throw(error);
       })

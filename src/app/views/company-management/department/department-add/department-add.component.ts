@@ -65,7 +65,14 @@ this.createForm();
 
   getCompanyList(){
     this.CompanyService.companyList().subscribe(res=>{
-       this.companyList = res.data;
+       this.companyList = res.data.filter(res=>{
+         if(res.type == 'All'){
+           return true;
+         }else {
+          return false;
+
+         }
+       });
  
     })
   }

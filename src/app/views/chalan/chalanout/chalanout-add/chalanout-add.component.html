@@ -1,0 +1,111 @@
+<mat-card class="p-0">
+  <mat-card-title class="">
+    <div class="card-title-text">Chalan {{pageType}}</div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="firstFormGroup">
+    <div fxLayout="row wrap">
+     
+      <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+        <mat-form-field appearance="outline">
+          <mat-label>Select Company</mat-label>
+          <mat-select   formControlName="parentCompany" (selectionChange)="change($event)" >
+            <mat-option  *ngFor ="let list of CompanyList" [value] ="list.uuid">{{list.name}} </mat-option>
+          </mat-select>                
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+        <mat-form-field appearance="outline">
+          <mat-label>Select Workorder</mat-label>
+          <mat-select   formControlName="workorderuuid"  >
+            <mat-option  *ngFor ="let list of woList" [value] ="list.uuid">{{list.woNo}} </mat-option>
+          </mat-select>                
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+        <mat-form-field appearance="outline">
+          <mat-label>po No.</mat-label>
+          <input matInput placeholder="Placeholder" formControlName="poNo">
+
+        </mat-form-field>
+      </div>
+      
+      <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+        <mat-form-field appearance="outline">
+          <mat-label>Select Client</mat-label>
+          <mat-select   formControlName="client" >
+            <mat-option  *ngFor ="let list of clinetList" [value] ="list.uuid">{{list.name}} </mat-option>
+          </mat-select>                
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3">
+        <div fxLayout="row wrap">
+          <div fxFlex="100" fxFlex.gt-sm="80" fxFlex.sm="80">
+        <mat-form-field appearance="outline">
+          <mat-label>Select Material</mat-label>
+          <mat-select   formControlName="materialId" >
+            <mat-option  *ngFor ="let list of materialList" [value] ="list">{{list.name}} </mat-option>
+          </mat-select>                
+        </mat-form-field>
+        </div>
+        <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20">
+          <button mat-raised-button color="primary" (click)="addMaterial();"  style="margin-top: 11px;" >Add</button>
+
+</div>
+
+      </div>
+
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+        <table class="default-table mat-box-shadow mb-24" style="width: 100%">
+         <thead>
+           <tr>
+             <th width="30%"> Name</th>
+             <th>Material  Quantity</th>
+
+              <th>Cost</th>
+           </tr>
+         </thead>
+         <tbody *ngIf="materialData.length>0; else paymentTermNoData">
+           <tr *ngFor="let item of materialData;let index = index">
+             <td>{{ item.name }}</td>
+          
+             <td nowrap> 
+               <mat-form-field  appearance="outline">
+               <mat-label>Quantity</mat-label>
+               <input matInput placeholder="Placeholder"  type ="number" [(ngModel)]= "item.materialqty"  [ngModelOptions]="{standalone: true}" >
+              
+   
+             </mat-form-field></td>
+             <td nowrap> 
+              <mat-form-field  appearance="outline">
+                <mat-label>Cost</mat-label>
+                <input matInput placeholder="Placeholder"  type ="number" [(ngModel)]= "item.materialcost"  [ngModelOptions]="{standalone: true}" >
+               
+    
+              </mat-form-field></td>
+   
+             <td nowrap>
+   
+   
+               <button mat-raised-button color="warn" class="mx-4" (click)="remove(index)">
+                 <mat-icon aria-hidden="false" aria-label="Example home icon"   style="  cursor: pointer;">delete_sweep</mat-icon>
+   
+               </button>
+              </td>
+           </tr>
+         </tbody>
+         <ng-template #paymentTermNoData>
+           <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
+         </ng-template>
+       </table>
+      
+   </div>
+      </div>
+      <div fxLayout="row">
+         <span fxFlex="8px"></span>
+        <button mat-raised-button color="primary" (click)="createCompany();" *ngIf="pageType == 'Add'">Submit</button>
+</div>
+    
+    </form></mat-card-content></mat-card>

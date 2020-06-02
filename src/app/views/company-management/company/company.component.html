@@ -3,13 +3,46 @@
   <button
     mat-raised-button
     color="primary"
-    [routerLink]="['/company/Add']"
+    [routerLink]="[urlAdd]"
     routerLinkActive="router-link-active"
     style="margin-bottom: 10px; float:right"
   >
-  Add Company
+  Add
 
   </button>
+  <div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex  >
+
+  <mat-form-field class="margin-333" *ngIf ="showCompany" >
+    <mat-label>Select Company</mat-label>
+
+    <mat-select (selectionChange)="change($event)" [(ngModel)] = "selectedCompany">
+     
+      <mat-option *ngFor="let list of CompanyList" [value]="list.uuid">
+        {{list.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  </div>
+  <!-- <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3"  >
+    <mat-form-field class="margin-333"    >
+     <mat-label>Company Type</mat-label>
+     <mat-select  [(ngModel)] = "selectedType" (selectionChange)="changeType($event)" >
+      <mat-option  [value]="''">None Selected </mat-option>
+
+       <mat-option  [value]="'All'">All </mat-option>
+
+        <mat-option  [value]="'Group'">Group </mat-option>
+       <mat-option  [value]="'Vendor'">Vendor </mat-option>
+       <mat-option  [value]="'Client'">Client </mat-option>
+       <mat-option  [value]="'Site'">Site </mat-option>
+
+       
+     </mat-select>
+   </mat-form-field>                
+</div> -->
+<div fxFlex="100" fxFlex  >
+
 <mat-form-field class="margin-333" style="width: 100%">
   <input 
   matInput 
@@ -17,7 +50,8 @@
   value=""
   (keyup)='updateFilter($event)'>
 </mat-form-field>
-
+</div>
+  </div>
 <div class="mat-box-shadow margin-333">
     <ngx-datatable class="material bg-white" 
     [columnMode]="'force'"  
@@ -26,7 +60,7 @@
     [rowHeight]="'auto'"
     [limit]="8"
     [rows]="rows"
-    [columns]="columns" >
+    [columns]="columns"   >
     <ngx-datatable-column name="id" [sortable]="true">
         <ng-template    let-rowIndex="rowIndex"  ngx-datatable-cell-template>
           {{rowIndex + 1}}
@@ -48,6 +82,11 @@
               {{row.type}}
             </ng-template>
         </ngx-datatable-column>
+        <ngx-datatable-column name="Is Company" [sortable]="true">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.iscompany}}
+            </ng-template>
+        </ngx-datatable-column>
         <ngx-datatable-column name="City" [sortable]="true">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 {{row.city}}
@@ -56,7 +95,7 @@
         
       <ngx-datatable-column name="Action">
           <ng-template let-row="row" ngx-datatable-cell-template>
-              <button mat-icon-button aria-label="Example icon-button with a heart icon" (click) = "editCompany(row.uuid)">
+              <button mat-icon-button aria-label="Example icon-button with a heart icon" (click) = "$event.stopPropagation();editCompany(row.uuid)">
                   <mat-icon>edit</mat-icon>
                 </button> 
              

@@ -23,6 +23,7 @@ export class VendormaterialComponent implements OnInit {
   pageType:any='Add';
   departmentDetails:any;
   companyList:any;
+  vendorList:any;
   materialLsit;any;
   materialList(){
     this.materialService.materialList().subscribe(res=>{
@@ -51,8 +52,17 @@ export class VendormaterialComponent implements OnInit {
   }
   departmentDetail(){
       this.CompanyService.companyList().subscribe(res=>{
-        this.companyList = res.data.filter((data)=>{
+        
+        this.vendorList = res.data.filter((data)=>{
           if(data.type == 'Vendor' || data.type == 'All' ){
+            return true;
+          }else{
+            return false;
+
+          }
+        });
+        this.companyList = res.data.filter((data)=>{
+          if(  data.type == 'All' ){
             return true;
           }else{
             return false;

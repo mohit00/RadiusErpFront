@@ -1,0 +1,106 @@
+
+<div class="m-033">
+  <button
+    mat-raised-button
+    color="primary"
+    [routerLink]="['/workorder/Add']"
+    routerLinkActive="router-link-active"
+    style="margin-bottom: 10px; float:right">
+  Create Work Order
+  </button>
+  <div fxLayout="row wrap">
+    <!-- <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="100">
+      <mat-form-field class="margin-333"  >
+          <mat-label>Select Company</mat-label>
+          <mat-select (selectionChange)="change('company')" [(ngModel)] = "selectedCompany">
+            <mat-option *ngFor="let list of companyLists" [value]="list.uuid">
+              {{list.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="100">
+        <mat-form-field class="margin-333"  >
+            <mat-label>Select Site</mat-label>
+            <mat-select (selectionChange)="change('site')" [(ngModel)] = "selectedSiteCompany">
+              <mat-option *ngFor="let list of companySiteLists" [value]="list.uuid">
+                {{list.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+</div> -->
+
+<div fxFlex="100" fxFlex.gt-sm="40" fxFlex.sm="100">
+  <mat-form-field class="margin-333" style="width: 100%">
+    <input 
+    matInput 
+    placeholder="Type to filter all columns" 
+    value=""
+    (keyup)='updateFilter($event)'>
+  </mat-form-field>
+</div>
+</div>
+<div class="mat-box-shadow margin-333">
+    <ngx-datatable class="material bg-white" 
+    [columnMode]="'force'"  
+    [headerHeight]="50"
+    [footerHeight]="50" 
+    [rowHeight]="'auto'"
+    [limit]="8"
+    [rows]="rows"
+    [columns]="columns" >
+    <ngx-datatable-column name="id" [sortable]="true" [maxWidth]="50">
+        <ng-template    let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+          {{rowIndex + 1}}
+        </ng-template>
+      </ngx-datatable-column>  
+      <ngx-datatable-column name="Wo No." [sortable]="true">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.woNo}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Site" [sortable]="true">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.siteuuid}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Vertical" [sortable]="true">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.verticaluuid}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Department" [sortable]="true">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.departmentuuid}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="WO Date" [sortable]="true">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.woDate | date:'shortDate'}}
+            </ng-template>
+        </ngx-datatable-column>
+      <ngx-datatable-column name="created Date">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.createDate | date:'shortDate'}}
+          </ng-template>
+        </ngx-datatable-column>
+      <ngx-datatable-column name="Action">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              <button mat-icon-button aria-label="Example icon-button with a heart icon" (click) = "paymenTermEdit(row.uuid)" style="float: left
+              ;">
+                  <mat-icon>edit</mat-icon>
+                </button> 
+                <button mat-icon-button aria-label="Example icon-button with a heart icon" (click) = "paymenTermAppend(row.uuid)" style="float: left
+                ;">
+                  <mat-icon>swap_horiz</mat-icon>
+                </button> 
+                <button mat-icon-button aria-label="Example icon-button with a heart icon" *ngIf ="row.amendNo >0" style="float: left
+                  ;" (click) = "paymenTermAppendList(row.uuid)">
+                  <mat-icon>list</mat-icon>
+                </button> 
+                
+           </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
+</div>
+</div>

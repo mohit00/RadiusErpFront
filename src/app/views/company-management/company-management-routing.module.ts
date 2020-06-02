@@ -14,9 +14,41 @@ const routes: Routes = [{
   component: CompanyComponent,
   data: { title: "Creation", breadcrumb: "Creation" } 
 },{
+  path: 'Vendor',
+  component: CompanyComponent,
+  data: { title: "Vendor", breadcrumb: "Vendor" } 
+},{
+  path: 'Vendor/Add',
+  component: CompanyAddComponent,
+  data: { title: "Vendor/Add", breadcrumb: "Vendor/Add" } 
+},{
+  path: 'Vendor/Update',
+  component: CompanyAddComponent,
+  data: { title: "Vendor/Update", breadcrumb: "Vendor/Update" } 
+},{
+  path: 'Client',
+  component: CompanyComponent,
+  data: { title: "Client", breadcrumb: "Client" } 
+},{
+  path: 'Client/Add',
+  component: CompanyAddComponent,
+  data: { title: "Client/Add", breadcrumb: "Client/Add" } 
+},{
+  path: 'Client/Update',
+  component: CompanyAddComponent,
+  data: { title: "Client/Update", breadcrumb: "Client/Update" } 
+},{
+  path: 'under',
+  component: CompanyComponent,
+  data: { title: "Creation", breadcrumb: "Creation" } 
+},{
   path: 'Add',
   component: CompanyAddComponent,
   data: { title: "Add", breadcrumb: "Add" } 
+},{
+  path: 'under/Add',
+  component: CompanyAddComponent,
+  data: { title: "under/Company", breadcrumb: "under/Company" } 
 },{
   path: 'Update',
   component: CompanyAddComponent,

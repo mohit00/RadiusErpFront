@@ -29,7 +29,7 @@ export class MaterialAddComponent implements OnInit {
   getcompanyList(){
     this.CompanyService.companyList().subscribe(res=>{
   this.companyList =     res.data.filter(res=>{
-    if(res.type !='Client'){
+    if(res.type =='All'){
       return true
     }else{
       return false;
@@ -128,6 +128,7 @@ this.createForm();
         message:res.message
       }
      this.dialog.confirm(dataJson);
+     this.Router.navigate(['material'])
     })
   }
   updateMaterial(){

@@ -32,24 +32,24 @@
             </div>
             <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
               <mat-form-field class="margin-333" appearance="outline">
-                <mat-label>Select Client</mat-label>
-                <mat-select (selectionChange)="clientOfgroup(firstFormGroup.value.clientuuid,'client')" formControlName="clientuuid">
+                <mat-label>Select Site</mat-label>
+                <mat-select (selectionChange)="clientOfgroup(firstFormGroup.value.siteuuid,'client')" formControlName="siteuuid">
                   <mat-option *ngFor="let list of clientCompany" [value]="list.uuid">
                     {{list.name}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+            <!-- <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
               <mat-form-field class="margin-333" appearance="outline">
                 <mat-label>Select Site</mat-label>
                 <mat-select   formControlName="siteuuid" (selectionChange)=getsiteMaterialGet()>
-                  <mat-option *ngFor="let list of companySiteLists" [value]="list.uuid">
+                  <mat-option *ngFor="let list of clientCompany" [value]="list.uuid">
                     {{list.name}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-            </div>
+            </div> -->
             <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
               <mat-form-field class="margin-333" appearance="outline">
                 <mat-label>WO No.</mat-label>
@@ -85,7 +85,16 @@
                 </mat-select>
               </mat-form-field>
             </div>
-
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+              <mat-form-field class="margin-333" appearance="outline">
+                <mat-label>Select Warehouse</mat-label>
+                <mat-select formControlName="wareuuid">
+                  <mat-option *ngFor="let list of wareHouseList" [value]="list.uuid">
+                    {{list.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
             <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
               <div fxFlex="100" fxFlex.gt-sm="80" fxFlex.sm="80">
 

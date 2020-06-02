@@ -12,7 +12,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Vendor</mat-label>
             <mat-select    formControlName="verdoruuid"  (selectionChange)="getVendorMaterial()" [disabled] ="pageType != 'Add'">
-              <mat-option *ngFor ="let list of companyList" [value] ="list.uuid" >{{list.name}}  </mat-option>
+              <mat-option *ngFor ="let list of vendorList" [value] ="list.uuid" >{{list.name}}  </mat-option>
             </mat-select>   
           </mat-form-field>
         </div>

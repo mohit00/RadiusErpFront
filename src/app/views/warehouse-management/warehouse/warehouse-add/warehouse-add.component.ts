@@ -50,7 +50,8 @@ this.createForm();
         ]],
         Address:[''],
         GST:[''],
-        company:['']
+        company:[''],
+        isPrimary:[false]
       });
   }
   updateForm(data){
@@ -61,7 +62,9 @@ this.createForm();
       Address:[data.address],
       GST:[data.gst],
       company:[data.companyuuid],
-      uuid:[data.uuid]
+      uuid:[data.uuid],
+      isPrimary:[data.isPrimary]
+
     });
   }
   public hasfirstError = (controlName: string, errorName: string) => {
@@ -71,7 +74,7 @@ this.createForm();
   getCompanyList(){
     this.CompanyService.companyList().subscribe(res=>{
        this.companyList = res.data.filter(res=>{
-         if(res.type != 'Group' && res.type !='Client'){
+         if(res.type == 'All'){
            return true;
          }else {
            return false;

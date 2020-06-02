@@ -13,9 +13,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WorkorderAppendComponent } from './workorder/workorder-append/workorder-append.component';
-
-@NgModule({
-  declarations: [WorkorderComponent, WorkorderAddComponent, PaymentTermComponent, SitematerialComponent, PaymentTermAddComponent, SitematerialAddComponent, WorkorderAppendComponent],
+import {PmworkorderComponent} from './pmworkorder/pmworkorder.component';
+ @NgModule({
+  declarations: [WorkorderComponent, WorkorderAddComponent, PaymentTermComponent, SitematerialComponent, PaymentTermAddComponent, SitematerialAddComponent, WorkorderAppendComponent,PmworkorderComponent ],
   imports: [SharedMaterialModule,NgxDatatableModule,FlexLayoutModule,FormsModule, ReactiveFormsModule,
     CommonModule,
     WorkorderManagementRoutingModule

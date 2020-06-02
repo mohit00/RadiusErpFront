@@ -74,6 +74,10 @@ export class NavigationService {
       state: "company",
       sub: [
         { name: "Company Creation", state: "/" },
+
+        { name: "client Creation", state: "/Client" },
+        { name: "Vendor Creation", state: "/Vendor" },
+
         { name: "User Management", state: "/user" },
         { name: "Department", state: "/department" },
         { name: "Vertical", state: "/vertical" },
@@ -104,15 +108,16 @@ export class NavigationService {
   
       ]
     }, {
-      name: "Tracking Management",
+      name: "Chalan",
       type: "dropDown",
       tooltip: "Dashboard",
       icon: "dashboard",
-      state: "dashboard",
+      state: "chalan",
       sub: [
-        { name: "Add Tracking", state: "default" },
-        { name: "Manage Track", state: "default" },
-  
+        { name: "Chalan Po", state: "/po" },
+        { name: "Clalan In", state: "/in" },
+        { name: "Clalan Out", state: "/out" },
+
       ]
     },{
       name: "Work Management",
@@ -125,7 +130,8 @@ export class NavigationService {
         { name: "Site Material", state: "/sitematerial" },
 
         { name: "Work Order", state: "/" },
-
+        { name: "Project Manager W.O", state: "/pm" },
+ 
   
       ]
     }

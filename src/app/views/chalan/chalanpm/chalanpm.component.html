@@ -1,0 +1,72 @@
+
+<div class="m-033">
+  <button
+    mat-raised-button
+    color="primary"
+    [routerLink]="['/chalan/po/Add']"
+    routerLinkActive="router-link-active"
+    style="margin-bottom: 10px; float:right">
+  Create Chalan Purchase Order
+  </button>
+  <div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="100">
+      <mat-form-field class="margin-333"  >
+          <mat-label>Select Company</mat-label>
+          <mat-select (selectionChange)="change('company')" [(ngModel)] = "selectedCompany">
+            <mat-option *ngFor="let list of companyLists" [value]="list.uuid">
+              {{list.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+     
+
+<div fxFlex="100" fxFlex.gt-sm="40" fxFlex.sm="100">
+  <mat-form-field class="margin-333" style="width: 100%">
+    <input 
+    matInput 
+    placeholder="Type to filter all columns" 
+    value=""
+    (keyup)='updateFilter($event)'>
+  </mat-form-field>
+</div>
+</div>
+<div class="mat-box-shadow margin-333">
+    <ngx-datatable class="material bg-white" 
+    [columnMode]="'force'"  
+    [headerHeight]="50"
+    [footerHeight]="50" 
+    [rowHeight]="'auto'"
+    [limit]="8"
+    [rows]="rows"
+    [columns]="columns" >
+    <ngx-datatable-column name="id" [sortable]="true" [maxWidth]="50">
+        <ng-template    let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+          {{rowIndex + 1}}
+        </ng-template>
+      </ngx-datatable-column>  
+      <ngx-datatable-column name="Chalan Po No." [sortable]="true">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.chalanNo}}
+            </ng-template>
+        </ngx-datatable-column>
+        
+        <ngx-datatable-column name="Client" [sortable]="true">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.client}}
+            </ng-template>
+        </ngx-datatable-column>
+     
+    
+     
+      <ngx-datatable-column name="Action">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              <button mat-icon-button aria-label="Example icon-button with a heart icon" (click) = "paymenTermEdit(row.uuid)" style="float: left
+              ;">
+                  <mat-icon>edit</mat-icon>
+                </button>    
+           </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
+</div>
+</div>

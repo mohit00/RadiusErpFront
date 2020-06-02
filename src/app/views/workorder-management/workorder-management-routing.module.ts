@@ -7,11 +7,16 @@ import { PaymentTermAddComponent } from './payment-term/payment-term-add/payment
 import { SitematerialAddComponent } from './sitematerial/sitematerial-add/sitematerial-add.component';
 import { SitematerialComponent } from './sitematerial/sitematerial.component'
 import {WorkorderAppendComponent} from './workorder/workorder-append/workorder-append.component'
-const routes: Routes = [
+import {PmworkorderComponent} from './pmworkorder/pmworkorder.component'
+  const routes: Routes = [
   {
     path: '',
     component: WorkorderComponent,
     data: { title: "workorder", breadcrumb: "workorder" }
+  },{
+    path: 'pm',
+    component: PmworkorderComponent,
+    data: { title: "PM/workorder", breadcrumb: "PM/workorder" }
   }, {
     path: 'Add',
     component: WorkorderAddComponent,

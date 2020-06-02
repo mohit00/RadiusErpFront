@@ -8,6 +8,8 @@ import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.s
 import {verticalService} from '../../../company-management/vertical.service'
 import { departmentService} from '../../../company-management/department.service'
 import {WorkorderService} from '../../workorder.service'
+import { warehouseService } from 'app/views/warehouse-management/warehouse.service';
+
 @Component({
   selector: 'app-workorder-add',
   templateUrl: './workorder-add.component.html',
@@ -32,7 +34,7 @@ export class WorkorderAddComponent implements OnInit {
   companyGroupLists: any;
   clientCompany: any;
   siteselectedMaterialList: any=[];
-  constructor(private WorkorderService:WorkorderService,private departmentService:departmentService,private verticalService:verticalService,private CompanyService: CompanyService, private navService: NavigationService,
+  constructor(private warehouseService:warehouseService,private WorkorderService:WorkorderService,private departmentService:departmentService,private verticalService:verticalService,private CompanyService: CompanyService, private navService: NavigationService,
     private Router: Router, private fb: FormBuilder, private AppLoaderService: AppLoaderService, private dialog: AppConfirmService) {
   } 
   public hasfirstError = (controlName: string, errorName: string) => {
@@ -92,7 +94,8 @@ export class WorkorderAddComponent implements OnInit {
       deptuuid: ['', [
       ]],
       paymentTerm: ['', [
-      ]]
+      ]],
+      wareuuid:['']
 
     });
     this.secondFormGroup = this.fb.group({
@@ -110,9 +113,15 @@ export class WorkorderAddComponent implements OnInit {
 
     });
   }
-  
+  wareHouseList:any =[];
+  warehouseGet(){
+this.warehouseService.warehouseList(this.firstFormGroup.value.parentuuid).subscribe(res=>{
+this.wareHouseList = res.data
+})
+  }
   change(data){
     if(data =='company'){
+      this.warehouseGet();
       this.getdVerticalList();
       this.getpaymenTermList();
      }
@@ -202,7 +211,7 @@ export class WorkorderAddComponent implements OnInit {
   companyList(){
     this.CompanyService.companyList().subscribe(res=>{
       this.companyGroupLists = res.data.filter((data)=>{
-        if(data.type.toLowerCase() == 'group'){
+        if(data.type.toLowerCase() == 'group' && !data.iscompany ){
           return true
         }else{
           return false;
@@ -219,11 +228,14 @@ export class WorkorderAddComponent implements OnInit {
   }
   clientOfgroup(data,type){
     this.CompanyService.companyUnderList(data).subscribe(res=>{
-      if(type =='group'){
+       if(type =='group'){
         this.clientCompany = res.data;
+
       }
       if(type =='client'){
         this.companySiteLists = res.data;
+        this.getsiteMaterialGet();
+
       }
     })
   }

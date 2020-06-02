@@ -49,6 +49,11 @@ export const rootRouterConfig: Routes = [
         path: 'workorder', 
         loadChildren: () => import('./views/workorder-management/workorder-management.module').then(m => m.WorkorderManagementModule), 
         data: { title: 'workorder', breadcrumb: 'workorder'}
+      } ,
+      { 
+        path: 'chalan', 
+        loadChildren: () => import('./views/chalan/chalan.module').then(m => m.ChalanModule), 
+        data: { title: 'chalan', breadcrumb: 'chalan'}
       }
     ]
   },

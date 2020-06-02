@@ -40,7 +40,7 @@ export class WarehouseMaterialComponent implements OnInit {
   departmentDetail(){
       this.CompanyService.companyList().subscribe(res=>{
         this.companyList = res.data.filter((data)=>{
-          if(data.type == 'Vendor' || data.type == 'All' ){
+          if(data.type == 'All' ){
             return true;
           }else{
             return false;
@@ -165,6 +165,7 @@ this.createForm();
       }
       this.getVendorMaterial();
      this.dialog.confirm(dataJson);
+     this.getwareHouseMaterial();
     })
   }
   updateMaterial(){

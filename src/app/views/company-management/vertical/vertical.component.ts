@@ -23,7 +23,13 @@ export class VerticalComponent implements OnInit {
   companyLists:any;
   companyList(){
     this.companyService.companyList().subscribe(res=>{
-      this.companyLists = res.data;
+      this.companyLists = res.data.filter(res=>{
+        if(res.type =='All'){
+          return true;
+        }else{
+          return false;
+        }
+      }); 
        })
   }
   selectedCompany:any;
