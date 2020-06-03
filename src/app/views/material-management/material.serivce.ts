@@ -41,7 +41,26 @@ export class materialService {
       })
     );
   }
-  
+  materialListWithNoProduct(  ): Observable<any> {
+
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.get(environment.LOCAL_BASE + `material/getwithNoproduct`,    {
+      headers: headerJson 
+      
+    }).pipe(
+      // eg. "map" without a dot before
+      map(data => {
+        return data;
+      }),
+      // "catchError" instead "catch"
+      catchError(error => {
+        alert("Something went wrong ;)");
+        return Observable.throw(error);
+      })
+    );
+  }
   getCompanymaterial( companyuuid ): Observable<any> {
 
     let headerJson = {

@@ -18,15 +18,15 @@
         <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3">
           <mat-form-field appearance="outline">
             <mat-label>Select Company</mat-label>
-            <mat-select   formControlName="companyuuid" >
-              <mat-option  *ngFor ="let list of companyList" [value] ="list.uuid">{{list.name}} </mat-option>
-            </mat-select>                
+            <mat-select formControlName="companyuuid">
+              <mat-option *ngFor="let list of companyList" [value]="list.uuid">{{list.name}} </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3">
           <mat-form-field appearance="outline">
             <mat-label>Material Cost</mat-label>
-            <input matInput placeholder="Placeholder"  type ="number" formControlName="companyCost">
+            <input matInput placeholder="Placeholder" type="number" formControlName="companyCost">
 
           </mat-form-field>
         </div>
@@ -47,73 +47,118 @@
         <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
           <mat-form-field appearance="outline">
             <mat-label>Unit</mat-label>
-            <input matInput placeholder="Placeholder" formControlName="unit"> 
+            <input matInput placeholder="Placeholder" formControlName="unit">
           </mat-form-field>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
           <mat-form-field appearance="outline">
             <mat-label>GST Tax Rate (%)</mat-label>
-            <mat-select   formControlName="taxRate" >
-              <mat-option  [value] ="'5'">5 </mat-option>
-              <mat-option  [value] ="'12'">12 </mat-option>
+            <mat-select formControlName="taxRate">
+              <mat-option [value]="'5'">5 </mat-option>
+              <mat-option [value]="'12'">12 </mat-option>
 
-              <mat-option  [value] ="'18'">18 </mat-option>
+              <mat-option [value]="'18'">18 </mat-option>
 
-              <mat-option  [value] ="'28'">28 </mat-option>
+              <mat-option [value]="'28'">28 </mat-option>
 
-            </mat-select>              </mat-form-field>
-        </div> 
-        <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="30">
-              <mat-label>Material Pic</mat-label>
-              <div class="upload-btn-wrapper" style="width: 100%;">
-                <button mat-icon-button aria-label="Example icon-button with a heart icon">
-                  <mat-icon style="font-size: 44px;">cloud_upload</mat-icon>
-                </button>
-                <input style="width:100%" type="file" accept="image/*"
-                  (change)="handleFileInput($event.target.files)" />
-              </div>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+          <mat-label>Material Pic</mat-label>
+          <div class="upload-btn-wrapper" style="width: 100%;">
+            <button mat-icon-button aria-label="Example icon-button with a heart icon">
+              <mat-icon style="font-size: 44px;">cloud_upload</mat-icon>
+            </button>
+            <input style="width:100%" type="file" accept="image/*" (change)="handleFileInput($event.target.files)" />
+          </div>
+
+        </div>
+        <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+          <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="30">
+              <mat-checkbox formControlName="isProduct">Is Product</mat-checkbox>
 
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
-              <table class="default-table mat-box-shadow mb-24" style="width: 100%">
-                <thead>
-                  <tr>
-                    <th width="30%"> File Name</th>
-                    <th>Size</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody *ngIf="materialPic.length>0; else billLogoNoData">
-                  <tr *ngFor="let item of materialPic;let index = index">
-                    <td>{{ item.name }}</td>
-                    <td nowrap>{{ item.size/1024/1024 | number:'.2' }} MB</td>
-
-
-                    <td nowrap>
-
-
-                      <button mat-raised-button color="warn" class="mx-4" (click)="remove(index,'bill')">Remove</button>
-                      <button mat-raised-button color="primary" class="mx-4" (click)="view(item)">View</button>
-                    </td>
-                  </tr>
-                </tbody>
-                <ng-template #billLogoNoData>
-                  <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
-                </ng-template>
-              </table>
+            <div fxFlex="100" fxFlex.gt-sm="70" fxFlex.sm="70">
+              <mat-form-field appearance="outline">
+                <mat-label>Select Mateial</mat-label>
+                <mat-select  [disabled] ="!firstFormGroup.value.isProduct" (selectionChange)="AddMaterial( )" formControlName="materialList" multiple>
+                  <mat-option *ngFor ="let list of materialList" [value]="list">{{list.name}} </mat-option>
+     
+                </mat-select>
+              </mat-form-field>
             </div>
-         <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+          </div>
+        </div>
+        <div fxFlex="50" fxFlex.gt-sm="50" fxFlex.sm="50">
+          <table class="default-table mat-box-shadow mb-24" style="width: 100%">
+            <thead>
+              <tr>
+                <th width="30%"> File Name</th>
+                <th>Size</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="materialPic.length>0; else billLogoNoData">
+              <tr *ngFor="let item of materialPic;let index = index">
+                <td>{{ item.name }}</td>
+                <td nowrap>{{ item.size/1024/1024 | number:'.2' }} MB</td>
+
+
+                <td nowrap>
+
+
+                  <button mat-raised-button color="warn" class="mx-4" (click)="remove(index,'bill')">Remove</button>
+                  <button mat-raised-button color="primary" class="mx-4" (click)="view(item)">View</button>
+                </td>
+              </tr>
+            </tbody>
+            <ng-template #billLogoNoData>
+              <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
+            </ng-template>
+          </table>
+        </div>
+        <div fxFlex="50" fxFlex.gt-sm="50" fxFlex.sm="50">
+          <table class="default-table mat-box-shadow mb-24" style="width: 100%">
+            <thead>
+              <tr>
+                <th width="30%"> Material Name</th>
+                <th>Material qty</th>
+               </tr>
+            </thead>
+            <tbody *ngIf="firstFormGroup.value.materialList; else billLogoNoData">
+              <tr *ngFor="let item of firstFormGroup.value.materialList;let index = index" style="padding-top:0px;padding-bottom: 0px;">
+                <td   style="padding-top:0px;padding-bottom: 0px;">{{ item.name }}</td>
+                <td nowrap  style="padding-top:0px;padding-bottom: 0px;"> 
+                  <mat-form-field appearance="outline">
+                    <mat-label>Material Qty</mat-label>
+                    <input matInput placeholder="Placeholder" type ="number" [(ngModel)]= "item.matqty"  [ngModelOptions]="{standalone: true}" >
+        
+                  </mat-form-field>
+                </td>
+
+
+              
+              </tr>
+            </tbody>
+            <ng-template #billLogoNoData>
+              <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
+            </ng-template>
+          </table>
+        </div>
+        <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
           <mat-form-field appearance="outline" style="width: 99%;">
             <mat-label>Description</mat-label>
-             <textarea matInput placeholder="Address"  formControlName="description"    ></textarea>
+            <textarea matInput placeholder="Address" formControlName="description"></textarea>
 
           </mat-form-field>
         </div>
       </div>
-      <button mat-raised-button color="primary" (click)="createMaterial();" *ngIf ="pageType == 'Add'">Submit</button>
-      <button mat-raised-button color="primary" (click)="updateMaterial();" *ngIf ="pageType != 'Add'">Update</button>
-      <button mat-raised-button color="warn"    style="margin-left: 5px;"  [routerLink]="['/company/vertical']"
-      >Back</button>
+      <button mat-raised-button color="primary" (click)="createMaterial();" *ngIf="pageType == 'Add'">Submit</button>
+      <button mat-raised-button color="primary" (click)="updateMaterial();" *ngIf="pageType != 'Add'">Update</button>
+      <button mat-raised-button color="warn" style="margin-left: 5px;"
+        [routerLink]="['/company/vertical']">Back</button>
 
     </form>
   </mat-card-content>

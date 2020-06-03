@@ -38,6 +38,7 @@ export class MaterialAddComponent implements OnInit {
     })
   }
   ngOnInit() {
+    this.materialListWithNoproduct();
  this.href = this.Router.url;
   this.getcompanyList();
 if (this.href == '/material/Update') {
@@ -85,13 +86,24 @@ this.createForm();
         materialName: ['', [
         ]],
          description:[''],
+         isProduct:[false],
          materialDimenstion:[''],
          companyCost:[0],
          companyuuid:[],
          hsnCode:[''],
          unit:[''],
-         taxRate:['']
+         taxRate:[''],
+         materialList:[]
       });
+  }
+  AddMaterial(){
+    // alert(this.firstFormGroup.value.materiall[0])
+  }
+  materialList:any;
+  materialListWithNoproduct(){
+    this.materialService.materialListWithNoProduct().subscribe(res=>{
+       this.materialList = res.data
+    })
   }
   updateForm(data){
     this.firstFormGroup = this.fb.group({
