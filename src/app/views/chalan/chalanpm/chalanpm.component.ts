@@ -52,7 +52,7 @@ export class ChalanpmComponent implements OnInit {
   selectedSiteCompany:any;
   change(data){
   
-    if(this.selectedCompany){
+   
       
      
       this.service.chalanPoList(this.selectedCompany).subscribe(res=>{
@@ -61,10 +61,17 @@ export class ChalanpmComponent implements OnInit {
      
          })
         
-    } 
+    
   }
+  userdata:any;
   ngOnInit() {
-  this.companyList();
+    this.userdata = JSON.parse(sessionStorage.getItem('user'))
+    if(this.userdata.role == 'Admin'){
+      this.companyList();
+
+    }else{
+      this.change('')
+    }
   }
   updateFilter(event) {
     const val = event.target.value.toLowerCase();

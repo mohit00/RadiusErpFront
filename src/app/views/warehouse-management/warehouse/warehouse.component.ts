@@ -27,8 +27,15 @@ export class WarehouseComponent implements OnInit {
   }
   constructor(private Router:Router,private CompanyService:CompanyService,private warehouseService:warehouseService) { }
 
+  userdata:any;
   ngOnInit() {
-    this.getCompanyList();
+    this.userdata = JSON.parse(sessionStorage.getItem('user'));
+    if(this.userdata.role == 'Admin'){
+      this.getCompanyList();
+
+    }else{
+      this.change('');
+    }
   }
   change(event){
     this.warehouseService.warehouseList(this.selectedCompany).subscribe(res=>{

@@ -14,8 +14,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WorkorderAppendComponent } from './workorder/workorder-append/workorder-append.component';
 import {PmworkorderComponent} from './pmworkorder/pmworkorder.component';
+import { ProjectWoComponent } from './project-wo/project-wo.component';
+import { ProjectWoDetailComponent } from './project-wo/project-wo-detail/project-wo-detail.component';
  @NgModule({
-  declarations: [WorkorderComponent, WorkorderAddComponent, PaymentTermComponent, SitematerialComponent, PaymentTermAddComponent, SitematerialAddComponent, WorkorderAppendComponent,PmworkorderComponent ],
+  declarations: [WorkorderComponent, WorkorderAddComponent, PaymentTermComponent, SitematerialComponent, PaymentTermAddComponent, SitematerialAddComponent, WorkorderAppendComponent,PmworkorderComponent, ProjectWoComponent, ProjectWoDetailComponent ],
   imports: [SharedMaterialModule,NgxDatatableModule,FlexLayoutModule,FormsModule, ReactiveFormsModule,
     CommonModule,
     WorkorderManagementRoutingModule

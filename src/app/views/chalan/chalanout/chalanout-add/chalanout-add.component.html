@@ -7,7 +7,7 @@
     <form [formGroup]="firstFormGroup">
     <div fxLayout="row wrap">
      
-      <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+      <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25" *ngIf ="userdata.role =='Admin'">
         <mat-form-field appearance="outline">
           <mat-label>Select Company</mat-label>
           <mat-select   formControlName="parentCompany" (selectionChange)="change($event)" >
@@ -31,14 +31,14 @@
         </mat-form-field>
       </div>
       
-      <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+      <!-- <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
         <mat-form-field appearance="outline">
           <mat-label>Select Client</mat-label>
           <mat-select   formControlName="client" >
             <mat-option  *ngFor ="let list of clinetList" [value] ="list.uuid">{{list.name}} </mat-option>
           </mat-select>                
         </mat-form-field>
-      </div>
+      </div> -->
       <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3">
         <div fxLayout="row wrap">
           <div fxFlex="100" fxFlex.gt-sm="80" fxFlex.sm="80">

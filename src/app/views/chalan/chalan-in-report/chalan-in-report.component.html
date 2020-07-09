@@ -1,0 +1,173 @@
+<mat-card class="p-0" *ngIf ="clanData">
+  <mat-card-title class="" style="text-align: center;">
+    <div class="card-title-text">Purchase Order</div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+    <div fxLayout="row wrap">
+      <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+        <mat-card style="padding: 0;">
+          <div fxLayout="row wrap" style="border:1px solid black;     padding: 12px; ">
+            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+
+              <p style="font-weight: 600;">{{clanData.chalanBy.name}}</p>
+              <p style="margin: 0;">{{clanData.chalanBy.address}}</p>
+              <p style="margin: 0;">Email: admin@radius.Co.in</p>
+              <p style="margin: 0;"> Website : {{clanData.chalanBy.website}}</p>
+              <p style="margin: 0;"> STATE CODE: {{clanData.chalanBy.stateCode}}</p>
+              <p style="margin: 0;"> PH:-{{clanData.chalanBy.phoneNumber}}</p>
+              <p style="margin: 0;">GSTIN/UIN: {{clanData.chalanBy.gstno}}</p>
+              <p style="margin: 0;"> State Name : {{clanData.chalanBy.state}}, Code : {{clanData.chalanBy.stateCode}}</p>
+              <p style="margin: 0;">CIN: {{clanData.chalanBy.cnio}}</p>
+            </div>
+
+          </div>
+        </mat-card>
+        <mat-card style="padding: 0;">
+          <div fxLayout="row wrap" style="border:1px solid black;     padding: 12px; ">
+            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+<p style="margin: 0;">Despatch To</p>
+<p style="font-weight: 600;">{{clanData.deliveryTo.name}}</p>
+<p style="margin: 0;">{{clanData.deliveryTo.address}}</p>
+<p style="margin: 0;">Email: admin@radius.Co.in</p>
+<p style="margin: 0;"> Website : {{clanData.deliveryTo.website}}</p>
+<p style="margin: 0;"> STATE CODE: {{clanData.deliveryTo.stateCode}}</p>
+<p style="margin: 0;"> PH:-{{clanData.deliveryTo.phoneNumber}}</p>
+<p style="margin: 0;">GSTIN/UIN: {{clanData.deliveryTo.gstno}}</p>
+<p style="margin: 0;"> State Name : {{clanData.deliveryTo.state}}, Code : {{clanData.deliveryTo.stateCode}}</p>
+<p style="margin: 0;">CIN: {{clanData.deliveryTo.cnio}}</p>
+             </div>
+
+          </div>
+
+        </mat-card>
+
+        <mat-card style="padding: 0;">
+          <div fxLayout="row wrap" style="border:1px solid black;     padding: 12px; ">
+            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+
+              <p style="margin: 0;">Supplier</p>
+              <p style="font-weight: 600;">{{clanData.supplier.name}}</p>
+              <p style="margin: 0;">Site-:{{clanData.supplier.address}}</p>
+                <p style="margin: 0;">GSTIN/UIN: {{clanData.supplier.gstno}}</p>
+              <p style="margin: 0;"> State Name : {{clanData.supplier.state}}, Code : {{clanData.supplier.stateCode}}</p>
+              <p style="margin: 0;"> Place of Supply : {{clanData.supplier.state}} </p>
+
+            </div>
+
+          </div>
+
+        </mat-card>
+
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+        <mat-card style="padding: 0;">
+          <div fxLayout="row wrap">
+
+            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
+              <p style="font-weight: 600;    margin-bottom: 5px;">Delivery Note No.</p>
+              <p style="margin: 0;">{{clanData.chPoNo}}</p>
+
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
+              <p style="font-weight: 600;    margin-bottom: 5px;">Dated</p>
+              <p style="margin: 0;">2-may-2020</p>
+
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+
+            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
+              <!-- <p style="font-weight: 600;    margin-bottom: 5px;">Delivery Note No.</p>
+              <p style="margin: 0;">dsad</p> -->
+
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
+              <p style="font-weight: 600;    margin-bottom: 5px;">Mode/Terms of Payment</p>
+              <p style="margin: 0;">{{clanData.paymentTerm}} </p>
+
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+
+            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
+               <p style="font-weight: 600;    margin-bottom: 5px;">Despatched through.</p>
+              <p style="margin: 0;"> </p>  
+
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
+              <p style="font-weight: 600;    margin-bottom: 5px;">Destination </p>
+              <p style="margin: 0;"> </p>
+
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+
+            <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100" style="border:1px solid black;     padding: 12px; ">
+               <p style="font-weight: 600;    margin-bottom: 5px;">Terms of Delivery</p>
+              <p style="margin: 0;"> {{clanData.deliveryTerm}}</p>  
+
+            </div>
+
+           </div>
+          
+       
+       
+         
+         
+        </mat-card>
+
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+        <table id="customers">
+          <tr>
+            <th>Sl No.</th>
+            <th>Description of Goods</th>
+             <th>Quantity</th>
+             <th>Amount</th>
+
+          </tr>
+          <tr *ngFor ="let list of clanData.chalanPoMateriaRelationship; let i =index">
+            <td>{{i+1}}</td>
+            <td> {{list.name}}</td>
+             <td>{{list.matQty}}</td>
+              <td>{{list.matCost}}</td>
+
+          </tr>
+          <tr >
+            <td></td>
+            <td>Total</td>
+            <td></td>
+            <td></td>
+  
+          </tr>
+        </table>
+</div>
+<div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+  <p>E. & O.E</p>
+  <p>Company PAN:{{clanData.compantPan}}</p>
+</div>
+<div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+
+<div fxLayout="row wrap">
+
+  <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
+     <p style="font-weight: 600;    margin-bottom: 5px;">Recd. in Good Condition</p>
+    <p style="margin: 0;"> </p>  
+
+  </div>
+
+  <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
+    <p style="font-weight: 600;    margin-bottom: 5px;">for Radius Synergies International P Ltd. </p>
+    <p style="margin: 0;">Authorised Signatory </p>
+
+  </div>
+</div>
+</div>
+    </div>
+
+  </mat-card-content>
+</mat-card>

@@ -42,7 +42,7 @@ export class SigninComponent implements OnInit {
             `${key}: ${res.headers.get(key)}`);
              let access= this.headers[0].split(':')[1];
              sessionStorage.setItem('access',access)
-             sessionStorage.setItem('user',res['body'])
+             sessionStorage.setItem('user',JSON.stringify(res['body']))
              this.route.navigate(['dashboard/analytics']);
         }
 

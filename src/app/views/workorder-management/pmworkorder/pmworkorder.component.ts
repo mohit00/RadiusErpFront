@@ -16,34 +16,14 @@ export class PmworkorderComponent implements OnInit {
   columns = [];
   temp = [];
  
-  // companyLists:any;
-  // companyList(){
-  //   this.companyService.companyList().subscribe(res=>{
-  //     this.companySiteLists = res.data.filter((data)=>{
-  //       if(data.type.toLowerCase() == 'site'){
-  //         return true
-  //       }else{
-  //         return false;
-  //       }
-  //     }); 
-  //     this.companyLists = res.data.filter((data)=>{
-  //       if(data.type.toLowerCase() == 'all'||data.type.toLowerCase() == 'company'){
-  //         return true
-  //       }else{
-  //         return false;
-  //       }
-  //     }); 
-  //      })
-  // }
   selectedCompany:any;
    
   ngOnInit() {
-          this.service.workorderGetByUser().subscribe(res=>{
+          this.service.workorderGetByPm().subscribe(res=>{
        
           this.rows= this.temp =  res.data;
        
-           })
-       
+           }) 
   }
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
@@ -64,14 +44,15 @@ export class PmworkorderComponent implements OnInit {
     });
     this.rows = rows;
   }
-  paymenTermEdit(data){
-sessionStorage.setItem("workorderSelecteduuid",data);
-this.router.navigate(['workorder/Update'])
+ woChalan(data){
+sessionStorage.setItem("workuuid",data);
+this.router.navigate(['workorder/pmwo/list'])
+
 
   }
-  paymenTermAppend(data){
+  paymenTermEdit(data){
     sessionStorage.setItem("workorderSelecteduuid",data);
-    this.router.navigate(['workorder/Append'])
+    this.router.navigate(['workorder/pmwo/detail'])
     
       }
       paymenTermAppendList(data){

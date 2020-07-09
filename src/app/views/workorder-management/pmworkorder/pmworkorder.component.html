@@ -1,13 +1,6 @@
 
 <div class="m-033">
-  <button
-    mat-raised-button
-    color="primary"
-    [routerLink]="['/workorder/Add']"
-    routerLinkActive="router-link-active"
-    style="margin-bottom: 10px; float:right">
-  Create Work Order
-  </button>
+  
   <div fxLayout="row wrap">
     <!-- <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="100">
       <mat-form-field class="margin-333"  >
@@ -86,18 +79,18 @@
         </ngx-datatable-column>
       <ngx-datatable-column name="Action">
           <ng-template let-row="row" ngx-datatable-cell-template>
-              <button mat-icon-button aria-label="Example icon-button with a heart icon" (click) = "paymenTermEdit(row.uuid)" style="float: left
+              <button mat-icon-button aria-label="Example icon-button with a heart icon" (click) = "woChalan(row.uuid)" style="float: left
               ;">
-                  <mat-icon>edit</mat-icon>
+                  <mat-icon>local_offer</mat-icon>
                 </button> 
-                <button mat-icon-button aria-label="Example icon-button with a heart icon" (click) = "paymenTermAppend(row.uuid)" style="float: left
+                <button mat-icon-button aria-label="Example icon-button with a heart icon" (click) = "paymenTermEdit(row.uuid)" style="float: left
                 ;">
-                  <mat-icon>swap_horiz</mat-icon>
+                  <mat-icon>remove_red_eye</mat-icon>
                 </button> 
-                <button mat-icon-button aria-label="Example icon-button with a heart icon" *ngIf ="row.amendNo >0" style="float: left
+                <!-- <button mat-icon-button aria-label="Example icon-button with a heart icon" *ngIf ="row.amendNo >0" style="float: left
                   ;" (click) = "paymenTermAppendList(row.uuid)">
                   <mat-icon>list</mat-icon>
-                </button> 
+                </button>  -->
                 
            </ng-template>
         </ngx-datatable-column>

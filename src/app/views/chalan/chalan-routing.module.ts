@@ -7,12 +7,19 @@ import {ChalanoutComponent} from './chalanout/chalanout.component'
 import { ChalanpmAddComponent } from './chalanpm/chalanpm-add/chalanpm-add.component';
 import { ChalanoutAddComponent } from './chalanout/chalanout-add/chalanout-add.component';
 import {ChalanOutReportComponent} from './chalan-out-report/chalan-out-report.component'
+import {ChalanInReportComponent} from './chalan-in-report/chalan-in-report.component'
+
+import { ChalanApproveComponent } from './chalan-approve/chalan-approve.component';
+import { ChalanApproveDetailComponent } from './chalan-approve/chalan-approve-detail/chalan-approve-detail.component';
 const routes: Routes = [{
   path:'in',
   component:ChalanComponent
 },{
   path:'report/chalan/out',
   component:ChalanOutReportComponent
+},{
+  path:'report/chalan/in',
+  component:ChalanInReportComponent
 },{
   path:'in/Add',
   component:ChalanAddComponent
@@ -35,6 +42,16 @@ const routes: Routes = [{
   data: { title: 'out/Update', breadcrumb: 'out/Update'}
 
 },{
+  path:'Approval',
+  component:ChalanApproveComponent,
+  data: { title: 'Approval', breadcrumb: 'Approval'}
+
+},{
+  path:'Approval/detail',
+  component:ChalanApproveDetailComponent,
+  data: { title: 'Approval/detail', breadcrumb: 'Approval/detail'}
+
+}, {
   path:'po',
   component:ChalanpmComponent,
   data: { title: 'po', breadcrumb: 'po'}

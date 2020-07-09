@@ -27,7 +27,10 @@ export class DepartmentAddComponent implements OnInit {
         this.updateForm(res.data);
      })
   }
+  userdata:any;
   ngOnInit() {
+    this.userdata = JSON.parse(sessionStorage.getItem('user'))
+
 this.getCompanyList()
 this.href = this.Router.url;
 if (this.href == '/company/department/Update') {

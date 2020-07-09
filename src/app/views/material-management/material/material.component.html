@@ -13,7 +13,7 @@
   <div fxLayout="row wrap">
   
 <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
-  <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="100">
+  <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="100" *ngIf ="userdata.role == 'Admin'">
     <mat-form-field class="margin-333"  >
         <mat-label>Select Company</mat-label>
 
@@ -24,7 +24,24 @@
         </mat-select>
       </mat-form-field>
 </div>
-<div fxFlex="100" fxFlex.gt-sm="70" fxFlex.sm="100">
+<div fxFlex >
+  <mat-form-field class="margin-333"  >
+      <mat-label>Select Material Type</mat-label>
+
+      <mat-select (selectionChange)="changetype($event)" [(ngModel)] = "selectedMaterial">
+        <mat-option   [value]="'Both'">
+          Both
+      </mat-option>
+        <mat-option   [value]="'Product'">
+            Product
+        </mat-option>
+        <mat-option   [value]="'Material'">
+          Material
+      </mat-option>
+      </mat-select>
+    </mat-form-field>
+</div>
+<div fxFlex >
 
   <mat-form-field class="margin-333" style="width: 100%">
     <input 

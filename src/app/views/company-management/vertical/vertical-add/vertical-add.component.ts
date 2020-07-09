@@ -28,8 +28,18 @@ export class VerticalAddComponent implements OnInit {
         this.updateForm(res.data);
      })
   }
+  userdata:any;
   ngOnInit() {
+    this.createForm();
+
+    this.userdata = JSON.parse(sessionStorage.getItem('user'));
+    if(this.userdata.role == 'Admin'){
+
 this.getCompanyList()
+    }else{
+          this.getDepartmentList();
+
+    }
 this.href = this.Router.url;
 if (this.href == '/company/vertical/Update') {
   this.pageType = "Update"
@@ -37,7 +47,6 @@ if (this.href == '/company/vertical/Update') {
  } else {
   this.pageType = "Add"
 }
-this.createForm();
   }
   firstFormGroup: FormGroup;
 

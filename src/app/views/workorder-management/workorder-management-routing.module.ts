@@ -8,6 +8,9 @@ import { SitematerialAddComponent } from './sitematerial/sitematerial-add/sitema
 import { SitematerialComponent } from './sitematerial/sitematerial.component'
 import {WorkorderAppendComponent} from './workorder/workorder-append/workorder-append.component'
 import {PmworkorderComponent} from './pmworkorder/pmworkorder.component'
+import { ProjectWoComponent } from './project-wo/project-wo.component';
+import { ProjectWoDetailComponent } from './project-wo/project-wo-detail/project-wo-detail.component';
+ProjectWoComponent
   const routes: Routes = [
   {
     path: '',
@@ -17,6 +20,14 @@ import {PmworkorderComponent} from './pmworkorder/pmworkorder.component'
     path: 'pm',
     component: PmworkorderComponent,
     data: { title: "PM/workorder", breadcrumb: "PM/workorder" }
+  },{
+    path: 'pmwo/detail',
+    component: ProjectWoDetailComponent,
+    data: { title: "PM/workorder/Detail", breadcrumb: "PM/workorder/Detail" }
+  },{
+    path: 'pmwo/list',
+    component: ProjectWoComponent,
+    data: { title: "PM/chalan/List", breadcrumb: "PM/chalan/List" }
   }, {
     path: 'Add',
     component: WorkorderAddComponent,

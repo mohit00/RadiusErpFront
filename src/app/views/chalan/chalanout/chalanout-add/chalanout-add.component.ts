@@ -136,7 +136,14 @@ export class ChalanoutAddComponent implements OnInit {
           message: res.message
         }
         this.dialog.confirm(datasend).subscribe(res1 => {
-          this.Router.navigate(['chalan/in'])
+          if(this.userdata.role =='Project'){
+            this.Router.navigate(['workorder/pm'])
+
+          }else{
+            
+            this.Router.navigate(['chalan/in'])
+
+          }
         });
       }
       this.AppLoaderService.close();
@@ -150,16 +157,37 @@ export class ChalanoutAddComponent implements OnInit {
 
     })
   }
+  getpmWorkOrder(){
+    this.WorkorderService.workorderGetByPm().subscribe(res=>{
+       
+      this.woList  =  res.data;
+   
+       }) 
+       this.materialService.getCompanymaterial(this.firstFormGroup.value.parentCompany).subscribe(res => {
+        this.materialList = res.data;
+      })
+  }
   href: any;
   pageType;any;
+  userdata:any;
   ngOnInit() {
+    this.userdata = JSON.parse(sessionStorage.getItem('user'));
+
     this.href = this.Router.url;
     if (this.href == '/chalan/out/Add') {
       this.pageType = 'Add';
       this.createForm();
 
     }
-    this.getCompanyList();
+     if(this.userdata.role =='Admin'){
+      this.getCompanyList();
+
+    }else if(this.userdata.role =='Project'){
+    this.getpmWorkOrder();
+    
+    }else{
+      this.change('')
+    }
   }
 
 }

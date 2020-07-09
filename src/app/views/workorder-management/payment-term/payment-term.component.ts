@@ -37,8 +37,14 @@ export class PaymentTermComponent implements OnInit {
      this.getpaymenTermList(this.selectedCompany)
 
   }
+  userdata:any;
   ngOnInit() {
-  this.companyList();
+    this.userdata = JSON.parse(sessionStorage.getItem('user'));
+    if(this.userdata.role =='Admin'){
+      this.companyList(); 
+    }else{
+      this.change('');
+    }
   }
   updateFilter(event) {
     const val = event.target.value.toLowerCase();

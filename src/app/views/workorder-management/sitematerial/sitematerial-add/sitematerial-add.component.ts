@@ -20,20 +20,25 @@ export class SitematerialAddComponent implements OnInit {
   departmentDetails:any;
   departmentDetail(){
     this.workorderService.siteMaterialDetail(sessionStorage.getItem("siteMaterialSelecteduuid")).subscribe(res=>{
-      console.log(res)
-      this.updateForm(res)
+       this.updateForm(res)
     })
   }
+  userdata:any;
   ngOnInit() {
-this.getCompanyList()
+    this.userdata = JSON.parse(sessionStorage.getItem('user'));
+
 this.href = this.Router.url;
+this.createForm();
+
 if (this.href == '/workorder/sitematerial/Update') {
   this.pageType = "Update"
   this.departmentDetail();
+  
  } else {
   this.pageType = "Add"
 }
-this.createForm();
+this.getCompanyList()
+
   }
   firstFormGroup: FormGroup;
 
@@ -42,36 +47,118 @@ this.createForm();
       this.firstFormGroup = this.fb.group({
         materialName: ['', [
         ]],
+        groupuuid:[''],
+        isGroup:[true],
         companyuuid:[''],
         materialDescription:['']
       });
   }
-  updateForm(data){
-    
-    this.firstFormGroup = this.fb.group({
+  isgroup(){
+    // alert(this.firstFormGroup.value.isGroup);
+      if(this.firstFormGroup.value.isGroup){
+      
+      }else{
+          this.getCompanyList();
+      }
+  }
+  updateForm(data){ 
+     this.firstFormGroup = this.fb.group({
       materialName: [data.name, [
       ]],
-      companyuuid:[data.companyuuid],
+      companyuuid:[data.companyuuid], 
+      groupuuid:[data.groupuuid],
+      isGroup:[data.isGroup],
       materialDescription:[data.materialDescription],
       sitematuuid:[data.uuid]
     });
+     this.companyUnderList();
   }
   public hasfirstError = (controlName: string, errorName: string) => {
     return this.firstFormGroup.controls[controlName].hasError(errorName);
-  }
-
+  } 
   getCompanyList(){
-    this.CompanyService.companyList().subscribe(res=>{
-       this.companyList = res.data.filter((data)=>{
-         if(data.type.toLowerCase() =='site'){
-           return true;
-         }else{
-          return false;
-
-         }
-       });
+    
+    if(this.userdata.role =='Admin'){
+      this.CompanyService.companyList().subscribe(res=>{
+        this.companyList = res.data.filter((data)=>{
+          if(data.type.toLowerCase() =='site'){
+            return true;
+          }else{
+           return false;
  
-    })
+          }
+        });
+  
+     })
+    }else{
+       if(this.firstFormGroup.value.isGroup){
+        this.CompanyService.companyList().subscribe(res=>{
+          this.companyList = res.data.filter((data)=>{
+            if(data.type.toLowerCase() =='group'){
+              return true;
+            }else{
+             return false;
+   
+            }
+          });
+    
+       })
+       this.CompanyService.companyUnderList(this.firstFormGroup.value.groupuuid).subscribe(res=>{
+        this.companygLists = res.data.filter((data)=>{
+         if(data.type.toLowerCase() != 'vendor'){
+           return true
+         }else{
+           return false;
+         }
+       }); 
+        })
+      }else{
+        this.CompanyService.companyList().subscribe(res=>{
+          this.companygLists = res.data.filter((data)=>{
+            if(data.type.toLowerCase() =='site'){
+              return true;
+            }else{
+             return false;
+   
+            }
+          });
+    
+       })
+      }
+   
+ 
+    }
+   
+  }
+  companygLists:any;
+  companyUnderList(){
+    if (this.href == '/workorder/sitematerial/Update') {
+      if(this.userdata.role =='Admin'){
+        this.CompanyService.companyUnderList(this.firstFormGroup.value.groupuuid).subscribe(res=>{
+          this.companygLists = res.data.filter((data)=>{
+           if(data.type.toLowerCase() != 'vendor'){
+             return true
+           }else{
+             return false;
+           }
+         }); 
+          })
+      }else{
+        this.getCompanyList();
+      }
+    }else{
+      this.CompanyService.companyUnderList(this.firstFormGroup.value.groupuuid).subscribe(res=>{
+        this.companygLists = res.data.filter((data)=>{
+         if(data.type.toLowerCase() != 'vendor'){
+           return true
+         }else{
+           return false;
+         }
+       }); 
+        })
+    }
+  
+ 
   }
   createDepartment(){
     this.AppLoaderService.open();

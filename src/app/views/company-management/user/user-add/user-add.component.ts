@@ -32,8 +32,9 @@ export class UserAddComponent implements OnInit {
       this.updateForm(res);
     })
   }
+  userdata:any;
   ngOnInit() {
-    this.getCompanyList()
+    this.userdata = JSON.parse(sessionStorage.getItem('user'))
     this.href = this.Router.url;
     if (this.href == '/company/user/Update') {
       this.pageType = "Update"
@@ -42,6 +43,13 @@ export class UserAddComponent implements OnInit {
       this.pageType = "Add"
     }
     this.createForm();
+    if(this.userdata.role == 'Admin'){
+      this.getCompanyList()
+
+    }else{
+      this.getDepartmentList();
+    this.getdVerticalList();
+    }
   }
   firstFormGroup: FormGroup;
 
@@ -111,7 +119,7 @@ export class UserAddComponent implements OnInit {
           message: res.message
         }
         this.dialog.confirm(datasend).subscribe(res1 => {
-          this.Router.navigate(['company/vertical'])
+          this.Router.navigate(['company/user'])
         });
       }
       this.AppLoaderService.close();
@@ -128,7 +136,7 @@ export class UserAddComponent implements OnInit {
           message: res.message
         }
         this.dialog.confirm(datasend).subscribe(res1 => {
-          this.Router.navigate(['company/department'])
+          this.Router.navigate(['company/user'])
         });
       }
       this.AppLoaderService.close();

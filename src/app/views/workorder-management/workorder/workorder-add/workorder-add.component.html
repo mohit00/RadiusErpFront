@@ -10,7 +10,8 @@
 
         <form [formGroup]="firstFormGroup">
           <div fxLayout="row wrap">
-            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+            
+            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100" *ngIf ="userdata.role =='Admin'">
               <mat-form-field class="margin-333" appearance="outline">
                 <mat-label>Select Company</mat-label>
                 <mat-select (selectionChange)="change('company')" formControlName="parentuuid">
@@ -20,7 +21,12 @@
                 </mat-select>
               </mat-form-field>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+            <div fxFlex="100" fxFlex.gt-sm="15" fxFlex.sm="20">
+             
+              <mat-checkbox formControlName="isGroup" (change) ="isgroup()">Is Group</mat-checkbox>
+             
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100" *ngIf ="firstFormGroup.value.isGroup">
               <mat-form-field class="margin-333" appearance="outline">
                 <mat-label>Select Group</mat-label>
                 <mat-select (selectionChange)="clientOfgroup(firstFormGroup.value.groupuuid,'group')" formControlName="groupuuid">
@@ -30,7 +36,7 @@
                 </mat-select>
               </mat-form-field>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100">
               <mat-form-field class="margin-333" appearance="outline">
                 <mat-label>Select Site</mat-label>
                 <mat-select (selectionChange)="clientOfgroup(firstFormGroup.value.siteuuid,'client')" formControlName="siteuuid">
@@ -40,7 +46,7 @@
                 </mat-select>
               </mat-form-field>
             </div>
-            <!-- <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+            <!-- <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100">
               <mat-form-field class="margin-333" appearance="outline">
                 <mat-label>Select Site</mat-label>
                 <mat-select   formControlName="siteuuid" (selectionChange)=getsiteMaterialGet()>
@@ -50,14 +56,14 @@
                 </mat-select>
               </mat-form-field>
             </div> -->
-            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20">
               <mat-form-field class="margin-333" appearance="outline">
                 <mat-label>WO No.</mat-label>
                 <input matInput placeholder="Placeholder" formControlName="woNo">
 
               </mat-form-field>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20">
               <mat-form-field class="margin-333" appearance="outline">
                 <mat-label>WO Date</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="woDate"> 
@@ -65,7 +71,7 @@
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100">
               <mat-form-field class="margin-333" appearance="outline">
                 <mat-label>Vertical</mat-label>
                 <mat-select formControlName="verticaluuid" (selectionChange)="changeDepartment()">
@@ -75,7 +81,7 @@
                 </mat-select>
               </mat-form-field>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100">
               <mat-form-field class="margin-333" appearance="outline">
                 <mat-label>Department</mat-label>
                 <mat-select formControlName="deptuuid">
@@ -85,7 +91,7 @@
                 </mat-select>
               </mat-form-field>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100">
               <mat-form-field class="margin-333" appearance="outline">
                 <mat-label>Select Warehouse</mat-label>
                 <mat-select formControlName="wareuuid">
@@ -95,7 +101,7 @@
                 </mat-select>
               </mat-form-field>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100">
               <div fxFlex="100" fxFlex.gt-sm="80" fxFlex.sm="80">
 
               <mat-form-field class="margin-333" appearance="outline" >
@@ -153,8 +159,7 @@
 </div>
           </div>
           <div>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
-          </div>
+           </div>
         </form>
       </mat-step>
       <mat-step [stepControl]="secondFormGroup">
@@ -162,7 +167,7 @@
 
         <form [formGroup]="secondFormGroup">
           <div fxLayout="row wrap">
-            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="100">
+            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100">
               <div fxFlex="100" fxFlex.gt-sm="80" fxFlex.sm="80">
 
               <mat-form-field class="margin-333" appearance="outline" >
@@ -252,10 +257,8 @@
               </div> -->
           </div>
           <div>
-            <button mat-raised-button color="accent" matStepperPrevious style="margin-right: 5px;">Back</button>
-
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
-          </div>
+ 
+           </div>
         </form>
       </mat-step>
       <mat-step>
@@ -265,8 +268,7 @@
         </div>
         <div class="pb-1 mb-1"> You Are Done.</div>
         <div fxLayout="row">
-          <button mat-raised-button color="accent" matStepperPrevious>Back</button>
-          <span fxFlex="8px"></span>
+           <span fxFlex="8px"></span>
           <button mat-raised-button color="primary" (click)="createCompany();" *ngIf="pageType == 'Add'">Submit</button>
           <button mat-raised-button color="primary" (click)="updateCompany();" *ngIf="pageType == 'Update'">Update</button>
           <button mat-raised-button color="primary" (click)="Appendwo();" *ngIf="pageType == 'Append'">Append</button>

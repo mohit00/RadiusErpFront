@@ -29,7 +29,7 @@ export class ChalanService {
         return data;
       }),
        catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -45,7 +45,23 @@ export class ChalanService {
         return data;
       }),
        catchError(error => {
-        alert("Something went wrong ;)");
+        
+        return Observable.throw(error);
+      })
+    );
+  }
+  chalanOutApprove(data ): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.post(environment.LOCAL_BASE + `po/Approve/${data}`,data,    {
+      headers: headerJson 
+    }).pipe(
+       map(data => {
+        return data;
+      }),
+       catchError(error => {
+        
         return Observable.throw(error);
       })
     );
@@ -61,7 +77,7 @@ export class ChalanService {
         return data;
       }),
        catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -77,7 +93,39 @@ export class ChalanService {
         return data;
       }),
        catchError(error => {
-        alert("Something went wrong ;)");
+        
+        return Observable.throw(error);
+      })
+    );
+  }
+  chalanOutApproveList(approve,companyuuid ): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.get(environment.LOCAL_BASE + `po/out/Approve/${approve}/company/${companyuuid}`,    {
+      headers: headerJson 
+    }).pipe(
+       map(data => {
+        return data;
+      }),
+       catchError(error => {
+        
+        return Observable.throw(error);
+      })
+    );
+  }
+  chalanpmList(data ): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.get(environment.LOCAL_BASE + `po/pm/list/${data}`,    {
+      headers: headerJson 
+    }).pipe(
+       map(data => {
+        return data;
+      }),
+       catchError(error => {
+        
         return Observable.throw(error);
       })
     );
@@ -93,7 +141,7 @@ export class ChalanService {
         return data;
       }),
        catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -109,7 +157,23 @@ export class ChalanService {
         return data;
       }),
        catchError(error => {
-        alert("Something went wrong ;)");
+        
+        return Observable.throw(error);
+      })
+    );
+  }
+  chalanOutDetail(pouuid ): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.get(environment.LOCAL_BASE + `po/detail/${pouuid}`,    {
+      headers: headerJson 
+    }).pipe(
+       map(data => {
+        return data;
+      }),
+       catchError(error => {
+        
         return Observable.throw(error);
       })
     );
@@ -125,7 +189,7 @@ export class ChalanService {
         return data;
       }),
        catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -141,7 +205,23 @@ export class ChalanService {
         return data;
       }),
        catchError(error => {
-        alert("Something went wrong ;)");
+        
+        return Observable.throw(error);
+      })
+    );
+  }
+  chalanInreportData(data ): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.get(environment.LOCAL_BASE + `report/chalan/in/${data}`,    {
+      headers: headerJson 
+    }).pipe(
+       map(data => {
+        return data;
+      }),
+       catchError(error => {
+        
         return Observable.throw(error);
       })
     );

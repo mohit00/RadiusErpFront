@@ -12,14 +12,42 @@
             <input matInput placeholder="Placeholder" formControlName="materialName">
           </mat-form-field>
         </div>
-        <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
-          <mat-form-field appearance="outline">
-            <mat-label>Select Company</mat-label>
-            <mat-select   formControlName="companyuuid" >
-              <mat-option  *ngFor ="let list of companyList" [value] ="list.uuid">{{list.name}} </mat-option>
-            </mat-select>                
-          </mat-form-field>
-        </div>
+   
+        <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="100" *ngIf ="userdata.role == 'Admin'">
+          <mat-form-field class="margin-333"  appearance="outline" >
+              <mat-label>Select  Company</mat-label>
+              <mat-select     formControlName="companyuuid" >
+                <mat-option *ngFor="let list of companyList" [value]="list.uuid">
+                  {{list.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="15" fxFlex.sm="20" *ngIf ="pageType == 'Add'">
+             
+      <mat-checkbox formControlName="isGroup" (change) ="isgroup()">Is Group</mat-checkbox>
+     
+    </div>
+        <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="100" *ngIf ="userdata.role != 'Admin' && firstFormGroup.value.isGroup">
+            <mat-form-field class="margin-333" appearance="outline"  >
+                <mat-label>Select Group Company</mat-label>
+                <mat-select (selectionChange)="companyUnderList($event)"   formControlName="groupuuid" >
+                  <mat-option *ngFor="let list of companyList" [value]="list.uuid">
+                    {{list.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="100" *ngIf ="userdata.role != 'Admin'">
+      <mat-form-field class="margin-333"  appearance="outline" >
+          <mat-label>Select Site Company</mat-label>
+          <mat-select     formControlName="companyuuid" >
+            <mat-option *ngFor="let list of companygLists" [value]="list.uuid">
+              {{list.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
         <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
           <mat-form-field appearance="outline">
             <mat-label>Description</mat-label>

@@ -7,7 +7,7 @@
     <form [formGroup]="firstFormGroup">
     <div fxLayout="row wrap">
      
-      <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+      <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25" *ngIf ="userdata.role =='Admin'">
         <mat-form-field appearance="outline">
           <mat-label>Select Company</mat-label>
           <mat-select   formControlName="parentCompany" (selectionChange)="change($event)" >

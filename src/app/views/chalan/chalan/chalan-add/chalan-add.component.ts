@@ -145,7 +145,9 @@ export class ChalanAddComponent implements OnInit {
   }
   href: any;
   pageType;any;
+  userdata:any;
   ngOnInit() {
+  
     this.href = this.Router.url;
     if (this.href == '/chalan/in/Add') {
       this.pageType = 'Add';
@@ -153,6 +155,12 @@ export class ChalanAddComponent implements OnInit {
 
     }
     this.getCompanyList();
+    this.userdata = JSON.parse(sessionStorage.getItem('user'));
+    if(this.userdata.role =='Admin'){
+
+    }else{
+      this.change('')
+    }
   }
 
 }

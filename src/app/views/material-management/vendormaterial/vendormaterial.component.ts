@@ -90,11 +90,19 @@ export class VendormaterialComponent implements OnInit {
     });
     this.rows = rows;
   }
+  userdata:any;
   ngOnInit() {
+    this.createForm();
+
+    this.userdata = JSON.parse(sessionStorage.getItem('user'));
    this.departmentDetail();
-   this.materialList();
+   if(this.userdata.role =='Admin'){
+
+   }else{
+    this.getCompanyMaterial( )
+   }
+  //  this.materialList();
  
-this.createForm();
   }
   handleFileInput(files: any, type) { 
     this.materialPic = files

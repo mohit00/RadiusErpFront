@@ -20,8 +20,10 @@ export class SidebarSideComponent implements OnInit, OnDestroy, AfterViewInit {
     public themeService: ThemeService,
     private layout: LayoutService
   ) {}
-
+  userData:any;
   ngOnInit() {
+    this.userData =   JSON.parse(sessionStorage.getItem('user')) 
+
     this.iconTypeMenuTitle = this.navService.iconTypeMenuTitle;
     this.menuItemsSub = this.navService.menuItems$.subscribe(menuItem => {
       this.menuItems = menuItem;

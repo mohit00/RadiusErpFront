@@ -77,10 +77,12 @@ export class WorkorderAddComponent implements OnInit {
     this.clientOfgroup(this.firstFormGroup.value.clientuuid,'client');
      
   }
+ 
   createForm() {
     this.firstFormGroup = this.fb.group({
       woNo: ['', [
       ]],
+      isGroup:[true],
       woDate: ['', [
       ]],
       parentuuid:[''],
@@ -217,6 +219,19 @@ this.wareHouseList = res.data
           return false;
         }
       }); 
+       if(this.firstFormGroup.value.isGroup){
+        this.clientCompany =[]
+      }else{
+        this.clientCompany =  res.data.filter((data)=>{
+          if(data.type.toLowerCase() == 'site'){
+            return true
+          }else{
+            return false;
+          }
+        }); 
+      }
+  
+     
       this.companyLists = res.data.filter((data)=>{
         if(data.type.toLowerCase() == 'all'||data.type.toLowerCase() == 'company'){
           return true
@@ -305,7 +320,10 @@ this.wareHouseList = res.data
        this.updateForm(res);
     })
   }
+  userdata:any;
   ngOnInit() {
+    this.userdata = JSON.parse(sessionStorage.getItem('user'));
+   
     this.companyList();
     this.createForm();
     this.href = this.Router.url;
@@ -324,8 +342,19 @@ this.wareHouseList = res.data
       this.pageType = "Add"
 
     }
+    if(this.userdata.role =='Admin'){
+     
+    }else{
+      this.change('company') 
+    }
   }
-  
+  isgroup(){
+    if(this.firstFormGroup.value.isGroup){
+      this.clientCompany =[]
+    }else{
+      this.companyList()
+    }
+  }
 
  
 

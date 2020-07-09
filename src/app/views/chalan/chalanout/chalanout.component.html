@@ -9,7 +9,7 @@
   Create Chalan Out
   </button>
   <div fxLayout="row wrap">
-    <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="100">
+    <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="100" *ngIf ="userdata.role =='Admin'">
       <mat-form-field class="margin-333"  >
           <mat-label>Select Company</mat-label>
           <mat-select (selectionChange)="change('company')" [(ngModel)] = "selectedCompany">
@@ -21,7 +21,7 @@
     </div>
      
 
-<div fxFlex="100" fxFlex.gt-sm="40" fxFlex.sm="100">
+<div fxFlex >
   <mat-form-field class="margin-333" style="width: 100%">
     <input 
     matInput 

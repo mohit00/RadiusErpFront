@@ -36,7 +36,7 @@ export class warehouseService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -56,7 +56,7 @@ export class warehouseService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -77,7 +77,7 @@ export class warehouseService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -97,7 +97,7 @@ export class warehouseService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -117,7 +117,7 @@ export class warehouseService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -138,7 +138,7 @@ export class warehouseService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );

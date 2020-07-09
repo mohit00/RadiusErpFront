@@ -49,10 +49,18 @@ export class WarehouseMaterialComponent implements OnInit {
         });
       })
   }
+  userdata:any;
   ngOnInit() {
-   this.departmentDetail();
+   
   
 this.createForm();
+this.userdata = JSON.parse(sessionStorage.getItem('user'));
+if(this.userdata.role == 'Admin'){
+  this.departmentDetail();
+
+}else{
+  this.getCompanyMaterial();
+}
   }
   handleFileInput(files: any, type) { 
     this.materialPic = files

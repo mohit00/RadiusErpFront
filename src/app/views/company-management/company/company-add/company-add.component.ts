@@ -12,6 +12,7 @@ import { ICountry, IState, ICity } from 'country-state-city'
 import csc from 'country-state-city'
 import { CompanyService } from '../../company.service';
 import { IndianStatesCode } from './indianStatescode';
+import {    ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-company-add',
@@ -20,6 +21,12 @@ import { IndianStatesCode } from './indianStatescode';
   animations: egretAnimations 
 })
 export class CompanyAddComponent implements OnInit, OnDestroy {
+  @ViewChild('stepper' , { static: false } ) stepper;
+  showAdd: string;
+  changeStep(index: number) {
+    this.stepper.selectedIndex = index;
+}
+
   pageType: any;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -74,8 +81,8 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
       ]],
       website: ['', [
       ]],
-      stateCode:['']
-    });
+      stateCode:[''],
+     });
     this.secondFormGroup = this.fb.group({
       PAN: ['', [
       ]],
@@ -101,7 +108,17 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
    
     })
   }
+  showparent:any = false;
   selectType(){
+    this.showparent = true;
+    if(this.userData.role != 'Admin'){
+      if(this.secondFormGroup.value.type == 'Group'){
+        this.showparent = false;
+      }else{
+        this.showparent = true;
+
+      }
+    }
     if(this.secondFormGroup.value.type == 'All'){
       
     }else if(this.secondFormGroup.value.type == 'Group'){
@@ -155,7 +172,33 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
           message: res.message
         }
         this.dialog.confirm(datasend).subscribe(res1 => {
-          this.Router.navigate(['company'])
+          if (this.href == '/company/Update') {
+            this.Router.navigate(['company'])
+
+      
+          }
+           if (this.href == '/company/Add') {
+            this.Router.navigate(['company'])
+
+          }else
+          if (this.href == '/company/Client/Add') {
+            this.Router.navigate(['company/Client'])
+
+          }else if (this.href == '/company/Vendor/Add') {
+            this.Router.navigate(['company/Vendor'])
+
+      
+          }
+          
+          if (this.href == '/company/Client/Update') {
+            this.Router.navigate(['company/Client'])
+      
+            this.pagedatatype = 1;
+          }else if (this.href == '/company/Vendor/Update') {
+            this.Router.navigate(['company/Vendor'])
+      
+          }
+      
         });
       }
       this.AppLoaderService.close();
@@ -184,36 +227,60 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
   }
   pagedatatype:any ='';
   companyType:any = '';
+  userData:any ;
+  selectPage:any
   ngOnInit() {
     this.companyList(); 
- 
+ this.userData = JSON.parse(sessionStorage.getItem('user'));
     this.pagedatatype = 0;
+    if(this.userData.role == 'Admin'){
 
+    }
     this.href = this.Router.url;
-    if (this.href == '/company/Add') {
-      this.companyType = 'All'
 
+    if (this.href == '/company/Update') {
+      this.pageType = "Company Update"
+      this.selectPage = 'Company';
+    }
+     if (this.href == '/company/Add') {
+      this.selectPage = 'Company';
+
+      this.companyType = 'All'
+      this.pageType = "Company Add"
     }else
     if (this.href == '/company/Client/Add') {
+      this.selectPage = 'Client';
+
+      this.pageType = "Client Add"
 
       this.pagedatatype = 1;
     }else if (this.href == '/company/Vendor/Add') {
       this.companyType = 'Vendor'
+      this.pageType = "Vendor Add"
+      this.selectPage = 'Vendor';
+
 
     }
     
     if (this.href == '/company/Client/Update') {
+      this.pageType = "Client Update"
+      this.selectPage = 'Client';
+
+
       this.pagedatatype = 1;
     }else if (this.href == '/company/Vendor/Update') {
-     
+      this.pageType = "Vendor Update"
+      this.selectPage = 'Vendor';
+
     }
-    this.createForm(); 
+     this.createForm(); 
       if (this.href.split("/")[this.href.split("/").length - 1] == 'Update') {
-      this.pageType = "Update"
+      this.showAdd = "Update"
       this.companyDetail();
     } else {
-      this.pageType = "Add"
-    }
+      this.showAdd = "Add"
+
+     }
   }
   companyDetailS: any = {};
   companyDetail() {

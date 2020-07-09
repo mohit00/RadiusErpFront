@@ -8,14 +8,14 @@
 
     <form [formGroup]="firstFormGroup">
       <div fxLayout="row wrap">
-        <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+        <div fxFlex >
           <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
             <input matInput placeholder="Placeholder" formControlName="name">
 
           </mat-form-field>
         </div>
-        <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+        <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" *ngIf ="userdata.role =='Admin'">
           <mat-form-field appearance="outline">
             <mat-label>Select Company</mat-label>
             <mat-select   formControlName="companyuuid" >

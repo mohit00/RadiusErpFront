@@ -27,7 +27,7 @@ interface IBadge {
 @Injectable()
 export class NavigationService {
   constructor() {}
-  iconMenu: IMenuItem[] = [
+  AdminMenu: IMenuItem[] = [
     {
       name: "HOME",
       type: "icon",
@@ -75,7 +75,7 @@ export class NavigationService {
       sub: [
         { name: "Company Creation", state: "/" },
 
-        { name: "client Creation", state: "/Client" },
+        { name: "Client Creation", state: "/Client" },
         { name: "Vendor Creation", state: "/Vendor" },
 
         { name: "User Management", state: "/user" },
@@ -91,7 +91,7 @@ export class NavigationService {
       state: "material",
       sub: [
         { name: "Material", state: "/" },
-        { name: "Material Vendor", state: "/Vendor" },
+        { name: "Vendor Mapping", state: "/Vendor" },
   
       ]
     }, {
@@ -108,15 +108,17 @@ export class NavigationService {
   
       ]
     }, {
-      name: "Chalan",
+      name: "Purchase Order",
       type: "dropDown",
       tooltip: "Dashboard",
       icon: "dashboard",
       state: "chalan",
       sub: [
-        { name: "Chalan Po", state: "/po" },
-        { name: "Clalan In", state: "/in" },
-        { name: "Clalan Out", state: "/out" },
+        { name: "Purchase Order Creation", state: "/po" },
+        { name: "Material In", state: "/in" },
+        { name: "Material Out", state: "/out" },
+
+        { name: "Purchase Order Approval", state: "/Approval" },
 
       ]
     },{
@@ -130,387 +132,333 @@ export class NavigationService {
         { name: "Site Material", state: "/sitematerial" },
 
         { name: "Work Order", state: "/" },
-        { name: "Project Manager W.O", state: "/pm" },
+        
  
   
       ]
     }
   ];
-
-  separatorMenu: IMenuItem[] = [
+ 
+  SiteMenu: IMenuItem[] = [
     {
-      type: "separator",
-      name: "Custom components"
-    },
-    {
-      name: "DASHBOARD",
-      type: "link",
-      tooltip: "Dashboard",
-      icon: "dashboard",
-      state: "dashboard"
-    },
-    {
-      name: "INBOX",
-      type: "link",
-      tooltip: "Inbox",
-      icon: "inbox",
-      state: "inbox"
-    },
-    {
-      name: "CHAT",
-      type: "link",
-      tooltip: "Chat",
-      icon: "chat",
-      state: "chat"
-    },
-    {
-      name: "CRUD Table",
-      type: "link",
-      tooltip: "CRUD Table",
-      icon: "format_list_bulleted",
-      state: "cruds/ngx-table"
-    },
-    {
-      name: "DIALOGS",
-      type: "dropDown",
-      tooltip: "Dialogs",
-      icon: "filter_none",
-      state: "dialogs",
-      sub: [
-        { name: "CONFIRM", state: "confirm" },
-        { name: "LOADER", state: "loader" }
-      ]
+      name: "HOME",
+      type: "icon",
+      tooltip: "Home",
+      icon: "home",
+      state: "home"
     },
     {
       name: "PROFILE",
-      type: "dropDown",
+      type: "icon",
       tooltip: "Profile",
       icon: "person",
-      state: "profile",
-      sub: [
-        { name: "OVERVIEW", state: "overview" },
-        { name: "SETTINGS", state: "settings" },
-        { name: "BLANK", state: "blank" }
-      ]
+      state: "profile/overview"
     },
     {
       name: "TOUR",
-      type: "link",
+      type: "icon",
       tooltip: "Tour",
       icon: "flight_takeoff",
       state: "tour"
     },
     {
       type: "separator",
-      name: "Integrated components"
+      name: "Main Items"
     },
     {
-      name: "CALENDAR",
-      type: "link",
-      tooltip: "Calendar",
-      icon: "date_range",
-      state: "calendar"
-    },
-    {
-      name: "MATERIAL",
+      name: "DASHBOARD",
       type: "dropDown",
-      tooltip: "Material",
-      icon: "favorite",
+      tooltip: "Dashboard",
+      icon: "dashboard",
+      state: "dashboard",
+      sub: [
+        { name: "Default", state: "default" },
+        { name: "Analytics", state: "analytics" },
+        { name: "Cryptocurrency", state: "crypto" },
+        { name: "Dark Cards", state: "dark" }
+      ]
+    } ,
+     {
+      name: "Company Management",
+      type: "dropDown",
+      tooltip: "Dashboard",
+      icon: "dashboard",
+      state: "company",
+      sub: [
+ 
+        { name: "Client Creation", state: "/Client" },
+        { name: "Vendor Creation", state: "/Vendor" },
+
+        { name: "User Management", state: "/user" },
+        { name: "Department", state: "/department" },
+        { name: "Vertical", state: "/vertical" },
+ 
+      ]
+    }, {
+      name: "Material Management",
+      type: "dropDown",
+      tooltip: "Dashboard",
+      icon: "dashboard",
       state: "material",
       sub: [
-        { name: "BUTTONS", state: "buttons" },
-        { name: "Button Toggle", state: "button-toggle" },
-        { name: "Buttons Loading", state: "loading-buttons" },
-        { name: "CARDS", state: "cards" },
-        { name: "GRIDS", state: "grids" },
-        { name: "LISTS", state: "lists" },
-        { name: "MENU", state: "menu" },
-        { name: "TABS", state: "tabs" },
-        { name: "SELECT", state: "select" },
-        { name: "RADIO", state: "radio" },
-        { name: "AUTOCOMPLETE", state: "autocomplete" },
-        { name: "SLIDER", state: "slider" },
-        { name: "PROGRESS", state: "progress" },
-        { name: "SNACKBAR", state: "snackbar" }
+        { name: "Material", state: "/" },
+        { name: "Vendor Mapping", state: "/Vendor" },
+  
       ]
-    },
-    {
-      name: "FORMS",
+    }, {
+      name: "WareHouse",
       type: "dropDown",
-      tooltip: "Forms",
-      icon: "description",
-      state: "forms",
-      sub: [
-        { name: "BASIC", state: "basic" },
-        { name: "EDITOR", state: "editor" },
-        { name: "UPLOAD", state: "upload" },
-        { name: "WIZARD", state: "wizard" }
-      ]
-    },
-    {
-      name: "TABLES",
-      type: "dropDown",
-      tooltip: "Tables",
-      icon: "format_line_spacing",
-      state: "tables",
-      sub: [
-        { name: "FULLSCREEN", state: "fullscreen" },
-        { name: "PAGING", state: "paging" },
-        { name: "FILTER", state: "filter" }
-      ]
-    },
-    {
-      name: "MAP",
-      type: "link",
-      tooltip: "Map",
-      icon: "add_location",
-      state: "map"
-    },
-    {
-      name: "CHARTS",
-      type: "link",
-      tooltip: "Charts",
-      icon: "show_chart",
-      state: "charts"
-    },
-    {
-      name: "DND",
-      type: "link",
-      tooltip: "Drag and Drop",
-      icon: "adjust",
-      state: "dragndrop"
-    },
-    {
-      type: "separator",
-      name: "Other components"
-    },
-    {
-      name: "SESSIONS",
-      type: "dropDown",
-      tooltip: "Pages",
-      icon: "view_carousel",
-      state: "sessions",
-      sub: [
-        { name: "SIGNUP", state: "signup" },
-        { name: "SIGNIN", state: "signin" },
-        { name: "FORGOT", state: "forgot-password" },
-        { name: "LOCKSCREEN", state: "lockscreen" },
-        { name: "NOTFOUND", state: "404" },
-        { name: "ERROR", state: "error" }
-      ]
-    },
-    {
-      name: "OTHERS",
-      type: "dropDown",
-      tooltip: "Others",
-      icon: "blur_on",
-      state: "others",
-      sub: [
-        { name: "GALLERY", state: "gallery" },
-        { name: "PRICINGS", state: "pricing" },
-        { name: "USERS", state: "users" },
-        { name: "BLANK", state: "blank" }
-      ]
-    },
-    {
-      name: "MATICONS",
-      type: "link",
-      tooltip: "Material Icons",
-      icon: "store",
-      state: "icons"
-    },
-    {
-      name: "DOC",
-      type: "extLink",
-      tooltip: "Documentation",
-      icon: "library_books",
-      state: "http://demos.ui-lib.com/egret-doc/"
-    }
-  ];
-
-  plainMenu: IMenuItem[] = [
-    {
-      name: "DASHBOARD",
-      type: "link",
       tooltip: "Dashboard",
       icon: "dashboard",
-      state: "dashboard"
-    },
-    {
-      name: "INBOX",
-      type: "link",
-      tooltip: "Inbox",
-      icon: "inbox",
-      state: "inbox"
-    },
-    {
-      name: "CHAT",
-      type: "link",
-      tooltip: "Chat",
-      icon: "chat",
-      state: "chat"
-    },
-    {
-      name: "CRUD Table",
-      type: "link",
-      tooltip: "CRUD Table",
-      icon: "format_list_bulleted",
-      state: "cruds/ngx-table"
-    },
-    {
-      name: "CALENDAR",
-      type: "link",
-      tooltip: "Calendar",
-      icon: "date_range",
-      state: "calendar"
-    },
-    {
-      name: "DIALOGS",
-      type: "dropDown",
-      tooltip: "Dialogs",
-      icon: "filter_none",
-      state: "dialogs",
+    state: "warehouse",
       sub: [
-        { name: "CONFIRM", state: "confirm" },
-        { name: "LOADER", state: "loader" }
+        { name: "WareHouse", state: "" },
+        { name: "WareHouse Material", state: "/material" },
+        { name: "WareHouse ManageBy", state: "/manageBy" },
+
+  
       ]
-    },
-    {
-      name: "MATERIAL",
+    }, {
+      name: "Purchase Order",
       type: "dropDown",
-      icon: "favorite",
-      state: "component",
+      tooltip: "Dashboard",
+      icon: "dashboard",
+      state: "chalan",
       sub: [
-        { name: "BUTTONS", state: "buttons" },
-        { name: "Button Toggle", state: "button-toggle" },
-        { name: "Buttons Loading", state: "loading-buttons" },
-        { name: "CARDS", state: "cards" },
-        { name: "GRIDS", state: "grids" },
-        { name: "LISTS", state: "lists" },
-        { name: "MENU", state: "menu" },
-        { name: "TABS", state: "tabs" },
-        { name: "SELECT", state: "select" },
-        { name: "RADIO", state: "radio" },
-        { name: "AUTOCOMPLETE", state: "autocomplete" },
-        { name: "SLIDER", state: "slider" },
-        { name: "PROGRESS", state: "progress" },
-        { name: "SNACKBAR", state: "snackbar" }
+        { name: "Purchase Order Creation", state: "/po" },
+        { name: "Material In", state: "/in" },
+        { name: "Material Out", state: "/out" },
+        { name: "Material Approval", state: "/Approval" },
+
       ]
-    },
-    {
-      name: "FORMS",
+    },{
+      name: "Work Management",
       type: "dropDown",
-      tooltip: "Forms",
-      icon: "description",
-      state: "forms",
+      tooltip: "Dashboard",
+      icon: "dashboard",
+      state: "workorder",
       sub: [
-        { name: "BASIC", state: "basic" },
-        { name: "EDITOR", state: "editor" },
-        { name: "UPLOAD", state: "upload" },
-        { name: "WIZARD", state: "wizard" }
+        { name: "Payment Term", state: "/payment" },
+        { name: "Site Material", state: "/sitematerial" },
+
+        { name: "Work Order", state: "/" },
+        
+ 
+  
       ]
-    },
+    }
+  ];
+  SCMMenu: IMenuItem[] = [
     {
-      name: "TABLES",
-      type: "dropDown",
-      tooltip: "Tables",
-      icon: "format_line_spacing",
-      state: "tables",
-      sub: [
-        { name: "FULLSCREEN", state: "fullscreen" },
-        { name: "PAGING", state: "paging" },
-        { name: "FILTER", state: "filter" }
-      ]
+      name: "HOME",
+      type: "icon",
+      tooltip: "Home",
+      icon: "home",
+      state: "home"
     },
     {
       name: "PROFILE",
-      type: "dropDown",
+      type: "icon",
       tooltip: "Profile",
       icon: "person",
-      state: "profile",
-      sub: [
-        { name: "OVERVIEW", state: "overview" },
-        { name: "SETTINGS", state: "settings" },
-        { name: "BLANK", state: "blank" }
-      ]
+      state: "profile/overview"
     },
     {
       name: "TOUR",
-      type: "link",
+      type: "icon",
       tooltip: "Tour",
       icon: "flight_takeoff",
       state: "tour"
     },
     {
-      name: "MAP",
-      type: "link",
-      tooltip: "Map",
-      icon: "add_location",
-      state: "map"
+      type: "separator",
+      name: "Main Items"
     },
     {
-      name: "CHARTS",
-      type: "link",
-      tooltip: "Charts",
-      icon: "show_chart",
-      state: "charts"
-    },
-    {
-      name: "DND",
-      type: "link",
-      tooltip: "Drag and Drop",
-      icon: "adjust",
-      state: "dragndrop"
-    },
-    {
-      name: "SESSIONS",
+      name: "DASHBOARD",
       type: "dropDown",
-      tooltip: "Pages",
-      icon: "view_carousel",
-      state: "sessions",
+      tooltip: "Dashboard",
+      icon: "dashboard",
+      state: "dashboard",
       sub: [
-        { name: "SIGNUP", state: "signup" },
-        { name: "SIGNIN", state: "signin" },
-        { name: "FORGOT", state: "forgot-password" },
-        { name: "LOCKSCREEN", state: "lockscreen" },
-        { name: "NOTFOUND", state: "404" },
-        { name: "ERROR", state: "error" }
+        { name: "Default", state: "default" },
+        { name: "Analytics", state: "analytics" },
+        { name: "Cryptocurrency", state: "crypto" },
+        { name: "Dark Cards", state: "dark" }
       ]
-    },
-    {
-      name: "OTHERS",
+    } ,
+     {
+      name: "Company Management",
       type: "dropDown",
-      tooltip: "Others",
-      icon: "blur_on",
-      state: "others",
+      tooltip: "Dashboard",
+      icon: "dashboard",
+      state: "company",
       sub: [
-        { name: "GALLERY", state: "gallery" },
-        { name: "PRICINGS", state: "pricing" },
-        { name: "USERS", state: "users" },
-        { name: "BLANK", state: "blank" }
+ 
+         { name: "Vendor Creation", state: "/Vendor" }   
       ]
+    }, {
+      name: "Material Management",
+      type: "dropDown",
+      tooltip: "Dashboard",
+      icon: "dashboard",
+      state: "material",
+      sub: [
+        { name: "Material", state: "/" },
+        { name: "Vendor Mapping", state: "/Vendor" },
+  
+      ]
+    }, {
+      name: "WareHouse",
+      type: "dropDown",
+      tooltip: "Dashboard",
+      icon: "dashboard",
+    state: "warehouse",
+      sub: [
+        { name: "WareHouse", state: "" },
+        { name: "WareHouse Material", state: "/material" },
+        { name: "WareHouse ManageBy", state: "/manageBy" },
+
+  
+      ]
+    }, {
+      name: "Purchase Order",
+      type: "dropDown",
+      tooltip: "Dashboard",
+      icon: "dashboard",
+      state: "chalan",
+      sub: [
+        { name: "Purchase Order Creation", state: "/po" },
+        { name: "Material In", state: "/in" },
+         { name: "Clalan Approval", state: "/Approval" },
+
+      ]
+    } 
+  ];
+  SalesMenu: IMenuItem[] = [
+    {
+      name: "HOME",
+      type: "icon",
+      tooltip: "Home",
+      icon: "home",
+      state: "home"
     },
     {
-      name: "MATICONS",
-      type: "link",
-      tooltip: "Material Icons",
-      icon: "store",
-      state: "icons"
+      name: "PROFILE",
+      type: "icon",
+      tooltip: "Profile",
+      icon: "person",
+      state: "profile/overview"
     },
     {
-      name: "DOC",
-      type: "extLink",
-      tooltip: "Documentation",
-      icon: "library_books",
-      state: "http://demos.ui-lib.com/egret-doc/"
+      name: "TOUR",
+      type: "icon",
+      tooltip: "Tour",
+      icon: "flight_takeoff",
+      state: "tour"
+    },
+    {
+      type: "separator",
+      name: "Main Items"
+    },
+    {
+      name: "DASHBOARD",
+      type: "dropDown",
+      tooltip: "Dashboard",
+      icon: "dashboard",
+      state: "dashboard",
+      sub: [
+        { name: "Default", state: "default" },
+        { name: "Analytics", state: "analytics" },
+        { name: "Cryptocurrency", state: "crypto" },
+        { name: "Dark Cards", state: "dark" }
+      ]
+    } ,
+     {
+      name: "Company Management",
+      type: "dropDown",
+      tooltip: "Dashboard",
+      icon: "dashboard",
+      state: "company",
+      sub: [
+ 
+        { name: "Client Creation", state: "/Client" },
+ 
+  
+      ]
+    },   {
+      name: "Work Management",
+      type: "dropDown",
+      tooltip: "Dashboard",
+      icon: "dashboard",
+      state: "workorder",
+      sub: [
+        { name: "Payment Term", state: "/payment" },
+        { name: "Site Material", state: "/sitematerial" },
+
+        { name: "Work Order", state: "/" },
+        
+ 
+  
+      ]
     }
   ];
+  ProjectMenu: IMenuItem[] = [
+    {
+      name: "HOME",
+      type: "icon",
+      tooltip: "Home",
+      icon: "home",
+      state: "home"
+    },
+    {
+      name: "PROFILE",
+      type: "icon",
+      tooltip: "Profile",
+      icon: "person",
+      state: "profile/overview"
+    },
+    {
+      name: "TOUR",
+      type: "icon",
+      tooltip: "Tour",
+      icon: "flight_takeoff",
+      state: "tour"
+    },
+    {
+      type: "separator",
+      name: "Main Items"
+    },
+    {
+      name: "DASHBOARD",
+      type: "dropDown",
+      tooltip: "Dashboard",
+      icon: "dashboard",
+      state: "dashboard",
+      sub: [
+        { name: "Default", state: "default" },
+        { name: "Analytics", state: "analytics" },
+        { name: "Cryptocurrency", state: "crypto" },
+        { name: "Dark Cards", state: "dark" }
+      ]
+    }, {
+      name: "Purchase Order",
+      type: "dropDown",
+      tooltip: "Dashboard",
+      icon: "dashboard",
+      state: "",
+      sub: [
+        // { name: "Clalan Out", state: "/out" },
+        { name: "WorkOrder", state: "workorder/pm" },
 
+      ]
+    }  
+  ];
   // Icon menu TITLE at the very top of navigation.
   // This title will appear if any icon type item is present in menu.
   iconTypeMenuTitle: string = "Frequently Accessed";
   // sets iconMenu as default;
-  menuItems = new BehaviorSubject<IMenuItem[]>(this.iconMenu);
+  menuItems = new BehaviorSubject<IMenuItem[]>(this.AdminMenu);
   // navigation component has subscribed to this Observable
   menuItems$ = this.menuItems.asObservable();
 
@@ -519,15 +467,27 @@ export class NavigationService {
   // Or you can customize this method to supply different menu for
   // different user type.
   publishNavigationChange(menuType: string) {
-    switch (menuType) {
-      case "separator-menu":
-        this.menuItems.next(this.separatorMenu);
-        break;
-      case "icon-menu":
-        this.menuItems.next(this.iconMenu);
-        break;
+      switch (menuType) {
+        case "admin-menu":
+          this.menuItems.next(this.AdminMenu);
+          break;
+      case "site-menu":
+        this.menuItems.next(this.SiteMenu);
+        break;    
+        case "project-menu":
+          this.menuItems.next(this.ProjectMenu);
+          break;
+          case "sales-menu":
+            this.menuItems.next(this.SalesMenu);
+            break;
+          case "scm-menu":
+            this.menuItems.next(this.SCMMenu);
+            break;
+          case "management-menu":
+            this.menuItems.next(this.AdminMenu);
+            break;
       default:
-        this.menuItems.next(this.plainMenu);
+        this.menuItems.next(this.SiteMenu);
     }
   }
 }

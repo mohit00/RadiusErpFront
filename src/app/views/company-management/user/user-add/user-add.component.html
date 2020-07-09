@@ -1,6 +1,6 @@
 <mat-card class="p-0">
   <mat-card-title class="">
-    <div class="card-title-text">User {{pageType}}</div>
+    <div class="card-title-text">Form Info</div>
     <mat-divider></mat-divider>
   </mat-card-title>
   <mat-card-content>
@@ -26,7 +26,7 @@
             <input matInput placeholder="Placeholder" formControlName="password"> 
           </mat-form-field>
         </div>
-        <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+        <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25" *ngIf ="userdata.role == 'Admin'">
           <mat-form-field appearance="outline">
             <mat-label>Select Company</mat-label>
             <mat-select   formControlName="companyuuid" (selectionChange)="getdVerticalList()" >
@@ -34,7 +34,7 @@
             </mat-select>                
           </mat-form-field>
         </div>
-        <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+        <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25" *ngIf ="firstFormGroup.value.role == 'Project'">
           <mat-form-field appearance="outline">
             <mat-label>Select Vertical</mat-label>
             <mat-select   formControlName="verticaluuid"     (selectionChange)="getDepartmentList()">
@@ -42,7 +42,7 @@
             </mat-select>                
           </mat-form-field>
         </div>
-        <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+        <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25"  *ngIf ="firstFormGroup.value.role == 'Project'">
           <mat-form-field appearance="outline">
             <mat-label>Select Department</mat-label>
             <mat-select   formControlName="departmentuuid"  >
@@ -55,10 +55,15 @@
           <mat-form-field appearance="outline" >
             <mat-label>Select Role</mat-label>
             <mat-select   formControlName="role"    formControlName="role" >
-               <mat-option    [value] ="'Admin'"> Admin </mat-option> 
-              <mat-option    [value] ="'SalesTeam'"> Sales Team </mat-option>
-              <mat-option    [value] ="'ProjectTeam'"> Project Team </mat-option>
+              <mat-option    [value] ="'Admin'"> Admin </mat-option>
+              <mat-option    [value] ="'SiteAdmin'"> Site Admin </mat-option>
 
+               <mat-option    [value] ="'Sales'"> Sales </mat-option> 
+               <mat-option    [value] ="'scm'"> SCM Team </mat-option>
+
+              <mat-option    [value] ="'Project'"> Project Team </mat-option>
+              <mat-option    [value] ="'Management'"> Management Team </mat-option>
+ 
             </mat-select>                
           </mat-form-field>
         </div>

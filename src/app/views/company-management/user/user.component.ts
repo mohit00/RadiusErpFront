@@ -47,8 +47,9 @@ export class UserComponent implements OnInit {
     }
 
   }
-  
+  userdata:any;
   ngOnInit() {
+    this.userdata = JSON.parse(sessionStorage.getItem('user'))
   this.companyList();
   this.getDepartmentList();
   }

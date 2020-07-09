@@ -37,10 +37,15 @@ export class MaterialAddComponent implements OnInit {
   });
     })
   }
+  userdata:any;
   ngOnInit() {
+    this.userdata = JSON.parse(sessionStorage.getItem('user'));
     this.materialListWithNoproduct();
  this.href = this.Router.url;
+ if(this.userdata.role == 'Admin'){
   this.getcompanyList();
+
+ }
 if (this.href == '/material/Update') {
   this.pageType = "Update"
   this.departmentDetail();
@@ -105,6 +110,29 @@ this.createForm();
        this.materialList = res.data
     })
   }
+  materialUpdate:any = [];
+  materialUpdateList(data){
+     for(var i =0 ;i<this.materialList.length;i++){
+      for(var j =0 ;j<data.length;j++){
+        if(data[j].uuid == this.materialList[i].uuid){
+          this.materialList[i].matqty = data[j].matQty
+        this.materialUpdate.push(this.materialList[i]);
+      }
+      }
+    }
+    //  for(var j =0 ;j<this.materialList.length;i++){
+    //   for(var i=0;i<data.length;i++){
+    //     if(data[i].uuid == this.materialList[j].uuid){
+    //         this.materialUpdate.push(this.materialList[j]);
+    //     }
+    //   }
+    // }
+     
+    this.firstFormGroup.patchValue({
+      materialList:this.materialUpdate
+    })  
+    console.log(JSON.stringify(this.firstFormGroup.value))
+  }
   updateForm(data){
     this.firstFormGroup = this.fb.group({
       materialName: [data.name, [
@@ -116,8 +144,13 @@ this.createForm();
        companyuuid:[data.underCompany],
        hsnCode:[data.hsnCode],
        unit:[data.unit],
+       isProduct:[data.isProduct],
+       materialList:[],
        taxRate:[data.taxRate] 
     });
+    if(data.isProduct){
+      this.materialUpdateList(data.productMaterial);
+    }
     if(data.materialPic){
       this.materialPic.push({name:data.materialPic.split('/')[data.materialPic.split('/').length -1]})
 
@@ -155,6 +188,8 @@ this.createForm();
         message:res.message
       }
      this.dialog.confirm(dataJson);
+     this.Router.navigate(['material'])
+
     }) 
   }
 }

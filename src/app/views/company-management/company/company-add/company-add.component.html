@@ -1,18 +1,20 @@
 <mat-card class="p-0">
   <mat-card-title class="">
-    <div class="card-title-text">Company {{pageType}}</div>
+    <div class="card-title-text"> {{pageType}}</div>
     <mat-divider></mat-divider>
   </mat-card-title>
   <mat-card-content>
     <mat-horizontal-stepper [linear]="true">
       <mat-step [stepControl]="firstFormGroup">
-        <ng-template matStepLabel>Company Address Info</ng-template>
+        <ng-template matStepLabel>{{selectPage}} Address Info</ng-template>
 
-        <form [formGroup]="firstFormGroup">
+        <form [formGroup]="firstFormGroup" >
+
           <div fxLayout="row wrap">
+           
             <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
               <mat-form-field appearance="outline">
-                <mat-label>Company Name</mat-label>
+                <mat-label>{{selectPage}} Name</mat-label>
                 <input matInput placeholder="Placeholder"  formControlName="name"   >
                 
               </mat-form-field>
@@ -78,12 +80,13 @@
 
           </div>
           <div>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <!-- <input type="button" value ="Next" color="primary" mat-raised-button matStepperNext> -->
+            <!-- <button mat-raised-button color="primary"  (click)="$event.stopPropagation()">Next</button> -->
           </div>
         </form>
       </mat-step>
       <mat-step [stepControl]="secondFormGroup">
-        <ng-template matStepLabel>Company Tax Info</ng-template>
+        <ng-template matStepLabel>{{selectPage}} Tax Info</ng-template>
 
         <form [formGroup]="secondFormGroup">
           <div fxLayout="row wrap">
@@ -111,9 +114,9 @@
               </mat-form-field>
             </div>
            
-            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25"  *ngIf ="pagedatatype == 1" >
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25"  *ngIf ="pagedatatype == 1 " >
                  <mat-form-field appearance="outline"  >
-                  <mat-label>Company Type</mat-label>
+                  <mat-label>{{selectPage}} Type</mat-label>
                   <mat-select  formControlName="type"  (selectionChange)="selectType()">
  
                      <mat-option  [value]="'Group'">Group </mat-option>
@@ -123,10 +126,10 @@
                   </mat-select>
                 </mat-form-field>                
              </div>
-             <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20"  *ngIf ="secondFormGroup.value.type == 'Group'">
+             <!-- <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20"  *ngIf ="secondFormGroup.value.type == 'Group'">
               <mat-checkbox  formControlName="iscompany">Is Company</mat-checkbox>
-            </div>
-            <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3" *ngIf =" secondFormGroup.value.type != 'All'">
+            </div> -->
+            <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3" *ngIf =" secondFormGroup.value.type != 'All' && showparent">
               <mat-form-field appearance="outline" >
                <mat-label>Select Parent Company</mat-label>
                <mat-select  formControlName="parentuuid" >
@@ -159,28 +162,12 @@
 
               </mat-select>
            </mat-form-field>                
-        </div>
-          <!-- <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20">
-
-            <mat-checkbox  >Is Managed By</mat-checkbox>
-            </div>
-            <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="30">
-            
-              <mat-form-field appearance="outline" >
-                <mat-label>Select Company</mat-label>
-                <mat-select>
-                  <mat-option>None</mat-option>
-                
-
-                  
-                </mat-select>
-              </mat-form-field>
-              </div> -->
+        </div> 
             </div>
             <div>
-              <button mat-raised-button color="accent" matStepperPrevious style="margin-right: 5px;">Back</button>
+              <!-- <button mat-raised-button color="accent" matStepperPrevious  style="margin-right: 5px;">Back</button>
 
-              <button mat-raised-button color="primary" matStepperNext>Next</button>
+              <button mat-raised-button color="primary" matStepperNext>Next</button> -->
             </div>
         </form>
       </mat-step>
@@ -191,10 +178,10 @@
         </div>
         <div class="pb-1 mb-1"> You Are Done.</div>
         <div fxLayout="row">
-          <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+          <!-- <button mat-raised-button color="accent" matStepperPrevious>Back</button> -->
           <span fxFlex="8px"></span>
-          <button mat-raised-button color="primary" (click)="createCompany();" *ngIf ="pageType == 'Add'">Submit</button>
-          <button mat-raised-button color="primary" (click)="updateCompany();" *ngIf ="pageType != 'Add'">Update</button>
+          <button mat-raised-button color="primary" (click)="createCompany();" *ngIf ="showAdd == 'Add'">Submit</button>
+          <button mat-raised-button color="primary" (click)="updateCompany();" *ngIf ="showAdd != 'Add'">Update</button>
 
         </div>
       </mat-step>

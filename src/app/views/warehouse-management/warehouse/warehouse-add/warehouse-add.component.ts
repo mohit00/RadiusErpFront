@@ -28,8 +28,15 @@ export class WarehouseAddComponent implements OnInit {
         this.updateForm(res);
      })
   }
+  userdata:any;
   ngOnInit() {
-this.getCompanyList()
+    this.userdata = JSON.parse(sessionStorage.getItem('user'));
+    if(this.userdata.role == 'Admin'){
+      this.getCompanyList()
+
+    }else{
+      
+    }
  this.href = this.Router.url;
 if (this.href == '/warehouse/Update') {
   this.pageType = "Update"

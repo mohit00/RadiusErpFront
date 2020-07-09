@@ -48,19 +48,27 @@ export class WorkorderComponent implements OnInit {
       }); 
        })
   }
+  selectedgCompany:any;
+  companygLists:any;
+  companyUnderList(){
+    this.companyService.companyUnderList(this.selectedgCompany).subscribe(res=>{
+       this.companygLists = res.data.filter((data)=>{
+        if(data.type.toLowerCase() != 'vendor'){
+          return true
+        }else{
+          return false;
+        }
+      }); 
+       })
+  }
   selectedCompany:any;
   selectedSiteCompany:any;
   change(data){
   
-    if(this.selectedCompany && this.selectedSiteCompany){
-      
-     
-      this.service.workorderBothComGet(this.selectedCompany,this.selectedSiteCompany).subscribe(res=>{
-       
-        this.rows= this.temp =  res.data;
-     
-         })
-        
+    if(this.selectedCompany && this.selectedSiteCompany){ 
+      this.service.workorderBothComGet(this.selectedSiteCompany,this.selectedCompany).subscribe(res=>{ 
+        this.rows= this.temp =  res.data; 
+         }) 
     }else{
       if(data =='company'){
         this.getWorkorderCompanyList(this.selectedCompany)
@@ -71,8 +79,29 @@ export class WorkorderComponent implements OnInit {
       }
     }
   }
+  groupCompanyList(){
+    this.companyService.companyList().subscribe(res=>{
+      this.companyLists = res.data.filter((data)=>{
+        if(data.type.toLowerCase() == 'group'){
+          return true
+        }else{
+          return false;
+        }
+      }); 
+    })
+  }
+  userdata:any;
   ngOnInit() {
-  this.companyList();
+    this.userdata = JSON.parse(sessionStorage.getItem('user'));
+    if(this.userdata.role =='Admin'){
+      this.companyList();
+
+    }else{
+      
+      this.groupCompanyList();
+        this.change('company')
+        this.selectedCompany =' ';
+    }
   }
   updateFilter(event) {
     const val = event.target.value.toLowerCase();

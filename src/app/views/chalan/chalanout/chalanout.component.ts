@@ -34,23 +34,29 @@ export class ChalanoutComponent implements OnInit {
       }); 
        })
   }
-  selectedCompany:any;
+  selectedCompany:any ='';
   selectedSiteCompany:any;
   change(data){
   
-    if(this.selectedCompany ){
+  
       
      
-      this.service.chalanOutList(this.selectedCompany).subscribe(res=>{
+      this.service.chalanOutApproveList(false,this.selectedCompany).subscribe(res=>{
        
         this.rows= this.temp =  res.data;
      
          })
-        
-    } 
+         
   }
+  userdata:any;
   ngOnInit() {
-  this.companyList();
+    this.userdata = JSON.parse(sessionStorage.getItem('user'));
+    if(this.userdata.role =='Admin'){
+      this.companyList();
+
+    }else{
+      this.change('')
+    }
   }
   updateFilter(event) {
     const val = event.target.value.toLowerCase();

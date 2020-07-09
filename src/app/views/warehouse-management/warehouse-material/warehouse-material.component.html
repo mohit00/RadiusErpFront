@@ -9,8 +9,8 @@
     <form [formGroup]="firstFormGroup">
       <div fxLayout="row wrap">
         
-        <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3">
-          <mat-form-field appearance="outline">
+        <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3" *ngIf ="userdata.role == 'Admin'">
+          <mat-form-field appearance="outline" >
             <mat-label>Company Material</mat-label>
             <mat-select    formControlName="companyuuid"  (selectionChange)="getCompanyMaterial()">
               <mat-option *ngFor ="let list of companyList" [value] ="list.uuid" >{{list.name}}  </mat-option>

@@ -17,7 +17,9 @@
     <mat-label>Select Company</mat-label>
 
     <mat-select (selectionChange)="change($event)" [(ngModel)] = "selectedCompany">
-     
+      <mat-option  [value]="'all'">
+        All
+      </mat-option>
       <mat-option *ngFor="let list of CompanyList" [value]="list.uuid">
         {{list.name}}
       </mat-option>
@@ -41,7 +43,7 @@
      </mat-select>
    </mat-form-field>                
 </div> -->
-<div fxFlex="100" fxFlex  >
+<div   fxFlex  >
 
 <mat-form-field class="margin-333" style="width: 100%">
   <input 

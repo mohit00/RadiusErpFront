@@ -37,8 +37,15 @@ export class VerticalComponent implements OnInit {
      this.getDepartmentList(this.selectedCompany)
 
   }
+  userdata:any;
   ngOnInit() {
+    this.userdata = JSON.parse(sessionStorage.getItem('user'));
+    if(this.userdata.role == 'Admin'){
+
   this.companyList();
+    }else{
+      this.change('');
+    }
   }
   updateFilter(event) {
     const val = event.target.value.toLowerCase();

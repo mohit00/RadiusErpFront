@@ -30,11 +30,49 @@ export class WorkorderService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
   }
+  
+  workorderGetByPm( ): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.get(environment.LOCAL_BASE + `workorder/getpmwo`,    {
+      headers: headerJson 
+    }).pipe(
+      // eg. "map" without a dot before
+      map(data => {
+        return data;
+      }),
+      // "catchError" instead "catch"
+      catchError(error => {
+        
+        return Observable.throw(error);
+      })
+    );
+  }
+  chalanworkorderGetByPm( data): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.get(environment.LOCAL_BASE + `pm/list/${data}`,    {
+      headers: headerJson 
+    }).pipe(
+      // eg. "map" without a dot before
+      map(data => {
+        return data;
+      }),
+      // "catchError" instead "catch"
+      catchError(error => {
+        
+        return Observable.throw(error);
+      })
+    );
+  }
+  
   paymentTermDetail(data ): Observable<any> {
     let headerJson = {
       'authorization': 'Bearer ' + sessionStorage.getItem("access")
@@ -48,7 +86,7 @@ export class WorkorderService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -64,7 +102,7 @@ export class WorkorderService {
         return data;
       }),
        catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -83,7 +121,7 @@ export class WorkorderService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -103,7 +141,7 @@ export class WorkorderService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -121,7 +159,7 @@ export class WorkorderService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -137,7 +175,7 @@ export class WorkorderService {
         return data;
       }),
        catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -156,7 +194,7 @@ export class WorkorderService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -176,7 +214,7 @@ export class WorkorderService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -194,7 +232,7 @@ export class WorkorderService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -212,7 +250,7 @@ export class WorkorderService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -230,7 +268,7 @@ export class WorkorderService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );
@@ -248,7 +286,7 @@ export class WorkorderService {
       }),
       // "catchError" instead "catch"
       catchError(error => {
-        alert("Something went wrong ;)");
+        
         return Observable.throw(error);
       })
     );

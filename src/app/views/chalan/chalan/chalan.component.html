@@ -9,7 +9,7 @@
   Create Chalan
   </button>
   <div fxLayout="row wrap">
-    <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="100">
+    <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="100" *ngIf ="userdata.role =='Admin'">
       <mat-form-field class="margin-333"  >
           <mat-label>Select Company</mat-label>
           <mat-select (selectionChange)="change('company')" [(ngModel)] = "selectedCompany">
@@ -21,7 +21,7 @@
     </div>
      
 
-<div fxFlex="100" fxFlex.gt-sm="40" fxFlex.sm="100">
+<div fxFlex >
   <mat-form-field class="margin-333" style="width: 100%">
     <input 
     matInput 
@@ -62,6 +62,10 @@
               ;">
                   <mat-icon>edit</mat-icon>
                 </button>    
+                <button mat-icon-button aria-label="Example icon-button with a heart icon" (click) = "report(row.uuid)" style="float: left
+                ;">
+                    <mat-icon>remove_red_eye</mat-icon>
+                  </button>
            </ng-template>
         </ngx-datatable-column>
     </ngx-datatable>

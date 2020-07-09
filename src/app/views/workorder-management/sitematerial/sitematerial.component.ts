@@ -22,9 +22,17 @@ export class SitematerialComponent implements OnInit {
     })
   }
   companyLists:any;
+  companygLists:any;
   companyList(){
     this.companyService.companyList().subscribe(res=>{
-      this.companyLists = res.data.filter((data)=>{
+       this.companyLists = res.data.filter((data)=>{
+        if(data.type.toLowerCase() != 'vendor' && data.type.toLowerCase() != 'site'){
+          return true
+        }else{
+          return false;
+        }
+      }); 
+      this.companygLists = res.data.filter((data)=>{
         if(data.type.toLowerCase() == 'site'){
           return true
         }else{
@@ -33,13 +41,31 @@ export class SitematerialComponent implements OnInit {
       }); 
        })
   }
+  companyUnderList(){
+    this.companyService.companyUnderList(this.selectedgCompany).subscribe(res=>{
+       this.companygLists = res.data.filter((data)=>{
+        if(data.type.toLowerCase() != 'vendor'){
+          return true
+        }else{
+          return false;
+        }
+      }); 
+       })
+  }
   selectedCompany:any;
+  selectedgCompany:any ;
   change(data){
      this.getpaymenTermList(this.selectedCompany)
 
   }
+  userdata:any;
   ngOnInit() {
-  this.companyList();
+    this.userdata = JSON.parse(sessionStorage.getItem('user'));
+    this.companyList();
+
+    if(this.userdata.role =='Admin'){
+
+    }
   }
   updateFilter(event) {
     const val = event.target.value.toLowerCase();

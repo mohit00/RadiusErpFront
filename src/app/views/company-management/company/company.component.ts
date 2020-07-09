@@ -44,7 +44,7 @@ export class CompanyComponent implements OnInit {
   CompanyList:any;
   getCompanyList(){
     this.service.companyList().subscribe(res=>{
-       if(this.selectedType == 'Client'){
+        if(this.selectedType == 'Client'){
         this.CompanyList = res.data.filter(res=>{
             if(res.type != 'Vendor'){return true}else return false
         })
@@ -59,19 +59,30 @@ export class CompanyComponent implements OnInit {
       }
    this.rows= this.temp =  res.data;
    if( this.showCompany){
-    this.selectedCompany = this.CompanyList[0].uuid
-    this.change(this.selectedCompany)
+    // this.selectedCompany = this.CompanyList[0].uuid
+    // this.change(this.selectedCompany)
 
    }
    if(this.selectedType){
-    this.rows = this.temp= this.rows.filter((data)=>{
-      if(data.type == this.selectedType){
-        return true
-      }else{
-        return false;
-      }
-    })
-    
+  
+    if(this.selectedType == 'Client'){
+     this.rows = this.temp= this.rows.filter((data)=>{
+       if(!data.iscompany && data.type != 'Vendor'){
+         return true
+       }else{
+         return false;
+       }
+     })
+    }else{
+     this.rows = this.temp= this.rows.filter((data)=>{
+       if(data.type == this.selectedType){
+         return true
+       }else{
+         return false;
+       }
+     })
+    }
+ 
   }
 
     })
@@ -124,7 +135,7 @@ export class CompanyComponent implements OnInit {
       this.showCompany = true
     }else if(this.href == '/company/Vendor'){
       this.selectedType = 'Vendor'
-      this.showCompany = true
+      this.showCompany = false
       this.urlAdd = '/company/Vendor/Add'
       this.urlUpdate = '/company/Vendor/Update'
 

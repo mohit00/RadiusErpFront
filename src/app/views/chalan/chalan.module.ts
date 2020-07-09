@@ -13,9 +13,12 @@ import { ChalanoutComponent } from './chalanout/chalanout.component';
 import { ChalanpmAddComponent } from './chalanpm/chalanpm-add/chalanpm-add.component';
 import { ChalanoutAddComponent } from './chalanout/chalanout-add/chalanout-add.component';
 import { ChalanOutReportComponent } from './chalan-out-report/chalan-out-report.component';
+import { ChalanApproveComponent } from './chalan-approve/chalan-approve.component';
+import { ChalanApproveDetailComponent } from './chalan-approve/chalan-approve-detail/chalan-approve-detail.component';
+import { ChalanInReportComponent } from './chalan-in-report/chalan-in-report.component';
 
 @NgModule({
-  declarations: [ChalanComponent,ChalanAddComponent, ChalanpmComponent, ChalanoutComponent, ChalanpmAddComponent, ChalanoutAddComponent, ChalanOutReportComponent],
+  declarations: [ChalanComponent,ChalanAddComponent, ChalanpmComponent, ChalanoutComponent, ChalanpmAddComponent, ChalanoutAddComponent, ChalanOutReportComponent, ChalanApproveComponent, ChalanApproveDetailComponent, ChalanInReportComponent],
   imports: [
     CommonModule,
     ChalanRoutingModule,SharedMaterialModule,NgxDatatableModule,FlexLayoutModule,

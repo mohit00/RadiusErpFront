@@ -38,7 +38,7 @@ export class ChalanComponent implements OnInit {
   selectedSiteCompany:any;
   change(data){
   
-    if(this.selectedCompany ){
+     
       
      
       this.service.chalanList(this.selectedCompany).subscribe(res=>{
@@ -47,10 +47,22 @@ export class ChalanComponent implements OnInit {
      
          })
         
-    } 
+   
   }
+  userdata:any;
   ngOnInit() {
-  this.companyList();
+    this.userdata = JSON.parse(sessionStorage.getItem('user'));
+    if(this.userdata.role =='Admin'){
+      this.companyList();
+
+    }else{
+      this.change('');
+    }
+  }
+  report(data){
+    sessionStorage.setItem("chalaninuuid",data);
+    this.router.navigate(['chalan/report/chalan/in'])
+
   }
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
