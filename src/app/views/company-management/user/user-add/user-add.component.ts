@@ -73,6 +73,7 @@ export class UserAddComponent implements OnInit {
     this.firstFormGroup = this.fb.group({
       name: [data.name, [
       ]],
+      uuid:[data.uuid],
       email: [data.email, [
       ]],
       password: ['', [
@@ -127,6 +128,7 @@ export class UserAddComponent implements OnInit {
     })
   }
   updateDepartment() {
+    console.log(JSON.stringify(this.firstFormGroup.value))
     this.AppLoaderService.open();
 
     this.userService.userUpdate(this.firstFormGroup.value).subscribe(res => {

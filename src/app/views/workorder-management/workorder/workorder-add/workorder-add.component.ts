@@ -59,7 +59,9 @@ export class WorkorderAddComponent implements OnInit {
       deptuuid: [data.departmentuuid, [
       ]],
       paymentTerm: ['', [
-      ]]
+      ]],
+      wareuuid:[data.wareuuid]
+
 
     });
   

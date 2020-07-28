@@ -131,7 +131,7 @@
             </div> -->
             <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3" *ngIf =" secondFormGroup.value.type != 'All' && showparent">
               <mat-form-field appearance="outline" >
-               <mat-label>Select Parent Company</mat-label>
+               <mat-label>Select Parent Group</mat-label>
                <mat-select  formControlName="parentuuid" >
                  
                 <mat-option  *ngFor ="let list of companyLists" [value]="list.uuid">{{list.name}} </mat-option>
@@ -154,15 +154,7 @@
                 </mat-select>
              </mat-form-field>                
           </div> -->
-          <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3" *ngIf ="secondFormGroup.value.isparent && secondFormGroup.value.type == 'Site'">
-            <mat-form-field appearance="outline" >
-             <mat-label>Select Parent Client</mat-label>
-             <mat-select  formControlName="parentuuid" >
-              <mat-option  *ngFor ="let list of clientCompany" [value]="list.uuid">{{list.name}} </mat-option>
-
-              </mat-select>
-           </mat-form-field>                
-        </div> 
+       
             </div>
             <div>
               <!-- <button mat-raised-button color="accent" matStepperPrevious  style="margin-right: 5px;">Back</button>

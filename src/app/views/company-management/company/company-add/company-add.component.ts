@@ -102,8 +102,8 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
   companyListData:any = [];
   async companyList() {
 
-    this.CompanyService.companyList().subscribe(res => {
-      this.companyLists = res.data ;
+    this.CompanyService.companyList().subscribe(res => { 
+       this.companyLists = res.data ;
       this.companyListData = res.data
    
     })
@@ -219,7 +219,33 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
           message: res.message
         }
         this.dialog.confirm(datasend).subscribe(res1 => {
-          this.Router.navigate(['company'])
+         
+          if (this.href == '/company/Update') {
+            this.Router.navigate(['company'])
+
+      
+          }
+           if (this.href == '/company/Add') {
+            this.Router.navigate(['company'])
+
+          }else
+          if (this.href == '/company/Client/Add') {
+            this.Router.navigate(['company/Client'])
+
+          }else if (this.href == '/company/Vendor/Add') {
+            this.Router.navigate(['company/Vendor'])
+
+      
+          }
+          
+          if (this.href == '/company/Client/Update') {
+            this.Router.navigate(['company/Client'])
+      
+            this.pagedatatype = 1;
+          }else if (this.href == '/company/Vendor/Update') {
+            this.Router.navigate(['company/Vendor'])
+      
+          }
         });
       }
       this.AppLoaderService.close(); 
@@ -286,6 +312,12 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
   companyDetail() {
     this.CompanyService.companyDetail(sessionStorage.getItem("companySelecteduuid")).subscribe(res => {
       this.companyDetailS = res.data;
+      if(res.data.parentuuid && res.data.type == "Site"){
+        this.showparent = true;
+      }else{
+        this.showparent = false;
+
+      }
       this.updateForm(this.companyDetailS); 
     })
   }

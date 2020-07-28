@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../company.service';
 import { Router } from '@angular/router';
+import { AppConfirmService } from '../../../shared/services/app-confirm/app-confirm.service';
 
 @Component({
   selector: 'app-company',
@@ -13,11 +14,53 @@ export class CompanyComponent implements OnInit {
   selectedCompany:any ='all';
   selectedType:any;
   href: string;
-  constructor(private router:Router,private service:CompanyService) {
+  constructor(private router:Router,private service:CompanyService,private dialog :AppConfirmService) {
     this.selectedType = ''
     this.currenturl = router.url;
     if(this.currenturl == '/company/Add'){}
    }
+   file:any= [];;
+   handleFileInput(files: any) { 
+    this.file = files
+    var fds = new FormData();
+    fds.append("files",this.file[0]);
+    if(this.currenturl == '/company/Client'){
+      this.service.companyUpload('Client',fds).subscribe(res=>{
+        let datasend = {
+          title: 'Success',
+          message: "Successfully Updated"
+        }
+        this.dialog.confirm(datasend).subscribe(res1 => {
+          this.ngOnInit();
+        })
+      });
+    }else if(this.currenturl == '/company/Vendor'){
+       this.service.companyUpload('Vendor',fds).subscribe(res=>{
+        let datasend = {
+          title: 'Success',
+          message: "Successfully Updated"
+        }
+        this.dialog.confirm(datasend).subscribe(res1 => {
+          this.ngOnInit();
+        })
+      })
+    }else{
+       this.service.companyUpload('Company',fds).subscribe(res=>{
+        let datasend = {
+          title: 'Success',
+          message: "Successfully Updated"
+        }
+        this.dialog.confirm(datasend).subscribe(res1 => {
+          this.ngOnInit();
+        })
+      })
+    }
+
+      //  for(var i=0;i<files.length;i++){
+      //   this.materialPic.push(files[i])
+       
+      // } 
+  }
    change(data){
     if(this.selectedCompany == 'all'){
       this.getCompanyList()
@@ -36,6 +79,9 @@ export class CompanyComponent implements OnInit {
       this.companyUnderList(this.selectedCompany);
     }
 
+
+   }
+   companyUpload(){
 
    }
   rows = [];

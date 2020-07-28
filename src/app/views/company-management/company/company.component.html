@@ -1,5 +1,36 @@
 
 <div class="m-033">
+  <button  mat-button     mat-raised-button 
+  color="primary"
+  [matMenuTriggerFor]="menu"  style="margin-bottom: 10px;margin-left: 10px; float:right; ;"><span class="material-icons">
+    menu
+    </span></button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item >
+      <a href ="assets/Company Management Sample.xlsx" target="_blank">
+      <span class="material-icons" style="float: left;
+      margin-top: 9px;
+      color: black;
+      margin-right: 10px;
+ 
+  ">
+      cloud_download
+      </span> Download Sample
+    </a></button>
+    <div class="upload-btn-wrapper" mat-menu-item style="width: 100%;">
+      <span class="btn">
+        <span class="material-icons" style="float: left;
+        margin-top: 9px;
+        color: black;
+        margin-right: 10px;
+    ">
+        cloud_upload
+        </span> 
+        Upload Excel</span>
+      <input type="file" name="myfile"   (change)="handleFileInput($event.target.files)"/>
+    </div>
+     
+  </mat-menu>
   <button
     mat-raised-button
     color="primary"
@@ -10,6 +41,7 @@
   Add
 
   </button>
+ 
   <div fxLayout="row wrap">
     <div fxFlex="100" fxFlex  >
 
