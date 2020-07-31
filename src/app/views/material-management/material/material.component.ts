@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { materialService } from '../material.serivce';
 import { CompanyService } from '../../company-management/company.service';
+import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 
 @Component({
   selector: 'app-material',
@@ -9,8 +10,39 @@ import { CompanyService } from '../../company-management/company.service';
   styleUrls: ['./material.component.scss']
 })
 export class MaterialComponent implements OnInit {
-  constructor(private router: Router, private service: materialService, private companyService: CompanyService) { }
+  constructor(private router: Router, private service: materialService, private companyService: CompanyService,private dialog :AppConfirmService) { }
   selectedMaterial = 'Both';
+  file:any;
+
+  handleFileInput(files: any) { 
+    this.file = files
+    var fds = new FormData();
+    fds.append("files",this.file[0]);
+    this.service.materialUpload('Material',fds).subscribe(res=>{
+      let datasend = {
+        title: 'Success',
+        message: "Successfully Updated"
+      }
+      this.dialog.confirm(datasend).subscribe(res1 => {
+        this.ngOnInit();
+      })
+
+    })
+  
+  }
+  
+  handleFileInput1(files: any) { 
+    this.file = files
+    var fds = new FormData();
+    fds.append("files",this.file[0]);
+   
+  }
+  uploadMaterialData(){
+
+  }
+  uploadProductData(){
+
+  }
   changetype(data) {
      
     if (this.selectedMaterial == 'Both') { 
