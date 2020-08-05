@@ -35,6 +35,16 @@ export class MaterialComponent implements OnInit {
     this.file = files
     var fds = new FormData();
     fds.append("files",this.file[0]);
+    this.service.materialUpload('Product',fds).subscribe(res=>{
+      let datasend = {
+        title: 'Success',
+        message: "Successfully Updated"
+      }
+      this.dialog.confirm(datasend).subscribe(res1 => {
+        this.ngOnInit();
+      })
+
+    })
    
   }
   uploadMaterialData(){
