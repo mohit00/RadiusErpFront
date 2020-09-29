@@ -145,7 +145,8 @@ export class ChalanpmAddComponent implements OnInit {
      this.materialData.push(
       {
          materialuuid:  (this.firstFormGroup.value.materialId).uuid ,
-        name: (this.firstFormGroup.value.materialId).name 
+        name: (this.firstFormGroup.value.materialId).name,
+        description:(this.firstFormGroup.value.materialId).description
         })
   }
 
