@@ -143,6 +143,27 @@ export class warehouseService {
       })
     );
   }
+  uploadWare( type,fd): Observable<any> {
+
+
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.post(environment.LOCAL_BASE + `excel/${type}`,fd,   {
+      headers: headerJson 
+      
+    }).pipe(
+      // eg. "map" without a dot before
+      map(data => {
+        return data;
+      }),
+      // "catchError" instead "catch"
+      catchError(error => {
+        
+        return Observable.throw(error);
+      })
+    );
+  }
   handleError = (e) => {
   }
 }

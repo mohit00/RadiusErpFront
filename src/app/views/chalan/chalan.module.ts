@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+ 
 import { ChalanRoutingModule } from './chalan-routing.module';
 import {ChalanComponent} from './chalan/chalan.component'
 import {ChalanAddComponent} from './chalan/chalan-add/chalan-add.component'
@@ -16,13 +16,14 @@ import { ChalanOutReportComponent } from './chalan-out-report/chalan-out-report.
 import { ChalanApproveComponent } from './chalan-approve/chalan-approve.component';
 import { ChalanApproveDetailComponent } from './chalan-approve/chalan-approve-detail/chalan-approve-detail.component';
 import { ChalanInReportComponent } from './chalan-in-report/chalan-in-report.component';
+ import { ReportComponent } from './chalanpm/report/report.component';
 
 @NgModule({
-  declarations: [ChalanComponent,ChalanAddComponent, ChalanpmComponent, ChalanoutComponent, ChalanpmAddComponent, ChalanoutAddComponent, ChalanOutReportComponent, ChalanApproveComponent, ChalanApproveDetailComponent, ChalanInReportComponent],
+  declarations: [ChalanComponent,ChalanAddComponent, ChalanpmComponent, ChalanoutComponent, ChalanpmAddComponent, ChalanoutAddComponent, ChalanOutReportComponent, ChalanApproveComponent, ChalanApproveDetailComponent, ChalanInReportComponent, ReportComponent],
   imports: [
     CommonModule,
     ChalanRoutingModule,SharedMaterialModule,NgxDatatableModule,FlexLayoutModule,
     FormsModule, ReactiveFormsModule
-  ]
+  ],
 })
 export class ChalanModule { }

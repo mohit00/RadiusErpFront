@@ -11,14 +11,24 @@
 
         <form [formGroup]="firstFormGroup">
           <div fxLayout="row wrap">
-            <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3">
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25" >
+              <mat-form-field appearance="outline"  >
+                  <mat-label>Select PO Type</mat-label>
+                  <mat-select  formControlName="poType"  >
+                    <mat-option value="Purchase">Purchase Order</mat-option>
+                    <mat-option value ="Service">Service Order</mat-option>
+        
+                  </mat-select>
+                </mat-form-field>
+            </div> 
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
               <mat-form-field appearance="outline">
                 <mat-label>PO No.</mat-label>
                 <input matInput placeholder="Placeholder" formControlName="chalanPONo">
 
               </mat-form-field>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3" *ngIf="userdata.role =='Admin'">
+            <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="25" *ngIf="userdata.role =='Admin'">
               <mat-form-field appearance="outline">
                 <mat-label>Select Company</mat-label>
                 <mat-select formControlName="parentCompany" (selectionChange)="change($event)">
@@ -26,7 +36,15 @@
                 </mat-select>
               </mat-form-field>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3">
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+              <mat-form-field appearance="outline">
+                <mat-label>Select po Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="poDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
               <mat-form-field appearance="outline">
                 <mat-label>Select Client</mat-label>
                 <mat-select formControlName="vendor">
@@ -34,13 +52,17 @@
                 </mat-select>
               </mat-form-field>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3">
+            <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
               <div fxLayout="row wrap">
                 <div fxFlex="100" fxFlex.gt-sm="80" fxFlex.sm="80">
                   <mat-form-field appearance="outline">
                     <mat-label>Select Material</mat-label>
                     <mat-select formControlName="materialId">
-                      <mat-option *ngFor="let list of materialList" [value]="list">{{list.name}} ({{list.description}}) </mat-option>
+                      <mat-option>
+                      <ngx-mat-select-search [(ngModel)]="searchCtrl" [placeholderLabel]="'Search...'"
+                      [noEntriesFoundLabel]="'Not found'" name="search"  [ngModelOptions]="{standalone: true}"></ngx-mat-select-search>
+                      </mat-option>
+                      <mat-option *ngFor="let list of materialList  |stringFilterBy:searchCtrl:'name'" [value]="list">{{list.name}} ({{list.description}}) </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -64,7 +86,7 @@
                   </tr>
                 </thead>
                 <tbody *ngIf="materialData.length>0; else paymentTermNoData">
-                  <tr *ngFor="let item of materialData;let index = index">
+                  <tr *ngFor="let item of materialData ;let index = index">
                     <td>{{ item.name }}</td>
                     <td>{{item.description}}</td>
                     <td nowrap>
@@ -79,7 +101,7 @@
                     <td nowrap>
                       <mat-form-field appearance="outline">
                         <mat-label>Cost</mat-label>
-                        <input matInput placeholder="Placeholder" type="number" [(ngModel)]="item.materialcost"
+                        <input matInput placeholder="Placeholder" type="number" step=".01" [(ngModel)]="item.materialcost"
                           [ngModelOptions]="{standalone: true}">
 
 
@@ -161,11 +183,13 @@
   
                 <mat-form-field class="margin-333" appearance="outline" >
                   <mat-label>Payment Term</mat-label>
-                  <mat-select  multiple   [(ngModel)]= "selectedPayment"  [ngModelOptions]="{standalone: true}">
+                  <input matInput placeholder="Placeholder"  [ngModelOptions]="{standalone: true}" [(ngModel)]= "selectedPayment"> 
+
+                  <!-- <mat-select  multiple   [(ngModel)]= "selectedPayment"  [ngModelOptions]="{standalone: true}">
                     <mat-option *ngFor="let list of paymentList" [value]="list.name">
                       {{list.name}}
                     </mat-option>
-                  </mat-select>
+                  </mat-select> -->
                 </mat-form-field>
                 </div>
                 <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20">
@@ -199,8 +223,8 @@
             <td nowrap>
   
   
-              <button mat-raised-button color="warn" class="mx-4" (click)="remove(index)">
-                <mat-icon aria-hidden="false" aria-label="Example home icon" (click) ="addPaymentTerm();" style="  cursor: pointer;">delete_sweep</mat-icon>
+              <button mat-raised-button color="warn" class="mx-4" (click)="removePayTerm(index)">
+                <mat-icon aria-hidden="false" aria-label="Example home icon"   style="  cursor: pointer;">delete_sweep</mat-icon>
   
               </button>
              </td>

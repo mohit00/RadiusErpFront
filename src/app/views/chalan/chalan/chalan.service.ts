@@ -17,12 +17,59 @@ export class ChalanService {
   constructor(private _http: HttpClient, private router: Router
     // tslint:disable-next-line: no-shadowed-variable
   ) { }
-          
+  htmlTOPdf(data ): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.post(environment.LOCAL_BASE + `report/pdf`,data,    {
+      headers: headerJson 
+    }).pipe(
+       map(data => {
+        return data;
+      }),
+       catchError(error => {
+        
+        return Observable.throw(error);
+      })
+    );
+  }     
   chalanCreate(data ): Observable<any> {
     let headerJson = {
       'authorization': 'Bearer ' + sessionStorage.getItem("access")
     };  
     return this._http.post(environment.LOCAL_BASE + `chalan/create`,data,    {
+      headers: headerJson 
+    }).pipe(
+       map(data => {
+        return data;
+      }),
+       catchError(error => {
+        
+        return Observable.throw(error);
+      })
+    );
+  }
+  chalanUpdate(data ): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.put(environment.LOCAL_BASE + `chalan/update`,data,    {
+      headers: headerJson 
+    }).pipe(
+       map(data => {
+        return data;
+      }),
+       catchError(error => {
+        
+        return Observable.throw(error);
+      })
+    );
+  }
+  chalanDetail(data ): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.get(environment.LOCAL_BASE + `chalan/detail/${data}`,    {
       headers: headerJson 
     }).pipe(
        map(data => {
@@ -146,6 +193,23 @@ export class ChalanService {
       })
     );
   }
+  chalanPoUpdate(data ): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.put(environment.LOCAL_BASE + `chalan/po/update`,data,    {
+      headers: headerJson 
+    }).pipe(
+       map(data => {
+        return data;
+      }),
+       catchError(error => {
+        
+        return Observable.throw(error);
+      })
+    );
+  }
+  
   chalanPoList(companyuuid ): Observable<any> {
     let headerJson = {
       'authorization': 'Bearer ' + sessionStorage.getItem("access")
@@ -215,6 +279,38 @@ export class ChalanService {
       'authorization': 'Bearer ' + sessionStorage.getItem("access")
     };  
     return this._http.get(environment.LOCAL_BASE + `report/chalan/in/${data}`,    {
+      headers: headerJson 
+    }).pipe(
+       map(data => {
+        return data;
+      }),
+       catchError(error => {
+        
+        return Observable.throw(error);
+      })
+    );
+  }
+  chalanPoreportData(data ): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.get(environment.LOCAL_BASE + `report/chalan/po/${data}`,    {
+      headers: headerJson 
+    }).pipe(
+       map(data => {
+        return data;
+      }),
+       catchError(error => {
+        
+        return Observable.throw(error);
+      })
+    );
+  }
+  chalanPoDeleteData(data ): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.delete(environment.LOCAL_BASE + `chalan/po/delete/${data}`,    {
       headers: headerJson 
     }).pipe(
        map(data => {

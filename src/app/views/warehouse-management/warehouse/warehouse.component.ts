@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CompanyService} from '../../company-management/company.service'
 import {warehouseService} from '../warehouse.service'
 import { Router } from '@angular/router';
+import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 
 @Component({
   selector: 'app-warehouse',
@@ -25,7 +26,7 @@ export class WarehouseComponent implements OnInit {
       });
     })
   }
-  constructor(private Router:Router,private CompanyService:CompanyService,private warehouseService:warehouseService) { }
+  constructor(private Router:Router,private CompanyService:CompanyService,private warehouseService:warehouseService,private dialog :AppConfirmService) { }
 
   userdata:any;
   ngOnInit() {
@@ -36,6 +37,23 @@ export class WarehouseComponent implements OnInit {
     }else{
       this.change('');
     }
+  }
+  file:any;
+  handleFileInput(files: any) { 
+    this.file = files
+    var fds = new FormData();
+    fds.append("files",this.file[0]);
+    this.warehouseService.uploadWare('warehouse',fds).subscribe(res=>{
+      let datasend = {
+        title: 'Success',
+        message: "Successfully Updated"
+      }
+      this.dialog.confirm(datasend).subscribe(res1 => {
+        this.ngOnInit();
+      })
+
+    })
+  
   }
   change(event){
     this.warehouseService.warehouseList(this.selectedCompany).subscribe(res=>{

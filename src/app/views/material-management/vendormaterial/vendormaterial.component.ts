@@ -104,12 +104,22 @@ export class VendormaterialComponent implements OnInit {
   //  this.materialList();
  
   }
-  handleFileInput(files: any, type) { 
-    this.materialPic = files
-      //  for(var i=0;i<files.length;i++){
-      //   this.materialPic.push(files[i])
-       
-      // } 
+  file:any;
+  handleFileInput(files: any) { 
+    this.file = files
+    var fds = new FormData();
+    fds.append("files",this.file[0]);
+    this.materialService.uploadVendorMaterial('vendorMaterial',fds).subscribe(res=>{
+      let datasend = {
+        title: 'Success',
+        message: "Successfully Updated"
+      }
+      this.dialog.confirm(datasend).subscribe(res1 => {
+        this.ngOnInit();
+      })
+
+    })
+  
   }
   backToAdd(){
     this.pageType = 'Add'

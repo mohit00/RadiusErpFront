@@ -84,8 +84,8 @@ export class ChalanComponent implements OnInit {
     this.rows = rows;
   }
   paymenTermEdit(data){
-sessionStorage.setItem("workorderSelecteduuid",data);
-this.router.navigate(['workorder/Update'])
+sessionStorage.setItem("chalaninuuid",data);
+this.router.navigate(['chalan/in/Update'])
 
   }
   paymenTermAppend(data){

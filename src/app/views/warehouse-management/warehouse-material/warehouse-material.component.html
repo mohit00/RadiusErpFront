@@ -29,7 +29,11 @@
           <mat-form-field appearance="outline">
             <mat-label>Material</mat-label>
             <mat-select   formControlName="materialuuid" >
-              <mat-option   *ngFor ="let list of materialList" [value] ="list.uuid" >{{list.name}} ({{list.description}}) </mat-option>
+              <mat-option>
+                <ngx-mat-select-search [(ngModel)]="searchCtrl" [placeholderLabel]="'Search...'"
+                [noEntriesFoundLabel]="'Not found'" name="search"  [ngModelOptions]="{standalone: true}"></ngx-mat-select-search>
+                </mat-option>
+              <mat-option   *ngFor ="let list of materialList |stringFilterBy:searchCtrl:'name'" [value] ="list.uuid" >{{list.name}} ({{list.description}}) </mat-option>
             </mat-select>                
 
           </mat-form-field>
@@ -48,7 +52,13 @@
 
           </mat-form-field>
         </div>   
-           
+        <div fxFlex="100" fxFlex.gt-sm="33.3" fxFlex.sm="33.3">
+          <mat-form-field appearance="outline">
+            <mat-label>Quantity</mat-label>
+            <input matInput placeholder="Placeholder" formControlName="materialquantity" type ="number">
+
+          </mat-form-field>
+        </div>    
         
       </div>
       <button mat-raised-button color="primary" (click)="addMaterial();" *ngIf ="pageType == 'Add'">Add</button>

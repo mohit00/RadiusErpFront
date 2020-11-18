@@ -82,6 +82,7 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
       website: ['', [
       ]],
       stateCode:[''],
+      companyEmail:['']
      });
     this.secondFormGroup = this.fb.group({
       PAN: ['', [
@@ -148,22 +149,28 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
   }
   createCompany() { 
     let datajson = { ...this.firstFormGroup.value, ...this.secondFormGroup.value };
- 
-    datajson.country = this.countryList.filter((data) => { return data.id === datajson.country1 })[0].name
-  
- 
-    datajson.state = this.stateList.filter((data) => { return data.id === datajson.state1 })[0].name
-    datajson.city = this.cityList.filter((data) => { return data.id === datajson.city1 })[0].name;
-    datajson.stateCode = this.IndianStatesCode.States.filter(
-      res=>{
- 
-        if(res.name.toLowerCase().trim() == datajson.state.toLowerCase().trim()){
-          return true
-        }else{
-          return false;
+    if(datajson.country1){
+      datajson.country = this.countryList.filter((data) => { return data.id === datajson.country1 })[0].name
+
+    }
+    if(datajson.state1){
+      datajson.state = this.stateList.filter((data) => { return data.id === datajson.state1 })[0].name
+      datajson.stateCode = this.IndianStatesCode.States.filter(
+        res=>{
+   
+          if(res.name.toLowerCase().trim() == datajson.state.toLowerCase().trim()){
+            return true
+          }else{
+            return false;
+          }
         }
-      }
-    )[0].code.toString() ;
+      )[0].code.toString() ;
+    }
+    if(datajson.city1){
+      datajson.city = this.cityList.filter((data) => { return data.id === datajson.city1 })[0].name;
+
+    }
+
      this.AppLoaderService.open();
     this.CompanyService.companyCreate(datajson).subscribe(res => {
       if (res.code == "200") {
@@ -207,9 +214,28 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
   }
   updateCompany() {
     let datajson = { ...this.firstFormGroup.value, ...this.secondFormGroup.value };
-    datajson.country = this.countryList.filter((data) => { return data.id === datajson.country1 })[0].name
-    datajson.state = this.stateList.filter((data) => { return data.id === datajson.state1 })[0].name
-    datajson.city = this.cityList.filter((data) => { return data.id === datajson.city1 })[0].name;
+    if(datajson.country1){
+      datajson.country = this.countryList.filter((data) => { return data.id === datajson.country1 })[0].name
+
+    }
+    if(datajson.state1){
+      datajson.state = this.stateList.filter((data) => { return data.id === datajson.state1 })[0].name
+      datajson.stateCode = this.IndianStatesCode.States.filter(
+        res=>{
+   
+          if(res.name.toLowerCase().trim() == datajson.state.toLowerCase().trim()){
+            return true
+          }else{
+            return false;
+          }
+        }
+      )[0].code.toString() ;
+    }
+    if(datajson.city1){
+      datajson.city = this.cityList.filter((data) => { return data.id === datajson.city1 })[0].name;
+
+    }
+  
     datajson.uuid = this.companyDetailS.uuid;
     this.AppLoaderService.open();
     this.CompanyService.companyUpdate(datajson).subscribe(res => {
@@ -325,7 +351,10 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
   updateForm(data) { 
     let countryid = this.countryList.filter(res => {
       return res.name == data.country
-    })[0].id
+    })
+    if(countryid.length>0){
+      countryid = countryid[0].id
+    }
     let isparent = false;
     if (data.parentuuid) {
       isparent = true;
@@ -363,7 +392,11 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
       zipcode: [data.zipcode, [
       ]],
       phoneNumber: [data.phoneNumber, [
-      ]]
+      ]],
+      companyEmail:[data.companyEmail],
+      website: ['', [
+      ]],
+      stateCode:['']
     });
     this.secondFormGroup = this.fb.group({
       PAN: [data.pan, [

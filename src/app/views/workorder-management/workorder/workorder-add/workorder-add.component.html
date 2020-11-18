@@ -171,7 +171,7 @@
               <div fxFlex="100" fxFlex.gt-sm="80" fxFlex.sm="80">
 
               <mat-form-field class="margin-333" appearance="outline" >
-                <mat-label>Seelct Site Material</mat-label>
+                <mat-label>Select Site Material</mat-label>
                 <mat-select      [(ngModel)]= "selectedSiteMaterial"  [ngModelOptions]="{standalone: true}">
                   <mat-option *ngFor="let list of siteMaterialList" [value]="list.uuid">
                     {{list.name}}
@@ -210,7 +210,7 @@
          
                    <td nowrap> <mat-form-field  appearance="outline">
                     <mat-label>unit</mat-label>
-                    <input matInput placeholder="Placeholder"type ="number"    [(ngModel)]= "item.unit"  [ngModelOptions]="{standalone: true}">
+                    <input matInput placeholder="Placeholder"type ="text"    [(ngModel)]= "item.unit"  [ngModelOptions]="{standalone: true}">
         
                   </mat-form-field></td>  <td nowrap> <mat-form-field  appearance="outline">
                     <mat-label>rate</mat-label>
@@ -229,7 +229,7 @@
                      <button mat-raised-button color="warn" class="mx-4" (click)="removeSite(index)">
                        <mat-icon aria-hidden="false" aria-label="Example home icon"   style="  cursor: pointer;">delete_sweep</mat-icon>
          
-                     </button>
+                      </button>
                     </td>
                  </tr>
                </tbody>
@@ -237,27 +237,9 @@
                  <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
                </ng-template>
              </table>
-            
          </div>
-            <!-- <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20">
-
-            <mat-checkbox  >Is Managed By</mat-checkbox>
-            </div>
-            <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="30">
-            
-              <mat-form-field appearance="outline" >
-                <mat-label>Select Company</mat-label>
-                <mat-select>
-                  <mat-option>None</mat-option>
-                
-
-                  
-                </mat-select>
-              </mat-form-field>
-              </div> -->
           </div>
           <div>
- 
            </div>
         </form>
       </mat-step>
@@ -272,7 +254,6 @@
           <button mat-raised-button color="primary" (click)="createCompany();" *ngIf="pageType == 'Add'">Submit</button>
           <button mat-raised-button color="primary" (click)="updateCompany();" *ngIf="pageType == 'Update'">Update</button>
           <button mat-raised-button color="primary" (click)="Appendwo();" *ngIf="pageType == 'Append'">Append</button>
-
         </div>
       </mat-step>
     </mat-horizontal-stepper>

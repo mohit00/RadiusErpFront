@@ -18,7 +18,7 @@
       <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
         <mat-form-field appearance="outline">
           <mat-label>Select Po</mat-label>
-          <mat-select   formControlName="chalanPONouuid" (selectionChange)="changePo($event)" >
+          <mat-select   formControlName="chalanPONouuid" (selectionChange)="changePo()"  [disabled] ="pageType != 'Add'">
             <mat-option  *ngFor ="let list of poList" [value] ="list.uuid">{{list.chalanNo}} </mat-option>
           </mat-select>                
         </mat-form-field>
@@ -40,7 +40,7 @@
       </div>
       <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
         <mat-form-field appearance="outline">
-          <mat-label>Select Client</mat-label>
+          <mat-label>Select Vendor</mat-label>
           <mat-select   formControlName="vendor" >
             <mat-option  *ngFor ="let list of clinetList" [value] ="list.uuid">{{list.name}} </mat-option>
           </mat-select>                
@@ -55,7 +55,7 @@
              <th>vendor  Quantity</th>
              <th>Quantity Received</th>
 
-             <th>Reached Quantity</th>
+             <th  *ngIf="pageType == 'Add'">Reached Quantity</th>
              <th>Cost</th>
            </tr>
          </thead>
@@ -66,7 +66,7 @@
               {{item.matQty}}</td>
               <td nowrap> 
                 {{item.matSend}}</td>
-             <td nowrap> 
+             <td nowrap  *ngIf="pageType == 'Add'"> 
                <mat-form-field  appearance="outline">
                <mat-label>Quantity</mat-label>
                <input matInput placeholder="Placeholder"  type ="number" [(ngModel)]= "item.materialqty"  [ngModelOptions]="{standalone: true}" >
@@ -79,7 +79,7 @@
              <td nowrap>
    
    
-               <button mat-raised-button color="warn" class="mx-4" (click)="remove(index)">
+               <button mat-raised-button color="warn" class="mx-4" (click)="remove(index)"  *ngIf="pageType == 'Add'">
                  <mat-icon aria-hidden="false" aria-label="Example home icon"   style="  cursor: pointer;">delete_sweep</mat-icon>
    
                </button>
@@ -96,6 +96,8 @@
       <div fxLayout="row">
          <span fxFlex="8px"></span>
         <button mat-raised-button color="primary" (click)="createCompany();" *ngIf="pageType == 'Add'">Submit</button>
+        <button mat-raised-button color="primary" (click)="updateCompany();" *ngIf="pageType != 'Add'">Update</button>
+
 </div>
     
     </form></mat-card-content></mat-card>

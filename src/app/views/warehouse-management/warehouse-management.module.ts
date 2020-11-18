@@ -12,7 +12,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 import { CompanyManageAddComponent } from '../company-management/company-manage-by/company-manage-add/company-manage-add.component';
- 
+
 @NgModule({
   declarations: [CompanyManageAddComponent,CompanyManageByComponent, WarehouseComponent, WarehouseAddComponent, WarehouseMaterialComponent ],
   imports: [SharedMaterialModule,NgxDatatableModule,FlexLayoutModule,FormsModule, ReactiveFormsModule,FileUploadModule,

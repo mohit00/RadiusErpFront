@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { CompanyService } from 'app/views/company-management/company.service';
 import { NavigationService } from 'app/shared/services/navigation.service';
 import { Router } from '@angular/router';
@@ -18,6 +18,7 @@ import { materialService } from '../../../material-management/material.serivce'
 export class ChalanpmAddComponent implements OnInit {
   firstFormGroup: FormGroup;
   secountFormGroup:FormGroup;
+  searchCtrl:any;
   constructor(private chalanService: ChalanService,private WorkorderService:WorkorderService, private departmentService: departmentService, private verticalService: verticalService, private CompanyService: CompanyService, private navService: NavigationService,
     private Router: Router, private fb: FormBuilder, private AppLoaderService: AppLoaderService, private dialog: AppConfirmService, private materialService: materialService) {
   }
@@ -88,25 +89,30 @@ export class ChalanpmAddComponent implements OnInit {
 
     })
   }
+  removePayTerm(index){
+     
+    this.paymentTermList.splice(index, 1); 
+
+  }
   addPaymentTerm(){
     if(this.selectedPayment.length >0){
-      let paymentTerm ='';
-      for(var i=0 ;i<this.selectedPayment.length ;i++){
-        if(this.selectedPayment.length > 1){
-         if(i != this.selectedPayment.length-1){
-           paymentTerm = paymentTerm+ this.selectedPayment[i] +'+'; 
-         }else{
-           paymentTerm = paymentTerm+ this.selectedPayment[i]  ; 
-         }
-        }else{
-         paymentTerm = paymentTerm+ this.selectedPayment[i]  ;
+    //   let paymentTerm ='';
+    //   for(var i=0 ;i<this.selectedPayment.length ;i++){
+    //     if(this.selectedPayment.length > 1){
+    //      if(i != this.selectedPayment.length-1){
+    //        paymentTerm = paymentTerm+ this.selectedPayment[i] +'+'; 
+    //      }else{
+    //        paymentTerm = paymentTerm+ this.selectedPayment[i]  ; 
+    //      }
+    //     }else{
+    //      paymentTerm = paymentTerm+ this.selectedPayment[i]  ;
  
-        }
+    //     }
      
      
-     }
+    //  }
      this.paymentTermList.push({
-       name:paymentTerm,
+       name:this.selectedPayment,
        value :''
      })
      this.selectedPayment = [];
@@ -120,7 +126,7 @@ export class ChalanpmAddComponent implements OnInit {
       parentCompany: ['', [
       ]],
       vendor: [''],
-      materialId: ['']
+      materialId: [''],poDate:[''],poType:['']
     });
     this.secountFormGroup = this.fb.group({
       deliveryToClient: [false, [
@@ -165,9 +171,52 @@ export class ChalanpmAddComponent implements OnInit {
 
     })
   }
+  updateCompany(){
+    
+    let dataJson =  { ...this.firstFormGroup.value, ...this.secountFormGroup.value };
+    if(this.materialData.length >0){
+
+    }else{
+      alert("No Material Added")
+      return false;
+    }
+    for(var i =0 ;i<this.materialData.length;i++){
+      console.log(this.materialData[i].materialcost.toString())
+      this.materialData[i].materialcost = this.materialData[i].materialcost.toString()
+    }
+     dataJson.materialList = this.materialData;
+    
+    dataJson.paymentTerm =this.paymentTermList;
+    console.log(JSON.stringify(dataJson))
+
+    this.AppLoaderService.open();
+   
+    this.chalanService.chalanPoUpdate(dataJson).subscribe(res => {
+      if (res.code == "200") {
+        let datasend = {
+          title: 'Success',
+          message: "Po Successfully Updated"
+        }
+        this.dialog.confirm(datasend).subscribe(res1 => {
+          this.Router.navigate(['chalan/po'])
+        });
+      }
+      this.AppLoaderService.close();
+
+    })
+  }
   createCompany() {
     let dataJson =  { ...this.firstFormGroup.value, ...this.secountFormGroup.value };
+    if(this.materialData.length >0){
 
+    }else{
+      alert("No Material Added")
+      return false;
+    }
+    for(var i =0 ;i<this.materialData.length;i++){
+      console.log(this.materialData[i].materialcost.toString())
+      this.materialData[i].materialcost = this.materialData[i].materialcost.toString()
+    }
      dataJson.materialList = this.materialData;
     dataJson.paymentTerm =this.paymentTermList;
     console.log(JSON.stringify(dataJson))
@@ -191,6 +240,53 @@ export class ChalanpmAddComponent implements OnInit {
   href: any;
   pageType;any;
   userdata:any;
+  public bankFilterCtrl: FormControl = new FormControl();
+
+  updateForm(data){
+    this.paymentTermList=[]
+    for(var j =0 ;j<data.paymentTerm.length;j++){
+       
+        this.paymentTermList.push({
+          name:data.paymentTerm[j].split("=")[0],
+          value :data.paymentTerm[j].split("=")[1]
+        })
+    }
+    for(var j =0 ;j<data.chalanPoMateriaRelationship.length;j++){
+      this.materialData.push(
+        {
+           materialuuid:  (data.chalanPoMateriaRelationship[j].uuid) ,
+          name:data.chalanPoMateriaRelationship[j].name,
+          materialqty:data.chalanPoMateriaRelationship[j].matQty,
+          materialcost:data.chalanPoMateriaRelationship[j].matCost,
+          matSend:data.chalanPoMateriaRelationship[j].matSend
+
+          })
+    }
+    this.materialData= this.materialData.reverse()
+   
+    this.firstFormGroup = this.fb.group({
+      chalanPONo: [data.chalanNo, [
+      ]],
+       vendor: [data.client],
+      materialId: [''],poDate:[data.poDate],
+      uuid:[data.uuid],poType:[data.poType]
+    });
+    this.secountFormGroup = this.fb.group({
+      deliveryToClient: [false, [
+      ]],
+      clientuuid:[''],
+      groupuuid:[''],
+      deliverTerm: [data.deliverTerm],
+      isGroup:[false],
+      termOfPayment: ['']
+    });
+  }
+  getPodetail( ){
+    this.chalanService.chalanPoDetail(sessionStorage.getItem("chalanpo") 
+    ).subscribe(res=>{
+      this.updateForm(res);
+    })
+  }
   ngOnInit() {
     this.userdata = JSON.parse(sessionStorage.getItem('user'));
    this.getpaymenTermList();
@@ -199,6 +295,11 @@ export class ChalanpmAddComponent implements OnInit {
       this.pageType = 'Add';
       this.createForm();
 
+    }else{
+      this.pageType = 'Update';
+
+      this.createForm();
+      this.getPodetail();
     }
     this.getCompanyList();
 

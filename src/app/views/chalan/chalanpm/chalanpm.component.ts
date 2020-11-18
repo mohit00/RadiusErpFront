@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ChalanService } from '../chalan/chalan.service';
 import { CompanyService } from 'app/views/company-management/company.service';
 import {WorkorderService} from '../../workorder-management/workorder.service'
+import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 @Component({
   selector: 'app-chalanpm',
   templateUrl: './chalanpm.component.html',
@@ -10,8 +11,9 @@ import {WorkorderService} from '../../workorder-management/workorder.service'
 })
 export class ChalanpmComponent implements OnInit {
   companySiteLists: any;
+  href: any;
 
-  constructor(private router:Router,private service:ChalanService,private companyService:CompanyService,private workorderService:WorkorderService) { }
+  constructor(private dialog: AppConfirmService,private router:Router,private service:ChalanService,private companyService:CompanyService,private workorderService:WorkorderService) { }
   rows = [];
   columns = [];
   temp = [];
@@ -65,6 +67,7 @@ export class ChalanpmComponent implements OnInit {
   }
   userdata:any;
   ngOnInit() {
+ 
     this.userdata = JSON.parse(sessionStorage.getItem('user'))
     if(this.userdata.role == 'Admin'){
       this.companyList();
@@ -93,18 +96,36 @@ export class ChalanpmComponent implements OnInit {
     this.rows = rows;
   }
   paymenTermEdit(data){
-sessionStorage.setItem("workorderSelecteduuid",data);
-this.router.navigate(['workorder/Update'])
+sessionStorage.setItem("chalanpo",data);
+this.router.navigate(['chalan/po/Update'])
 
+  }
+  report(data){
+    sessionStorage.setItem("chalanpo",data);
+
+    this.router.navigate(['chalan/po/report'])
   }
   paymenTermAppend(data){
     sessionStorage.setItem("workorderSelecteduuid",data);
     this.router.navigate(['workorder/Append'])
-    
       }
       paymenTermAppendList(data){
         sessionStorage.setItem("workorderSelecteduuid",data);
         this.router.navigate(['workorder/Append/list'])
 
       }
+      
+      deletePo(data){
+        this.service.chalanPoDeleteData(data).subscribe(res=>{
+          if (res.code == "200") {
+            let datasend = {
+              title: 'Success',
+              message: "Po Successfully Deleted"
+            }
+            this.dialog.confirm(datasend).subscribe(res1 => {
+              this.ngOnInit();
+             });
+          }
+        })
+       }
 }

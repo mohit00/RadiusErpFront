@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 import {
   MatCardModule,
@@ -42,9 +43,16 @@ import {
   MatListModule
 } from "@angular/material";
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { StringFilterByPipe } from 'app/shared/sting-filterby';
 
 @NgModule({
+  declarations: [ 
+    StringFilterByPipe
+  ],
+  providers:[StringFilterByPipe],
   exports: [
+    StringFilterByPipe,
+     NgxMatSelectSearchModule,
     MatCheckboxModule,
     MatButtonModule,
     MatInputModule,

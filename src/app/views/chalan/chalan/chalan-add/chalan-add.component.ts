@@ -61,6 +61,7 @@ export class ChalanAddComponent implements OnInit {
     this.firstFormGroup = this.fb.group({
       chalanNo: ['', [
       ]],
+      chalanuuid:[''],
       parentCompany: ['', [
       ]],
       chalanPONouuid:[''],
@@ -86,7 +87,7 @@ export class ChalanAddComponent implements OnInit {
     })
 
   }
-  changePo(data){
+  changePo(){
     this.chalanService.chalanPoDetail(this.firstFormGroup.value.chalanPONouuid).subscribe(res=>{
       console.log(JSON.stringify(res))
       this.firstFormGroup = this.fb.group({
@@ -96,7 +97,8 @@ export class ChalanAddComponent implements OnInit {
         ]],
         chalanPONouuid:[this.firstFormGroup.value.chalanPONouuid],
         vendor: [res.client],
-        wareuuid: [this.firstFormGroup.value.chalanPONouuid.wareuuid],
+        wareuuid: [this.firstFormGroup.value.wareuuid],
+        chalanuuid:[this.firstFormGroup.value.chalanuuid]
        });
       for(var i=0;i<res.chalanPoMateriaRelationship.length ;i++){
       this.materialData.push({
@@ -143,16 +145,56 @@ export class ChalanAddComponent implements OnInit {
 
     })
   }
+  updateCompany(){
+      let dataJson = this.firstFormGroup.value;
+    dataJson.materialList = this.materialData;
+    console.log(JSON.stringify(dataJson))
+    this.AppLoaderService.open();
+    this.chalanService.chalanUpdate(dataJson).subscribe(res => {
+      if (res.code == "200") {
+        let datasend = {
+          title: 'Success',
+          message: res.message
+        }
+        this.dialog.confirm(datasend).subscribe(res1 => {
+          this.Router.navigate(['chalan/in'])
+        });
+      }
+      this.AppLoaderService.close();
+
+    })
+  }
   href: any;
   pageType;any;
   userdata:any;
+  detailChalan(){
+    this.chalanService.chalanDetail(sessionStorage.getItem("chalaninuuid")).subscribe(res=>{
+      console.log(JSON.stringify(res))
+      this.firstFormGroup = this.fb.group({
+        chalanNo: [res.chalanNo, [
+        ]],
+        parentCompany: ['', [
+        ]],
+        chalanuuid:[res.chalanuuid],
+        chalanPONouuid:[res.chalanPONouuid],
+        vendor: [res.clientuuid],
+        wareuuid: [res.wareuuid],
+       });
+       this.changePo();
+    })
+  }
   ngOnInit() {
-  
+    this.createForm();
+
     this.href = this.Router.url;
     if (this.href == '/chalan/in/Add') {
       this.pageType = 'Add';
-      this.createForm();
-
+ 
+    }
+    if (this.href == '/chalan/in/Update') {
+      this.pageType = 'Update';
+      this.detailChalan();
+      
     }
     this.getCompanyList();
     this.userdata = JSON.parse(sessionStorage.getItem('user'));

@@ -11,6 +11,7 @@ import {ChalanInReportComponent} from './chalan-in-report/chalan-in-report.compo
 
 import { ChalanApproveComponent } from './chalan-approve/chalan-approve.component';
 import { ChalanApproveDetailComponent } from './chalan-approve/chalan-approve-detail/chalan-approve-detail.component';
+import { ReportComponent } from './chalanpm/report/report.component';
 const routes: Routes = [{
   path:'in',
   component:ChalanComponent
@@ -55,6 +56,11 @@ const routes: Routes = [{
   path:'po',
   component:ChalanpmComponent,
   data: { title: 'po', breadcrumb: 'po'}
+
+}, {
+  path:'po/report',
+  component:ReportComponent,
+  data: { title: 'po/Report', breadcrumb: 'po/Report'}
 
 },{
   path:'po/Add',

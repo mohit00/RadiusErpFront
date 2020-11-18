@@ -19,7 +19,7 @@
           </mat-select>
         </mat-form-field>
     </div>
-     
+
 
 <div fxFlex >
   <mat-form-field class="margin-333" style="width: 100%">
@@ -51,7 +51,7 @@
             </ng-template>
         </ngx-datatable-column>
         
-        <ngx-datatable-column name="Client" [sortable]="true">
+        <ngx-datatable-column name="Vendor" [sortable]="true">
           <ng-template let-row="row" ngx-datatable-cell-template>
               {{row.client}}
             </ng-template>
@@ -64,7 +64,15 @@
               <button mat-icon-button aria-label="Example icon-button with a heart icon" (click) = "paymenTermEdit(row.uuid)" style="float: left
               ;">
                   <mat-icon>edit</mat-icon>
-                </button>    
+                </button>  
+                <button mat-icon-button aria-label="Example icon-button with a heart icon" (click) = "report(row.uuid)" style="float: left
+                ;">
+                    <mat-icon>remove_red_eye</mat-icon>
+                  </button>     
+                  <button mat-icon-button aria-label="Example icon-button with a heart icon" *ngIf ="row.status == 'Inprogress' || !row.status"(click) = "deletePo(row.uuid)" style="float: left
+                  ;">
+                      <mat-icon>delete</mat-icon>
+                    </button>   
            </ng-template>
         </ngx-datatable-column>
     </ngx-datatable>

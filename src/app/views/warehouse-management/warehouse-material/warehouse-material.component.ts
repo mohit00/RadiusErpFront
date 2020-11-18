@@ -9,12 +9,14 @@ import { NavigationService } from 'app/shared/services/navigation.service';
 import {materialService} from '../../material-management/material.serivce'
 import {CompanyService} from '../../company-management/company.service';
 import {warehouseService} from '../warehouse.service'
+
 @Component({
   selector: 'app-warehouse-material',
   templateUrl: './warehouse-material.component.html',
   styleUrls: ['./warehouse-material.component.scss']
 })
 export class WarehouseMaterialComponent implements OnInit {
+  searchCtrl:any='';
   rows:any =[];
   temp:any =[];
   warehouseList:any;
@@ -171,9 +173,10 @@ if(this.userdata.role == 'Admin'){
         title:'Success',
         message:res.message
       }
-      this.getVendorMaterial();
+      // this.getVendorMaterial();
+      this.getwareHouseMaterial();
+
      this.dialog.confirm(dataJson);
-     this.getwareHouseMaterial();
     })
   }
   updateMaterial(){
@@ -192,22 +195,25 @@ if(this.userdata.role == 'Admin'){
  
   }
   updateFilter(event) {
-    const val = event.target.value.toLowerCase();
-    var columns = Object.keys(this.temp[0]);
-    // Removes last "$$index" from "column"
-    columns.splice(columns.length - 1);
-    // console.log(columns);
-    if (!columns.length)
-      return;
-    const rows = this.temp.filter(function(d) {
-      for (let i = 0; i <= columns.length; i++) {
-        let column = columns[i];
-        // console.log(d[column]);
-        if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
-          return true;
+    if(event.target.value){
+      const val = event.target.value.toLowerCase();
+      var columns = Object.keys(this.temp[0]);
+      // Removes last "$$index" from "column"
+      columns.splice(columns.length - 1);
+      // console.log(columns);
+      if (!columns.length)
+        return;
+      const rows = this.temp.filter(function(d) {
+        for (let i = 0; i <= columns.length; i++) {
+          let column = columns[i];
+          // console.log(d[column]);
+          if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
+            return true;
+          }
         }
-      }
-    });
-    this.rows = rows;
+      });
+      this.rows = rows;
+    }
+    
   }
 }
