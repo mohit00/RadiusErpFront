@@ -10,8 +10,8 @@
 
         <form [formGroup]="firstFormGroup">
           <div fxLayout="row wrap">
-            
-            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100" *ngIf ="userdata.role =='Admin'">
+
+            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100" *ngIf="userdata.role =='Admin'">
               <mat-form-field class="margin-333" appearance="outline">
                 <mat-label>Select Company</mat-label>
                 <mat-select (selectionChange)="change('company')" formControlName="parentuuid">
@@ -22,14 +22,15 @@
               </mat-form-field>
             </div>
             <div fxFlex="100" fxFlex.gt-sm="15" fxFlex.sm="20">
-             
-              <mat-checkbox formControlName="isGroup" (change) ="isgroup()">Is Group</mat-checkbox>
-             
+
+              <mat-checkbox formControlName="isGroup" (change)="isgroup()">Is Group</mat-checkbox>
+
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100" *ngIf ="firstFormGroup.value.isGroup">
+            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100" *ngIf="firstFormGroup.value.isGroup">
               <mat-form-field class="margin-333" appearance="outline">
                 <mat-label>Select Group</mat-label>
-                <mat-select (selectionChange)="clientOfgroup(firstFormGroup.value.groupuuid,'group')" formControlName="groupuuid">
+                <mat-select (selectionChange)="clientOfgroup(firstFormGroup.value.groupuuid,'group')"
+                  formControlName="groupuuid">
                   <mat-option *ngFor="let list of companyGroupLists" [value]="list.uuid">
                     {{list.name}}
                   </mat-option>
@@ -39,7 +40,8 @@
             <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100">
               <mat-form-field class="margin-333" appearance="outline">
                 <mat-label>Select Site</mat-label>
-                <mat-select (selectionChange)="clientOfgroup(firstFormGroup.value.siteuuid,'client')" formControlName="siteuuid">
+                <mat-select (selectionChange)="clientOfgroup(firstFormGroup.value.siteuuid,'client')"
+                  formControlName="siteuuid">
                   <mat-option *ngFor="let list of clientCompany" [value]="list.uuid">
                     {{list.name}}
                   </mat-option>
@@ -66,7 +68,7 @@
             <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20">
               <mat-form-field class="margin-333" appearance="outline">
                 <mat-label>WO Date</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="woDate"> 
+                <input matInput [matDatepicker]="picker" formControlName="woDate">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -104,62 +106,65 @@
             <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100">
               <div fxFlex="100" fxFlex.gt-sm="80" fxFlex.sm="80">
 
-              <mat-form-field class="margin-333" appearance="outline" >
-                <mat-label>Payment Term</mat-label>
-                <mat-select  multiple   [(ngModel)]= "selectedPayment"  [ngModelOptions]="{standalone: true}">
-                  <mat-option *ngFor="let list of paymentList" [value]="list.name">
-                    {{list.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+                <mat-form-field class="margin-333" appearance="outline">
+                  <mat-label>Payment Term</mat-label>
+                  <mat-select multiple [(ngModel)]="selectedPayment" [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let list of paymentList" [value]="list.name">
+                      {{list.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
               <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20">
-                <mat-icon aria-hidden="false" aria-label="Example home icon" (click) ="addPaymentTerm();" style=" padding-top: 11px;
+                <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="addPaymentTerm();" style=" padding-top: 11px;
                 font-size: 47px;cursor: pointer;">add_box</mat-icon>
 
-</div>
+              </div>
             </div>
-<div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
-     <table class="default-table mat-box-shadow mb-24" style="width: 100%">
-      <thead>
-        <tr>
-          <th width="30%"> Term</th>
-          <th>Value</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody *ngIf="paymentTermList.length>0; else paymentTermNoData">
-        <tr *ngFor="let item of paymentTermList;let index = index">
-          <td>{{ item.name }}</td>
-          <td nowrap> 
-            <mat-form-field  appearance="outline">
-            <mat-label>Value</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]= "item.value"  [ngModelOptions]="{standalone: true}" >
-           <span matSuffix style="font-weight: 600;
+            <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+              <table class="default-table mat-box-shadow mb-24" style="width: 100%">
+                <thead>
+                  <tr>
+                    <th width="30%"> Term</th>
+                    <th>Value</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="paymentTermList.length>0; else paymentTermNoData">
+                  <tr *ngFor="let item of paymentTermList;let index = index">
+                    <td>{{ item.name }}</td>
+                    <td nowrap>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Value</mat-label>
+                        <input matInput placeholder="Placeholder" [(ngModel)]="item.value"
+                          [ngModelOptions]="{standalone: true}">
+                        <span matSuffix style="font-weight: 600;
            font-size: 20px;">%</span>
 
-          </mat-form-field></td>
+                      </mat-form-field>
+                    </td>
 
 
-          <td nowrap>
+                    <td nowrap>
 
 
-            <button mat-raised-button color="warn" class="mx-4" (click)="remove(index)">
-              <mat-icon aria-hidden="false" aria-label="Example home icon" (click) ="addPaymentTerm();" style="  cursor: pointer;">delete_sweep</mat-icon>
+                      <button mat-raised-button color="warn" class="mx-4" (click)="remove(index)">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="addPaymentTerm();"
+                          style="  cursor: pointer;">delete_sweep</mat-icon>
 
-            </button>
-           </td>
-        </tr>
-      </tbody>
-      <ng-template #paymentTermNoData>
-        <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
-      </ng-template>
-    </table>
-   
-</div>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+                <ng-template #paymentTermNoData>
+                  <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
+                </ng-template>
+              </table>
+
+            </div>
           </div>
           <div>
-           </div>
+          </div>
         </form>
       </mat-step>
       <mat-step [stepControl]="secondFormGroup">
@@ -170,77 +175,184 @@
             <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100">
               <div fxFlex="100" fxFlex.gt-sm="80" fxFlex.sm="80">
 
-              <mat-form-field class="margin-333" appearance="outline" >
-                <mat-label>Select Site Material</mat-label>
-                <mat-select      [(ngModel)]= "selectedSiteMaterial"  [ngModelOptions]="{standalone: true}">
-                  <mat-option *ngFor="let list of siteMaterialList" [value]="list.uuid">
-                    {{list.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+                <mat-form-field class="margin-333" appearance="outline">
+                  <mat-label>Select Workorder Type</mat-label>
+                  <mat-select [(ngModel)]="woType" [ngModelOptions]="{standalone: true}">
+                    <mat-option [value]="'direct'">
+                      Direct Workorder
+                    </mat-option>
+                    <mat-option [value]="'all'">
+                      Indirect Workorder
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100" *ngIf="woType == 'all'">
+              <div fxFlex="100" fxFlex.gt-sm="80" fxFlex.sm="80">
+
+                <mat-form-field class="margin-333" appearance="outline">
+                  <mat-label>Select Site Material</mat-label>
+                  <mat-select [(ngModel)]="selectedSiteMaterial" [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let list of siteMaterialList" [value]="list.uuid">
+                      {{list.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
               <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20">
-                <mat-icon aria-hidden="false" aria-label="Example home icon" (click) ="addSiteMaterial();" style=" padding-top: 11px;
+                <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="addSiteMaterial();" style=" padding-top: 11px;
                 font-size: 47px;cursor: pointer;">add_box</mat-icon>
 
-</div>
+              </div>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
-              <table class="default-table mat-box-shadow mb-24" style="width: 100%">
-               <thead>
-                 <tr>
-                   <th width="30%"> Material</th>
-                   <th>QTY</th>
-                   <th>unit</th>
-                   <th>rate</th>
-                   
-                   <th>tax</th>
+            <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100" *ngIf="woType == 'direct'">
+              <div fxFlex="100" fxFlex.gt-sm="80" fxFlex.sm="80">
 
-                   <th>Actions</th>
-                 </tr>
-               </thead>
-               <tbody *ngIf="siteselectedMaterialList.length>0; else siteMaterialListNoData">
-                 <tr *ngFor="let item of siteselectedMaterialList;let index = index">
-                   <td>{{ item.name }}</td>
-                   <td nowrap> <mat-form-field  appearance="outline">
-                     <mat-label>QTY</mat-label>
-                     <input matInput placeholder="Placeholder" type ="number"  [(ngModel)]= "item.qty"  [ngModelOptions]="{standalone: true}">
-         
-                   </mat-form-field></td>
-         
-                   <td nowrap> <mat-form-field  appearance="outline">
-                    <mat-label>unit</mat-label>
-                    <input matInput placeholder="Placeholder"type ="text"    [(ngModel)]= "item.unit"  [ngModelOptions]="{standalone: true}">
-        
-                  </mat-form-field></td>  <td nowrap> <mat-form-field  appearance="outline">
-                    <mat-label>rate</mat-label>
-                    <input matInput placeholder="Placeholder" type ="number"  [(ngModel)]= "item.rate"  [ngModelOptions]="{standalone: true}" >
-        
-                  </mat-form-field></td>
-                  <td nowrap> <mat-form-field  appearance="outline">
-                    <mat-label>tax</mat-label>
-                    <input matInput placeholder="Placeholder" type ="number"  [(ngModel)]= "item.tax"  [ngModelOptions]="{standalone: true}" >
-                  </mat-form-field>
-                </td>
-                
-                   <td nowrap>
-         
-         
-                     <button mat-raised-button color="warn" class="mx-4" (click)="removeSite(index)">
-                       <mat-icon aria-hidden="false" aria-label="Example home icon"   style="  cursor: pointer;">delete_sweep</mat-icon>
-         
+                <mat-form-field class="margin-333" appearance="outline">
+                  <mat-label>Select Material</mat-label>
+                  <mat-select [(ngModel)]="selectedSiteMaterial" [ngModelOptions]="{standalone: true}">
+                    <mat-option>
+                      <ngx-mat-select-search [(ngModel)]="searchCtrl" [placeholderLabel]="'Search...'"
+                        [noEntriesFoundLabel]="'Not found'" name="search" [ngModelOptions]="{standalone: true}">
+                      </ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let list of materialList |stringFilterBy:searchCtrl:'name'" [value]="list.uuid">
+                      {{list.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="addMaterial();" style=" padding-top: 11px;
+                font-size: 47px;cursor: pointer;">add_box</mat-icon>
+
+              </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100" *ngIf="selectedSiteMaterial && woType == 'all'">
+              <table class="default-table mat-box-shadow mb-24" style="width: 100%">
+                <thead>
+                  <tr>
+                    <th width="30%"> Material</th>
+                    <th>QTY</th>
+                    <th>unit</th>
+                    <th>rate</th>
+
+                    <th>tax</th>
+
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="siteselectedMaterialList.length>0; else siteMaterialListNoData">
+                  <tr *ngFor="let item of siteselectedMaterialList;let index = index">
+                    <td>{{ item.name }}</td>
+                    <td nowrap>
+                      <mat-form-field appearance="outline">
+                        <mat-label>QTY</mat-label>
+                        <input matInput placeholder="Placeholder" type="number" [(ngModel)]="item.qty"
+                          [ngModelOptions]="{standalone: true}">
+
+                      </mat-form-field>
+                    </td>
+
+                    <td nowrap>
+                      <mat-form-field appearance="outline">
+                        <mat-label>unit</mat-label>
+                        <input matInput placeholder="Placeholder" type="text" [(ngModel)]="item.unit"
+                          [ngModelOptions]="{standalone: true}">
+
+                      </mat-form-field>
+                    </td>
+                    <td nowrap>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Cost</mat-label>
+                        <input matInput placeholder="Placeholder" type="number" [(ngModel)]="item.rate"
+                          [ngModelOptions]="{standalone: true}">
+
+                      </mat-form-field>
+                    </td>
+                    <td nowrap>
+                      <mat-form-field appearance="outline">
+                        <mat-label>tax</mat-label>
+                        <input matInput placeholder="Placeholder" type="number" [(ngModel)]="item.tax"
+                          [ngModelOptions]="{standalone: true}">
+                      </mat-form-field>
+                    </td>
+
+                    <td nowrap>
+
+
+                      <button mat-raised-button color="warn" class="mx-4" (click)="removeSite(index)">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" style="  cursor: pointer;">
+                          delete_sweep</mat-icon>
+
                       </button>
                     </td>
-                 </tr>
-               </tbody>
-               <ng-template #siteMaterialListNoData>
-                 <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
-               </ng-template>
-             </table>
-         </div>
+                  </tr>
+                </tbody>
+                <ng-template #siteMaterialListNoData>
+                  <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
+                </ng-template>
+              </table>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100" *ngIf="selectedSiteMaterial && woType == 'direct'">
+              <table class="default-table mat-box-shadow mb-24" style="width: 100%">
+                <thead>
+                  <tr>
+                    <th width="30%"> Material</th>
+                    <th>QTY</th>
+                    <th>unit</th>
+                    <th>Cost</th>
+
+                    <th>tax</th>
+
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="siteselectedMaterialList.length>0; else siteMaterialListNoData">
+                  <tr *ngFor="let item of siteselectedMaterialList;let index = index">
+                    <td>{{ item.name }}</td>
+                    <td nowrap>
+                      <mat-form-field appearance="outline">
+                        <mat-label>QTY</mat-label>
+                        <input matInput placeholder="Placeholder" type="number" [(ngModel)]="item.qty"
+                          [ngModelOptions]="{standalone: true}">
+
+                      </mat-form-field>
+                    </td>
+
+                    <td nowrap> {{item.unit}}</td>
+                    <td nowrap>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Cost</mat-label>
+                        <input matInput placeholder="Placeholder" type="number" [(ngModel)]="item.rate"
+                          [ngModelOptions]="{standalone: true}">
+
+                      </mat-form-field>
+                    </td>
+                    <td nowrap> {{item.tax}}
+                    </td>
+
+                    <td nowrap>
+
+
+                      <button mat-raised-button color="warn" class="mx-4" (click)="removeSite(index)">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" style="  cursor: pointer;">
+                          delete_sweep</mat-icon>
+
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+                <ng-template #siteMaterialListNoData>
+                  <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
+                </ng-template>
+              </table>
+            </div>
           </div>
           <div>
-           </div>
+          </div>
         </form>
       </mat-step>
       <mat-step>
@@ -250,9 +362,10 @@
         </div>
         <div class="pb-1 mb-1"> You Are Done.</div>
         <div fxLayout="row">
-           <span fxFlex="8px"></span>
+          <span fxFlex="8px"></span>
           <button mat-raised-button color="primary" (click)="createCompany();" *ngIf="pageType == 'Add'">Submit</button>
-          <button mat-raised-button color="primary" (click)="updateCompany();" *ngIf="pageType == 'Update'">Update</button>
+          <button mat-raised-button color="primary" (click)="updateCompany();"
+            *ngIf="pageType == 'Update'">Update</button>
           <button mat-raised-button color="primary" (click)="Appendwo();" *ngIf="pageType == 'Append'">Append</button>
         </div>
       </mat-step>

@@ -4,11 +4,12 @@ import { CompanyService } from 'app/views/company-management/company.service';
 import { NavigationService } from 'app/shared/services/navigation.service';
 import { Router } from '@angular/router';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
-import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service'; 
-import {verticalService} from '../../../company-management/vertical.service'
-import { departmentService} from '../../../company-management/department.service'
-import {WorkorderService} from '../../workorder.service'
+import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
+import { verticalService } from '../../../company-management/vertical.service'
+import { departmentService } from '../../../company-management/department.service'
+import { WorkorderService } from '../../workorder.service'
 import { warehouseService } from 'app/views/warehouse-management/warehouse.service';
+import { materialService } from 'app/views/material-management/material.serivce';
 
 @Component({
   selector: 'app-workorder-add',
@@ -17,6 +18,7 @@ import { warehouseService } from 'app/views/warehouse-management/warehouse.servi
 })
 export class WorkorderAddComponent implements OnInit {
   pageType: any;
+  woType: any;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   countryList: any
@@ -27,28 +29,30 @@ export class WorkorderAddComponent implements OnInit {
   verticalList: any;
   departmentList: any;
   paymentList: any;
-  paymentTermList:any = [];
-  selectedPayment:any;
-  selectedSiteMaterial:any;
-  siteMaterialList:any = [];
+  paymentTermList: any = [];
+  selectedPayment: any;
+  selectedSiteMaterial: any;
+  siteMaterialList: any = [];
+  materialList: any = [];
+  searchCtrl:any ="";
   companyGroupLists: any;
   clientCompany: any;
-  siteselectedMaterialList: any=[];
-  constructor(private warehouseService:warehouseService,private WorkorderService:WorkorderService,private departmentService:departmentService,private verticalService:verticalService,private CompanyService: CompanyService, private navService: NavigationService,
+  siteselectedMaterialList: any = [];
+  constructor(private materialService:materialService,private warehouseService: warehouseService, private WorkorderService: WorkorderService, private departmentService: departmentService, private verticalService: verticalService, private CompanyService: CompanyService, private navService: NavigationService,
     private Router: Router, private fb: FormBuilder, private AppLoaderService: AppLoaderService, private dialog: AppConfirmService) {
-  } 
+  }
   public hasfirstError = (controlName: string, errorName: string) => {
     return this.firstFormGroup.controls[controlName].hasError(errorName);
-  } 
+  }
   updateForm(data) {
     console.log(JSON.stringify(data))
     this.firstFormGroup = this.fb.group({
-      uuid:[data.uuid],
+      uuid: [data.uuid],
       woNo: [data.woNo, [
       ]],
       woDate: [new Date(data.woDate), [
       ]],
-      parentuuid:[data.parentuuid],
+      parentuuid: [data.parentuuid],
       groupuuid: [data.groupuuid, [
       ]], clientuuid: [data.clientuuid, [
       ]],
@@ -60,34 +64,34 @@ export class WorkorderAddComponent implements OnInit {
       ]],
       paymentTerm: ['', [
       ]],
-      wareuuid:[data.wareuuid]
+      wareuuid: [data.wareuuid]
 
 
     });
-  
+
     this.siteselectedMaterialList = data.materialArray;
-    this.paymentTermList=[];
-    for(var i =0 ;i<data.paymentTerm.length ;i++){
+    this.paymentTermList = [];
+    for (var i = 0; i < data.paymentTerm.length; i++) {
       this.paymentTermList.push({
-        name:data.paymentTerm[i].split("=")[0],
-        value:data.paymentTerm[i].split("=")[1]
+        name: data.paymentTerm[i].split("=")[0],
+        value: data.paymentTerm[i].split("=")[1]
       })
     }
-     this.change('company');
-     this.changeDepartment();
-     this.clientOfgroup(this.firstFormGroup.value.groupuuid,'group');
-    this.clientOfgroup(this.firstFormGroup.value.clientuuid,'client');
-     
+    this.change('company');
+    this.changeDepartment();
+    this.clientOfgroup(this.firstFormGroup.value.groupuuid, 'group');
+    this.clientOfgroup(this.firstFormGroup.value.clientuuid, 'client');
+
   }
- 
+
   createForm() {
     this.firstFormGroup = this.fb.group({
       woNo: ['', [
       ]],
-      isGroup:[true],
+      isGroup: [true],
       woDate: ['', [
       ]],
-      parentuuid:[''],
+      parentuuid: [''],
       groupuuid: ['', [
       ]], clientuuid: ['', [
       ]],
@@ -99,7 +103,7 @@ export class WorkorderAddComponent implements OnInit {
       ]],
       paymentTerm: ['', [
       ]],
-      wareuuid:['']
+      wareuuid: ['']
 
     });
     this.secondFormGroup = this.fb.group({
@@ -108,7 +112,7 @@ export class WorkorderAddComponent implements OnInit {
         qty: [],
         unit: [],
         rate: [],
-        tax: [] 
+        tax: []
       }
       )
       ]
@@ -117,85 +121,117 @@ export class WorkorderAddComponent implements OnInit {
 
     });
   }
-  wareHouseList:any =[];
-  warehouseGet(){
-this.warehouseService.warehouseList(this.firstFormGroup.value.parentuuid).subscribe(res=>{
-this.wareHouseList = res.data
-})
+  wareHouseList: any = [];
+  warehouseGet() {
+    this.warehouseService.warehouseList(this.firstFormGroup.value.parentuuid).subscribe(res => {
+      this.wareHouseList = res.data
+    })
   }
-  change(data){
-    if(data =='company'){
+  change(data) {
+    if (data == 'company') {
       this.warehouseGet();
       this.getdVerticalList();
       this.getpaymenTermList();
-     }
+    }
   }
-  getsiteMaterialGet(){
-    this.WorkorderService.siteMaterialGet(this.firstFormGroup.value.siteuuid).subscribe(res=>{
+  getsiteMaterialGet() {
+    this.WorkorderService.siteMaterialGet(this.firstFormGroup.value.siteuuid).subscribe(res => {
 
-   this.siteMaterialList  =  res.data;
+      this.siteMaterialList = res.data;
+     
+    })
+  }
+  getMaterialGet() {
+  this.materialService.materialList().subscribe(res => {
+
+      this.materialList = res.data;
 
     })
   }
-  getpaymenTermList(){
-    this.WorkorderService.paymentTermGet(this.firstFormGroup.value.parentuuid).subscribe(res=>{
-       
-    this.paymentList =  res.data;
+  getpaymenTermList() {
+    this.WorkorderService.paymentTermGet(this.firstFormGroup.value.parentuuid).subscribe(res => {
+
+      this.paymentList = res.data;
 
     })
   }
 
-  addSiteMaterial(){
-    if(this.selectedSiteMaterial){
-      let selectsite = this.siteMaterialList.filter((data)=>{
-        if(data.uuid == this.selectedSiteMaterial){return true}else{
+  addSiteMaterial() {
+    if (this.selectedSiteMaterial) {
+      let selectsite = this.siteMaterialList.filter((data) => {
+        if (data.uuid == this.selectedSiteMaterial) { return true } else {
           return false;
         }
       })[0];
-       this.siteselectedMaterialList.push({
-        name:selectsite.name,
-        value :'',
-        description:selectsite.materialDescription,
-        qty:'',
-        unit:'',
-        rate:'',
-        tax:'',
-        matuuid:selectsite.uuid
+      this.siteselectedMaterialList.push({
+        name: selectsite.name,
+        value: '',
+        description: selectsite.materialDescription,
+        qty: '',
+        unit: '',
+        rate: '',
+        tax: '',
+        matuuid: selectsite.uuid
       })
-       this.selectedSiteMaterial = '';
+      this.selectedSiteMaterial = '';
     }
 
   }
-  addPaymentTerm(){
-    if(this.selectedPayment.length >0){
-      let paymentTerm ='';
-      for(var i=0 ;i<this.selectedPayment.length ;i++){
-        if(this.selectedPayment.length > 1){
-         if(i != this.selectedPayment.length-1){
-           paymentTerm = paymentTerm+ this.selectedPayment[i] +'+'; 
-         }else{
-           paymentTerm = paymentTerm+ this.selectedPayment[i]  ; 
-         }
-        }else{
-         paymentTerm = paymentTerm+ this.selectedPayment[i]  ;
- 
-        }
-     
-     
-     }
-     this.paymentTermList.push({
-       name:paymentTerm,
-       value :''
-     })
-     this.selectedPayment = [];
+  materailDetail(data){
+    
+  }
+  addMaterial() {
+    if (this.selectedSiteMaterial) {
+      let selectsite ;
+      this.materialService.materialDetail(this.selectedSiteMaterial).subscribe(res=>{
+        console.log(res)
+        selectsite= res;
+        this.siteselectedMaterialList.push({
+          name: selectsite.name,
+          value: '',
+          description: selectsite.materialDescription,
+          qty: '',
+          unit: '',
+          rate: '',
+          tax: '',
+          matuuid: selectsite.uuid
+        })
+        this.selectedSiteMaterial = '';
+  
+      })
     }
-   
+
+  }
+  addPaymentTerm() {
+    if (this.selectedPayment.length > 0) {
+      let paymentTerm = '';
+      for (var i = 0; i < this.selectedPayment.length; i++) {
+        if (this.selectedPayment.length > 1) {
+          if (i != this.selectedPayment.length - 1) {
+            paymentTerm = paymentTerm + this.selectedPayment[i] + '+';
+          } else {
+            paymentTerm = paymentTerm + this.selectedPayment[i];
+          }
+        } else {
+          paymentTerm = paymentTerm + this.selectedPayment[i];
+
+        }
+
+
+      }
+      this.paymentTermList.push({
+        name: paymentTerm,
+        value: ''
+      })
+      this.selectedPayment = [];
+    }
+
   }
   remove(index) {
-    this.paymentTermList.splice(index, 1); 
+    this.paymentTermList.splice(index, 1);
   }
-  removeSite(index){
-    this.siteselectedMaterialList.splice(index, 1); 
+  removeSite(index) {
+    this.siteselectedMaterialList.splice(index, 1);
 
   }
   getdVerticalList() {
@@ -204,52 +240,52 @@ this.wareHouseList = res.data
 
     })
   }
-  
-  changeDepartment(){
+
+  changeDepartment() {
     this.departmentService.verticalDepartment(this.firstFormGroup.value.verticaluuid).subscribe(res => {
       this.departmentList = res.data;
     })
-    
+
   }
-  companyLists:any;
-  companyList(){
-    this.CompanyService.companyList().subscribe(res=>{
-      this.companyGroupLists = res.data.filter((data)=>{
-        if(data.type.toLowerCase() == 'group' && !data.iscompany ){
+  companyLists: any;
+  companyList() {
+    this.CompanyService.companyList().subscribe(res => {
+      this.companyGroupLists = res.data.filter((data) => {
+        if (data.type.toLowerCase() == 'group' && !data.iscompany) {
           return true
-        }else{
+        } else {
           return false;
         }
-      }); 
-       if(this.firstFormGroup.value.isGroup){
-        this.clientCompany =[]
-      }else{
-        this.clientCompany =  res.data.filter((data)=>{
-          if(data.type.toLowerCase() == 'site'){
+      });
+      if (this.firstFormGroup.value.isGroup) {
+        this.clientCompany = []
+      } else {
+        this.clientCompany = res.data.filter((data) => {
+          if (data.type.toLowerCase() == 'site') {
             return true
-          }else{
+          } else {
             return false;
           }
-        }); 
+        });
       }
-  
-     
-      this.companyLists = res.data.filter((data)=>{
-        if(data.type.toLowerCase() == 'all'||data.type.toLowerCase() == 'company'){
+
+
+      this.companyLists = res.data.filter((data) => {
+        if (data.type.toLowerCase() == 'all' || data.type.toLowerCase() == 'company') {
           return true
-        }else{
+        } else {
           return false;
         }
-      }); 
-       })
+      });
+    })
   }
-  clientOfgroup(data,type){
-    this.CompanyService.companyUnderList(data).subscribe(res=>{
-       if(type =='group'){
+  clientOfgroup(data, type) {
+    this.CompanyService.companyUnderList(data).subscribe(res => {
+      if (type == 'group') {
         this.clientCompany = res.data;
 
       }
-      if(type =='client'){
+      if (type == 'client') {
         this.companySiteLists = res.data;
         this.getsiteMaterialGet();
 
@@ -257,10 +293,10 @@ this.wareHouseList = res.data
     })
   }
   createCompany() {
- let dataJson = this.firstFormGroup.value;
- dataJson.paymentTerm =this.paymentTermList;
- dataJson.materialArray =this.siteselectedMaterialList;
- console.log(JSON.stringify(dataJson))
+    let dataJson = this.firstFormGroup.value;
+    dataJson.paymentTerm = this.paymentTermList;
+    dataJson.materialArray = this.siteselectedMaterialList;
+    console.log(JSON.stringify(dataJson))
     this.AppLoaderService.open();
     this.WorkorderService.workorderCreate(dataJson).subscribe(res => {
       if (res.code == "200") {
@@ -278,86 +314,86 @@ this.wareHouseList = res.data
   }
   updateCompany() {
     let dataJson = this.firstFormGroup.value;
-    dataJson.paymentTerm =this.paymentTermList;
-    dataJson.materialArray =this.siteselectedMaterialList;
+    dataJson.paymentTerm = this.paymentTermList;
+    dataJson.materialArray = this.siteselectedMaterialList;
     console.log(JSON.stringify(dataJson))
-       this.AppLoaderService.open();
-       this.WorkorderService.workorderUpdate(dataJson).subscribe(res => {
-         if (res.code == "200") {
-           let datasend = {
-             title: 'Success',
-             message: res.message
-           }
-           this.dialog.confirm(datasend).subscribe(res1 => {
-             this.Router.navigate(['workorder'])
-           });
-         }
-         this.AppLoaderService.close();
-   
-       })
+    this.AppLoaderService.open();
+    this.WorkorderService.workorderUpdate(dataJson).subscribe(res => {
+      if (res.code == "200") {
+        let datasend = {
+          title: 'Success',
+          message: res.message
+        }
+        this.dialog.confirm(datasend).subscribe(res1 => {
+          this.Router.navigate(['workorder'])
+        });
+      }
+      this.AppLoaderService.close();
+
+    })
   }
   Appendwo() {
     let dataJson = this.firstFormGroup.value;
-    dataJson.paymentTerm =this.paymentTermList;
-    dataJson.materialArray =this.siteselectedMaterialList;
+    dataJson.paymentTerm = this.paymentTermList;
+    dataJson.materialArray = this.siteselectedMaterialList;
     console.log(JSON.stringify(dataJson))
-       this.AppLoaderService.open();
-       this.WorkorderService.workorderAppend(dataJson).subscribe(res => {
-         if (res.code == "200") {
-           let datasend = {
-             title: 'Success',
-             message: res.message
-           }
-           this.dialog.confirm(datasend).subscribe(res1 => {
-             this.Router.navigate(['workorder'])
-           });
-         }
-         this.AppLoaderService.close();
-   
-       })
-  }
-  workorderDetail(data){
-    this.WorkorderService.workorderDetail(data).subscribe(res=>{
-      console.log(JSON.stringify(res))
-       this.updateForm(res);
+    this.AppLoaderService.open();
+    this.WorkorderService.workorderAppend(dataJson).subscribe(res => {
+      if (res.code == "200") {
+        let datasend = {
+          title: 'Success',
+          message: res.message
+        }
+        this.dialog.confirm(datasend).subscribe(res1 => {
+          this.Router.navigate(['workorder'])
+        });
+      }
+      this.AppLoaderService.close();
+
     })
   }
-  userdata:any;
+  workorderDetail(data) {
+    this.WorkorderService.workorderDetail(data).subscribe(res => {
+      console.log(JSON.stringify(res))
+      this.updateForm(res);
+    })
+  }
+  userdata: any;
   ngOnInit() {
     this.userdata = JSON.parse(sessionStorage.getItem('user'));
-   
+    this.getMaterialGet();
     this.companyList();
     this.createForm();
     this.href = this.Router.url;
     if (this.href == '/workorder/Update') {
       this.pageType = "Update"
       this.workorderDetail(sessionStorage.getItem("workorderSelecteduuid"));
-    } else if (this.href == '/workorder/Append') { 
+    } else if (this.href == '/workorder/Append') {
       this.pageType = "Append"
       this.workorderDetail(sessionStorage.getItem("workorderSelecteduuid"));
-      
-    }else if (this.href == '/workorder/AppendView') { 
+
+    } else if (this.href == '/workorder/AppendView') {
       this.pageType = "AppendView"
       this.workorderDetail(sessionStorage.getItem("workorderSelectedAppenduuid"));
-      
-    }else{
+
+    } else {
       this.pageType = "Add"
 
     }
-    if(this.userdata.role =='Admin'){
-     
-    }else{
-      this.change('company') 
+    if (this.userdata.role == 'Admin') {
+
+    } else {
+      this.change('company')
     }
   }
-  isgroup(){
-    if(this.firstFormGroup.value.isGroup){
-      this.clientCompany =[]
-    }else{
+  isgroup() {
+    if (this.firstFormGroup.value.isGroup) {
+      this.clientCompany = []
+    } else {
       this.companyList()
     }
   }
 
- 
+
 
 }
