@@ -181,21 +181,22 @@ export class WorkorderAddComponent implements OnInit {
     
   }
   addMaterial() {
-    if (this.selectedSiteMaterial) {
+     if (this.selectedSiteMaterial) {
       let selectsite ;
       this.materialService.materialDetail(this.selectedSiteMaterial).subscribe(res=>{
-        console.log(res)
+     
         selectsite= res;
         this.siteselectedMaterialList.push({
           name: selectsite.name,
           value: '',
-          description: selectsite.materialDescription,
+          description: selectsite.description,
           qty: '',
-          unit: '',
+          unit: selectsite.unit,
           rate: '',
-          tax: '',
-          matuuid: selectsite.uuid
-        })
+          tax: selectsite.taxRate,
+          matuuid: selectsite.uuid 
+         })
+        alert(JSON.stringify(this.siteselectedMaterialList))
         this.selectedSiteMaterial = '';
   
       })
@@ -293,7 +294,9 @@ export class WorkorderAddComponent implements OnInit {
     })
   }
   createCompany() {
+
     let dataJson = this.firstFormGroup.value;
+    dataJson.woType = this.woType;
     dataJson.paymentTerm = this.paymentTermList;
     dataJson.materialArray = this.siteselectedMaterialList;
     console.log(JSON.stringify(dataJson))
@@ -314,6 +317,7 @@ export class WorkorderAddComponent implements OnInit {
   }
   updateCompany() {
     let dataJson = this.firstFormGroup.value;
+    dataJson.woType = this.woType;
     dataJson.paymentTerm = this.paymentTermList;
     dataJson.materialArray = this.siteselectedMaterialList;
     console.log(JSON.stringify(dataJson))

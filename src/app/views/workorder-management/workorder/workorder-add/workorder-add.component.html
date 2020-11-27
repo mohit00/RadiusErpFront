@@ -230,7 +230,7 @@
 
               </div>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100" *ngIf="selectedSiteMaterial && woType == 'all'">
+            <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100" *ngIf=" woType == 'all'">
               <table class="default-table mat-box-shadow mb-24" style="width: 100%">
                 <thead>
                   <tr>
@@ -296,11 +296,12 @@
                 </ng-template>
               </table>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100" *ngIf="selectedSiteMaterial && woType == 'direct'">
+            <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100" *ngIf="woType == 'direct'">
               <table class="default-table mat-box-shadow mb-24" style="width: 100%">
                 <thead>
                   <tr>
                     <th width="30%"> Material</th>
+                    <th>Description</th>
                     <th>QTY</th>
                     <th>unit</th>
                     <th>Cost</th>
@@ -314,6 +315,9 @@
                   <tr *ngFor="let item of siteselectedMaterialList;let index = index">
                     <td>{{ item.name }}</td>
                     <td nowrap>
+                      {{item.description}}
+                    </td>
+                    <td nowrap>
                       <mat-form-field appearance="outline">
                         <mat-label>QTY</mat-label>
                         <input matInput placeholder="Placeholder" type="number" [(ngModel)]="item.qty"
@@ -321,7 +325,7 @@
 
                       </mat-form-field>
                     </td>
-
+                   
                     <td nowrap> {{item.unit}}</td>
                     <td nowrap>
                       <mat-form-field appearance="outline">
@@ -331,7 +335,7 @@
 
                       </mat-form-field>
                     </td>
-                    <td nowrap> {{item.tax}}
+                    <td nowrap> {{item.tax}} %
                     </td>
 
                     <td nowrap>
