@@ -10,6 +10,7 @@ import {WorkorderAppendComponent} from './workorder/workorder-append/workorder-a
 import {PmworkorderComponent} from './pmworkorder/pmworkorder.component'
 import { ProjectWoComponent } from './project-wo/project-wo.component';
 import { ProjectWoDetailComponent } from './project-wo/project-wo-detail/project-wo-detail.component';
+import {WorkorderReportComponent} from './workorder-report/workorder-report.component'
 ProjectWoComponent
   const routes: Routes = [
   {
@@ -78,6 +79,11 @@ ProjectWoComponent
     path: 'sitematerial/Update',
     component: SitematerialAddComponent,
     data: { title: "sitematerial/Update", breadcrumb: "sitematerial/Add" }
+  },
+  {
+    path: 'wo/Report',
+    component: WorkorderReportComponent,
+    data: { title: "wo/Report", breadcrumb: "wo/Report" }
   }
 ];
 @NgModule({

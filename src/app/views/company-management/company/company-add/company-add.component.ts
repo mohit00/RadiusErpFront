@@ -405,6 +405,7 @@ export class CompanyAddComponent implements OnInit, OnDestroy {
       ]],
       type: [data.type, [
       ]],
+      cnino:[''],
       isparent: [isparent],
       parentuuid: [data.parentuuid]
     });

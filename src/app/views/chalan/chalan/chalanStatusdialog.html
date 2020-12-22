@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Change Chanlan Status</h1>
+<div mat-dialog-content>
+ 
+  <mat-form-field appearance="outline">
+    <mat-label>Select Change</mat-label>
+    <mat-select  [(ngModel)]="data.status">
+        <mat-option   [value]="'InProgress'">
+            In Progress
+          </mat-option>
+        <mat-option   [value]="'ShortClose'">
+        Short Close
+      </mat-option>
+  
+      <mat-option   [value]="'Delete'">
+        Delete
+      </mat-option>
+       
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data.status" cdkFocusInitial>Change Status</button>
+</div>

@@ -17,6 +17,22 @@ export class WorkorderService {
   constructor(private _http: HttpClient, private router: Router
     // tslint:disable-next-line: no-shadowed-variable
   ) { }
+  htmlTOPdf(data ): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.post(environment.LOCAL_BASE + `report/pdf`,data,    {
+      headers: headerJson 
+    }).pipe(
+       map(data => {
+        return data;
+      }),
+       catchError(error => {
+        
+        return Observable.throw(error);
+      })
+    );
+  } 
   paymentTermGet(data ): Observable<any> {
     let headerJson = {
       'authorization': 'Bearer ' + sessionStorage.getItem("access")
@@ -242,6 +258,24 @@ export class WorkorderService {
       'authorization': 'Bearer ' + sessionStorage.getItem("access")
     };  
     return this._http.get(environment.LOCAL_BASE + `workorder/getcompany/${data}`,    {
+      headers: headerJson 
+    }).pipe(
+      // eg. "map" without a dot before
+      map(data => {
+        return data;
+      }),
+      // "catchError" instead "catch"
+      catchError(error => {
+        
+        return Observable.throw(error);
+      })
+    );
+  }
+  workorderReport(data ): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.get(environment.LOCAL_BASE + `report/wo/${data}`,    {
       headers: headerJson 
     }).pipe(
       // eg. "map" without a dot before

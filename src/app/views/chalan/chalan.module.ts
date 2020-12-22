@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
  
 import { ChalanRoutingModule } from './chalan-routing.module';
-import {ChalanComponent} from './chalan/chalan.component'
+import {ChalanComponent, DialogStatusChange} from './chalan/chalan.component'
 import {ChalanAddComponent} from './chalan/chalan-add/chalan-add.component'
 import { SharedMaterialModule } from 'app/shared/shared-material.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -19,11 +19,11 @@ import { ChalanInReportComponent } from './chalan-in-report/chalan-in-report.com
  import { ReportComponent } from './chalanpm/report/report.component';
 
 @NgModule({
-  declarations: [ChalanComponent,ChalanAddComponent, ChalanpmComponent, ChalanoutComponent, ChalanpmAddComponent, ChalanoutAddComponent, ChalanOutReportComponent, ChalanApproveComponent, ChalanApproveDetailComponent, ChalanInReportComponent, ReportComponent],
+  declarations: [DialogStatusChange,ChalanComponent,ChalanAddComponent, ChalanpmComponent, ChalanoutComponent, ChalanpmAddComponent, ChalanoutAddComponent, ChalanOutReportComponent, ChalanApproveComponent, ChalanApproveDetailComponent, ChalanInReportComponent, ReportComponent],
   imports: [
     CommonModule,
     ChalanRoutingModule,SharedMaterialModule,NgxDatatableModule,FlexLayoutModule,
     FormsModule, ReactiveFormsModule
-  ],
+  ],entryComponents:[DialogStatusChange]
 })
 export class ChalanModule { }

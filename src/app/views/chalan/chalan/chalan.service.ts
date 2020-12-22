@@ -81,6 +81,22 @@ export class ChalanService {
       })
     );
   }
+  chalanStatus(data,status ): Observable<any> {
+    let headerJson = {
+      'authorization': 'Bearer ' + sessionStorage.getItem("access")
+    };  
+    return this._http.get(environment.LOCAL_BASE + `chalan/status/${data}/${status}`,    {
+      headers: headerJson 
+    }).pipe(
+       map(data => {
+        return data;
+      }),
+       catchError(error => {
+        
+        return Observable.throw(error);
+      })
+    );
+  }
   poCreate(data ): Observable<any> {
     let headerJson = {
       'authorization': 'Bearer ' + sessionStorage.getItem("access")

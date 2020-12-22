@@ -15,6 +15,18 @@
           </mat-select>                
         </mat-form-field>
       </div>
+       
+
+      <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+        <mat-form-field appearance="outline">
+          <mat-label>Select Type</mat-label>
+          <mat-select   formControlName="chalanType"    >
+            <mat-option   [value] ="'Invoice'">Invoice </mat-option>
+            <mat-option   [value] ="'Chalan'">Chalan </mat-option>
+
+          </mat-select>                
+        </mat-form-field>
+      </div>
       <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
         <mat-form-field appearance="outline">
           <mat-label>Select Po</mat-label>
@@ -25,7 +37,7 @@
       </div>
       <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
         <mat-form-field appearance="outline">
-          <mat-label>Chalan No.</mat-label>
+          <mat-label>{{firstFormGroup.value.chalanType}} No.</mat-label>
           <input matInput placeholder="Placeholder" formControlName="chalanNo">
 
         </mat-form-field>
@@ -46,12 +58,21 @@
           </mat-select>                
         </mat-form-field>
       </div>
-    
+      <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
+        <mat-form-field appearance="outline">
+          <mat-label>Select {{firstFormGroup.value.chalanType}} Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="chalanDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
       <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
         <table class="default-table mat-box-shadow mb-24" style="width: 100%">
          <thead>
            <tr>
              <th width="30%"> Name</th>
+             <th>Description</th>
+
              <th>vendor  Quantity</th>
              <th>Quantity Received</th>
 
@@ -62,6 +83,8 @@
          <tbody *ngIf="materialData.length>0; else paymentTermNoData">
            <tr *ngFor="let item of materialData;let index = index">
              <td>{{ item.name }}</td>
+             <td>{{ item.description }}</td>
+
              <td nowrap> 
               {{item.matQty}}</td>
               <td nowrap> 
@@ -69,7 +92,8 @@
              <td nowrap  *ngIf="pageType == 'Add'"> 
                <mat-form-field  appearance="outline">
                <mat-label>Quantity</mat-label>
-               <input matInput placeholder="Placeholder"  type ="number" [(ngModel)]= "item.materialqty"  [ngModelOptions]="{standalone: true}" >
+               <input matInput placeholder="Placeholder"  type ="number" [(ngModel)]= "item.             <td nowrap>
+                "  [ngModelOptions]="{standalone: true}" >
               
    
              </mat-form-field></td>

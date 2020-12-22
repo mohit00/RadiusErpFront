@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChalanService } from './chalan.service';
 import { CompanyService } from 'app/views/company-management/company.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
+import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
+ 
  @Component({
   selector: 'app-chalan',
   templateUrl: './chalan.component.html',
@@ -10,7 +14,7 @@ import { CompanyService } from 'app/views/company-management/company.service';
 export class ChalanComponent implements OnInit {
   companySiteLists: any;
 
-  constructor(private router:Router,private service:ChalanService,private companyService:CompanyService) { }
+  constructor(private Router: Router,   private AppLoaderService: AppLoaderService, private dialog1: AppConfirmService,private dialog:MatDialog,private router:Router,private service:ChalanService,private companyService:CompanyService) { }
   rows = [];
   columns = [];
   temp = [];
@@ -88,6 +92,39 @@ sessionStorage.setItem("chalaninuuid",data);
 this.router.navigate(['chalan/in/Update'])
 
   }
+  statusChange(data){
+    const dialogRef = this.dialog.open(DialogStatusChange, {
+      width: '300px',
+      data: {chalanuuid: data}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      
+      this.AppLoaderService.open();
+      this.service.chalanStatus(data,result).subscribe(res=>{
+        if (res.code == "200") {
+          let datasend = {
+            title: 'Success',
+            message: res.message
+          }
+          this.dialog1.confirm(datasend).subscribe(res1 => {
+            this.ngOnInit();
+           });
+        }else{
+          let datasend = {
+            title: 'Error',
+            message: res.message
+          }
+          this.dialog1.confirm(datasend).subscribe(res1 => {
+           });
+        }
+        this.AppLoaderService.close();
+        
+
+      })
+     });
+
+  }
   paymenTermAppend(data){
     sessionStorage.setItem("workorderSelecteduuid",data);
     this.router.navigate(['workorder/Append'])
@@ -98,4 +135,22 @@ this.router.navigate(['chalan/in/Update'])
         this.router.navigate(['workorder/Append/list'])
 
       }
+}
+
+@Component({
+  selector: 'chalan-status-change',
+  templateUrl: 'chalanStatusdialog.html',
+})
+export class DialogStatusChange {
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogStatusChange>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.data.status = 'InProgress';
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }

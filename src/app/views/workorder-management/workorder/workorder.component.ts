@@ -133,8 +133,11 @@ this.router.navigate(['workorder/Update'])
     
       }
       paymenTermAppendList(data){
-        sessionStorage.setItem("workorderSelecteduuid",data);
-        this.router.navigate(['workorder/Append/list'])
 
       }
+      report(data){
+        sessionStorage.setItem("wouuid",data);
+        this.router.navigate(['workorder/wo/Report'])
+
+      }   
 }

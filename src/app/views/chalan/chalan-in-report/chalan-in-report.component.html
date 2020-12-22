@@ -9,7 +9,7 @@
 margin-top: 10px;
 margin-bottom: 0px;
 font-size: 20px;
-font-weight: 600;" >Chalan</p>
+font-weight: 600;" >{{getData.poType}}  </p>
  
 
     <div style="width:100%;border:1px solid;    width: 100%;
@@ -70,8 +70,12 @@ float: left;
  margin-top: 10px;
  margin-bottom: 0px;
  font-size: 16px;
- font-weight: 600;"> Chalan No : {{getData.chPoNo}}</p>
-         
+ font-weight: 600;">{{getData.poType}} No : {{getData.chPoNo}}</p>
+          <p style="    
+  margin-top: 10px;
+  margin-bottom: 0px;
+  font-size: 16px;
+  font-weight: 600;">{{getData.poType}} Date : {{getData.poDate |date: 'dd/MM/yyyy'}}</p>
           <p style="    
     margin-top: 10px;
     margin-bottom: 0px;
@@ -83,8 +87,7 @@ float: left;
 </span> 
 <ng-container *ngIf ="showSupplierRefText">
   <input name = "destination" [(ngModel)] ="getData.supplierRef"  (blur) ="SupplierRefText()" [ngModelOptions]="{standalone: true}">
-</ng-container>
-</p>
+</ng-container></p>
         </div>
         <div style="width: 40%;
       float: left;
@@ -94,7 +97,7 @@ float: left;
 margin-top: 10px;
 margin-bottom: 0px;
 font-size: 16px;
-font-weight: 600;">Dispatch Through : {{getData.deliveryTerm}} </p>
+font-weight: 600;">Delivery Term : {{getData.deliveryTerm}} </p>
           <p style="    
   margin: 0px;
  font-size: 16px;
@@ -204,7 +207,7 @@ font-weight: 600;">Dispatch Through : {{getData.deliveryTerm}} </p>
        ;">Amount</th>
 
         </tr>
-        <tr *ngFor="let list of getData.chalanPoMateriaRelationship;let i =index">
+        <tr *ngFor="let list of getData.chalanPoMateriaRelationship.reverse();let i =index">
           <td style="border: 1px solid black;
         border-collapse: collapse;text-align: left;
        ;">{{i +1}}</td>
@@ -221,13 +224,13 @@ font-weight: 600;">Dispatch Through : {{getData.deliveryTerm}} </p>
        ;">{{list.matQty}} {{list.unit}}</td>
           <td style="border: 1px solid black;
         border-collapse: collapse;text-align: left;
-       ;">{{list.matCost}}</td>
+       ;">{{list.matCost }}</td>
           <td style="border: 1px solid black;
         border-collapse: collapse;text-align: left;
        ;">{{list.unit}}</td>
           <td style="border: 1px solid black;
         border-collapse: collapse;text-align: left;
-       ;"> {{list.matQty * list.matCost}}</td>
+       ;"> {{list.matQty * list.matCost | number:'1.2-2'}}</td>
         </tr>
       </table>
       <div style="width: 100%; 
@@ -243,16 +246,18 @@ font-weight: 600;">Dispatch Through : {{getData.deliveryTerm}} </p>
         margin-top: 10px;
     ">
           <div style="width: 50%;float: left">Total Amonunt</div>
-          <div style="width: 50%;float: left">{{totalAmount | number }}</div>
+          <div style="width: 50%;float: left">{{totalAmount | number:'1.2-2' }}</div>
       
-          <div style="width: 50%;float: left">Add SGST</div>
-          <div style="width: 50%;float: left">{{TotalTax/2| number}}</div>
-          <div style="width: 50%;float: left">Add CGST</div>
-          <div style="width: 50%;float: left">{{TotalTax/2| number}}</div>
-          <!-- <div style="width: 50%;float: left">Round Off</div>
-          <div style="width: 50%;float: left">3213</div> -->
+          <div style="width: 50%;float: left" *ngIf ="!showIgst">Add SGST</div>
+          <div style="width: 50%;float: left"  *ngIf ="!showIgst">{{TotalTax/2| number:'1.2-2'}}</div>
+          <div style="width: 50%;float: left" *ngIf ="!showIgst">Add CGST</div>
+          <div style="width: 50%;float: left" *ngIf ="!showIgst">{{TotalTax/2| number:'1.2-2'}}</div>
+          <div style="width: 50%;float: left" *ngIf ="showIgst">Add IGST</div>
+          <div style="width: 50%;float: left" *ngIf ="showIgst">{{TotalTax| number:'1.2-2'}}</div>
+          <div style="width: 50%;float: left">Round Off</div>
+          <div style="width: 50%;float: left">{{floatroundoff| number:'1.2-2'}}</div>
           <div style="width: 50%;float: left;font-size: 16px;font-weight: 600;">Grand Total</div>
-          <div style="width: 50%;float: left;font-size: 16px;font-weight: 600;">{{totalAmount +TotalTax | number}}</div>
+          <div style="width: 50%;float: left;font-size: 16px;font-weight: 600;">{{grandTotal}}</div>
         </div>
 
       </div>

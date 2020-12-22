@@ -67,7 +67,9 @@ export class ChalanAddComponent implements OnInit {
       chalanPONouuid:[''],
       vendor: [''],
       materialId: [''],
-      wareuuid: ['']
+      wareuuid: [''],
+      chalanType:['Chalan'],
+      chalanDate:[new Date()]
     });
 
   }
@@ -76,7 +78,8 @@ export class ChalanAddComponent implements OnInit {
      this.materialData.push(
       {
          materialuuid:  (this.firstFormGroup.value.materialId).uuid ,
-        name: (this.firstFormGroup.value.materialId).name 
+        name: (this.firstFormGroup.value.materialId).name,
+        description:(this.firstFormGroup.value.materialId).description
         })
   }
   change(data) {
@@ -88,25 +91,30 @@ export class ChalanAddComponent implements OnInit {
 
   }
   changePo(){
+    this.materialData = [];
     this.chalanService.chalanPoDetail(this.firstFormGroup.value.chalanPONouuid).subscribe(res=>{
       console.log(JSON.stringify(res))
       this.firstFormGroup = this.fb.group({
         chalanNo: [this.firstFormGroup.value.chalanNo, [
         ]],
+        chalanType:[this.firstFormGroup.value.chalanType],
+
         parentCompany: [this.firstFormGroup.value.parentCompany, [
         ]],
         chalanPONouuid:[this.firstFormGroup.value.chalanPONouuid],
         vendor: [res.client],
         wareuuid: [this.firstFormGroup.value.wareuuid],
-        chalanuuid:[this.firstFormGroup.value.chalanuuid]
+        chalanuuid:[this.firstFormGroup.value.chalanuuid],
+        chalanDate:[this.firstFormGroup.value.chalanDate]
        });
       for(var i=0;i<res.chalanPoMateriaRelationship.length ;i++){
       this.materialData.push({
           matQty:res.chalanPoMateriaRelationship[i].matQty,
-          materialcost:res.chalanPoMateriaRelationship[i].matCost,
+          materialcost:res.chalanPoMateriaRelationship[i].matCost.toString(),
           materialuuid:res.chalanPoMateriaRelationship[i].uuid,
           name:res.chalanPoMateriaRelationship[i].name,
-          matSend:res.chalanPoMateriaRelationship[i].matSend 
+          matSend:res.chalanPoMateriaRelationship[i].matSend ,
+          description:res.chalanPoMateriaRelationship[i].description
         })
       }
      })
@@ -127,6 +135,12 @@ export class ChalanAddComponent implements OnInit {
     })
   }
   createCompany() {
+    for(var i =0;i<this.materialData.length;i++){
+      if(this.materialData[i].materialqty){ 
+      }else{
+this.materialData[i].materialqty = 0;
+      }
+    }
     let dataJson = this.firstFormGroup.value;
     dataJson.materialList = this.materialData;
     console.log(JSON.stringify(dataJson))
@@ -140,6 +154,13 @@ export class ChalanAddComponent implements OnInit {
         this.dialog.confirm(datasend).subscribe(res1 => {
           this.Router.navigate(['chalan/in'])
         });
+      }else{
+        let datasend = {
+          title: 'Error',
+          message: res.message
+        }
+        this.dialog.confirm(datasend).subscribe(res1 => {
+         });
       }
       this.AppLoaderService.close();
 
@@ -179,6 +200,9 @@ export class ChalanAddComponent implements OnInit {
         chalanPONouuid:[res.chalanPONouuid],
         vendor: [res.clientuuid],
         wareuuid: [res.wareuuid],
+        chalanType:[res.chalanType],
+        chalanDate:[res.chalanDate]
+
        });
        this.changePo();
     })

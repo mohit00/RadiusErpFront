@@ -177,7 +177,7 @@
 
                 <mat-form-field class="margin-333" appearance="outline">
                   <mat-label>Select Workorder Type</mat-label>
-                  <mat-select [(ngModel)]="woType" [ngModelOptions]="{standalone: true}">
+                  <mat-select [(ngModel)]="woType" [ngModelOptions]="{standalone: true}" (selectionChange)="typeChange()">
                     <mat-option [value]="'direct'">
                       Direct Workorder
                     </mat-option>
@@ -219,7 +219,7 @@
                       </ngx-mat-select-search>
                     </mat-option>
                     <mat-option *ngFor="let list of materialList |stringFilterBy:searchCtrl:'name'" [value]="list.uuid">
-                      {{list.name}}
+                      {{list.name}} ({{list.description}})
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -330,7 +330,7 @@
                     <td nowrap>
                       <mat-form-field appearance="outline">
                         <mat-label>Cost</mat-label>
-                        <input matInput placeholder="Placeholder" type="number" [(ngModel)]="item.rate"
+                        <input matInput placeholder="Placeholder" type="text" [(ngModel)]="item.rate"
                           [ngModelOptions]="{standalone: true}">
 
                       </mat-form-field>

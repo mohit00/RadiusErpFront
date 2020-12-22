@@ -11,9 +11,13 @@ var converter = require('number-to-words');
 export class ChalanInReportComponent implements OnInit {
   @ViewChild('pRef', {static: false}) pRef: ElementRef;
 
-  constructor(private ChalanService:ChalanService) { }
   showDestinationText:Boolean = false;
   showSupplierRefText:Boolean = false;
+  totalText: any;
+  roundOff: any;
+  floatroundoff: number;
+
+  constructor(private ChalanService:ChalanService) { }
   Destination(){
     this.showDestinationText = !this.showDestinationText;
   }
@@ -29,6 +33,8 @@ export class ChalanInReportComponent implements OnInit {
   totalAmount:any =0 ;
 TotalTax:any =0 ;
 numberText:any;
+showIgst:Boolean = false;
+grandTotal:any;
   getPoDetail(){
       this.ChalanService.chalanInreportData( sessionStorage.getItem("chalaninuuid")).subscribe(res=>{
       
@@ -39,7 +45,21 @@ numberText:any;
           this.totalAmount = this.totalAmount + (res.chalanPoMateriaRelationship[i].matQty * res.chalanPoMateriaRelationship[i].matCost)
           this.TotalTax = this.TotalTax + ((res.chalanPoMateriaRelationship[i].matQty * res.chalanPoMateriaRelationship[i].matCost ) * res.chalanPoMateriaRelationship[i].tax/100)
         }
-        this.numberText = converter.toWords(this.totalAmount -this.TotalTax );
+        this.totalText  = (this.totalAmount+this.TotalTax).toString();
+        this.roundOff = this.totalText.split(".");
+        this.floatroundoff = parseFloat('0.'+this.roundOff[1]);
+        if(this.floatroundoff < 0.5){
+          this.grandTotal = parseInt(this.totalAmount +this.TotalTax)
+          this.numberText = converter.toWords( this.grandTotal);
+
+        }else{
+          this.floatroundoff = 1-this.floatroundoff;
+          this.grandTotal = parseInt(this.totalAmount +this.TotalTax) +1
+
+          this.numberText = converter.toWords(this.grandTotal );
+
+        }
+
         for(var i =0 ;i<res.paymentTerm.length ;i++){
           this.paymentTermArray.push({
             name:res.paymentTerm[i].split("=")[0],
@@ -49,8 +69,25 @@ numberText:any;
           
         }
         this.getData = res;
-        this.getData.destination = 'R&D'
+        
+        if(this.getData.supplier.stateCode != this.getData.chalanBy.stateCode ){
+          this.showIgst = true;
+        }
+
+        if(this.getData.chalanBy.stateCode < 10){
+          this.getData.chalanBy.stateCode ='0' +this.getData.chalanBy.stateCode
+        }
+        if(this.getData.supplier.stateCode < 10){
+          this.getData.supplier.stateCode ='0' +this.getData.supplier.stateCode
+        }
+        
+
+        if(this.getData.poType){}else{
+          this.getData.poType = 'Purchase'
+        }
+        this.getData.destination = 'Noida'
         this.getData.supplierRef = res.chPoNo;
+
         console.log(JSON.stringify(res))
       })
   }

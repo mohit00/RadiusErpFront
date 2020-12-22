@@ -16,8 +16,9 @@ import { WorkorderAppendComponent } from './workorder/workorder-append/workorder
 import {PmworkorderComponent} from './pmworkorder/pmworkorder.component';
 import { ProjectWoComponent } from './project-wo/project-wo.component';
 import { ProjectWoDetailComponent } from './project-wo/project-wo-detail/project-wo-detail.component';
+import { WorkorderReportComponent } from './workorder-report/workorder-report.component';
  @NgModule({
-  declarations: [WorkorderComponent, WorkorderAddComponent, PaymentTermComponent, SitematerialComponent, PaymentTermAddComponent, SitematerialAddComponent, WorkorderAppendComponent,PmworkorderComponent, ProjectWoComponent, ProjectWoDetailComponent ],
+  declarations: [WorkorderComponent, WorkorderAddComponent, PaymentTermComponent, SitematerialComponent, PaymentTermAddComponent, SitematerialAddComponent, WorkorderAppendComponent,PmworkorderComponent, ProjectWoComponent, ProjectWoDetailComponent, WorkorderReportComponent ],
   imports: [SharedMaterialModule,NgxDatatableModule,FlexLayoutModule,FormsModule, ReactiveFormsModule,
     CommonModule,
     WorkorderManagementRoutingModule

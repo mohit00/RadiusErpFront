@@ -18,7 +18,7 @@ import { materialService } from 'app/views/material-management/material.serivce'
 })
 export class WorkorderAddComponent implements OnInit {
   pageType: any;
-  woType: any;
+  woType: any ='all';
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   countryList: any
@@ -68,7 +68,10 @@ export class WorkorderAddComponent implements OnInit {
 
 
     });
-
+this.woType = data.woType;
+for(var i =0 ;i<data.materialArray.length;i++){
+  data.materialArray[i].rate= data.materialArray[i].rate.toString();
+}
     this.siteselectedMaterialList = data.materialArray;
     this.paymentTermList = [];
     for (var i = 0; i < data.paymentTerm.length; i++) {
@@ -196,7 +199,7 @@ export class WorkorderAddComponent implements OnInit {
           tax: selectsite.taxRate,
           matuuid: selectsite.uuid 
          })
-        alert(JSON.stringify(this.siteselectedMaterialList))
+         
         this.selectedSiteMaterial = '';
   
       })
@@ -283,8 +286,7 @@ export class WorkorderAddComponent implements OnInit {
   clientOfgroup(data, type) {
     this.CompanyService.companyUnderList(data).subscribe(res => {
       if (type == 'group') {
-        this.clientCompany = res.data;
-
+        this.clientCompany = res.data; 
       }
       if (type == 'client') {
         this.companySiteLists = res.data;
@@ -292,6 +294,10 @@ export class WorkorderAddComponent implements OnInit {
 
       }
     })
+  }
+  typeChange(){
+    this.selectedSiteMaterial = '';
+    this.siteselectedMaterialList = [];
   }
   createCompany() {
 
