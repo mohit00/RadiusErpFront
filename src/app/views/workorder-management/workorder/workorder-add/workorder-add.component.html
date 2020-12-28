@@ -207,6 +207,22 @@
 
               </div>
             </div>
+             <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="20" style="    padding-top: 16px;padding-left:16px">
+
+              <mat-checkbox formControlName="differentBilling" (change)="isdifferentBilling()">Is Different Billing</mat-checkbox>
+
+            </div>  
+           <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100" *ngIf ="secondFormGroup.value.differentBilling">
+              <mat-form-field class="margin-333" appearance="outline">
+                <mat-label>Select Billing Company</mat-label>
+                <mat-select  
+                  formControlName="billingCompanyuuid">
+                  <mat-option *ngFor="let list of billingSite" [value]="list.uuid">
+                    {{list.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>  
             <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100" *ngIf="woType == 'direct'">
               <div fxFlex="100" fxFlex.gt-sm="80" fxFlex.sm="80">
 
@@ -267,7 +283,7 @@
                     <td nowrap>
                       <mat-form-field appearance="outline">
                         <mat-label>Cost</mat-label>
-                        <input matInput placeholder="Placeholder" type="number" [(ngModel)]="item.rate"
+                        <input matInput placeholder="Placeholder" type="text" [(ngModel)]="item.rate"
                           [ngModelOptions]="{standalone: true}">
 
                       </mat-form-field>

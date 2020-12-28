@@ -38,6 +38,7 @@ export class WorkorderAddComponent implements OnInit {
   companyGroupLists: any;
   clientCompany: any;
   siteselectedMaterialList: any = [];
+  billingSite: any;
   constructor(private materialService:materialService,private warehouseService: warehouseService, private WorkorderService: WorkorderService, private departmentService: departmentService, private verticalService: verticalService, private CompanyService: CompanyService, private navService: NavigationService,
     private Router: Router, private fb: FormBuilder, private AppLoaderService: AppLoaderService, private dialog: AppConfirmService) {
   }
@@ -64,13 +65,18 @@ export class WorkorderAddComponent implements OnInit {
       ]],
       paymentTerm: ['', [
       ]],
-      wareuuid: [data.wareuuid]
+      wareuuid: [data.wareuuid],
+
 
 
     });
 this.woType = data.woType;
 for(var i =0 ;i<data.materialArray.length;i++){
   data.materialArray[i].rate= data.materialArray[i].rate.toString();
+}
+if(data.differentBilling){
+  this.isdifferentBilling();
+
 }
     this.siteselectedMaterialList = data.materialArray;
     this.paymentTermList = [];
@@ -84,9 +90,12 @@ for(var i =0 ;i<data.materialArray.length;i++){
     this.changeDepartment();
     this.clientOfgroup(this.firstFormGroup.value.groupuuid, 'group');
     this.clientOfgroup(this.firstFormGroup.value.clientuuid, 'client');
-
+    this.secondFormGroup = this.fb.group({
+      differentBilling:[data.differentBilling],
+      billingCompanyuuid:[data.billingCompanyuuid]
+    })
   }
-
+  
   createForm() {
     this.firstFormGroup = this.fb.group({
       woNo: ['', [
@@ -115,12 +124,14 @@ for(var i =0 ;i<data.materialArray.length;i++){
         qty: [],
         unit: [],
         rate: [],
-        tax: []
+        tax: [],
+      
       }
       )
-      ]
-
-      ]
+      ],
+     
+      ] ,differentBilling:[false],
+      billingCompanyuuid:['']
 
     });
   }
@@ -302,6 +313,13 @@ for(var i =0 ;i<data.materialArray.length;i++){
   createCompany() {
 
     let dataJson = this.firstFormGroup.value;
+    dataJson.differentBilling = this.secondFormGroup.value.differentBilling;
+
+    if(this.secondFormGroup.value.differentBilling){
+      dataJson.billingCompanyuuid = this.secondFormGroup.value.billingCompanyuuid;
+
+    }
+
     dataJson.woType = this.woType;
     dataJson.paymentTerm = this.paymentTermList;
     dataJson.materialArray = this.siteselectedMaterialList;
@@ -323,6 +341,13 @@ for(var i =0 ;i<data.materialArray.length;i++){
   }
   updateCompany() {
     let dataJson = this.firstFormGroup.value;
+    dataJson.differentBilling = this.secondFormGroup.value.differentBilling;
+
+    if(this.secondFormGroup.value.differentBilling){
+      dataJson.billingCompanyuuid = this.secondFormGroup.value.billingCompanyuuid;
+
+    }
+
     dataJson.woType = this.woType;
     dataJson.paymentTerm = this.paymentTermList;
     dataJson.materialArray = this.siteselectedMaterialList;
@@ -394,6 +419,22 @@ for(var i =0 ;i<data.materialArray.length;i++){
 
     } else {
       this.change('company')
+    }
+    this.CompanyService.companyList().subscribe(res => {
+      
+      
+      this.billingSite = res.data.filter((data) => {
+        if (data.type.toLowerCase() == 'site') {
+          return true
+        } else {
+          return false;
+        }
+      });})
+  }
+  isdifferentBilling() {
+    if (this.secondFormGroup.value.differentBilling) {
+     } else {
+  
     }
   }
   isgroup() {

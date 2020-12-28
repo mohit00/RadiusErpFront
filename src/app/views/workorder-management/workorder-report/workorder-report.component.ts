@@ -41,9 +41,18 @@ grandTotal:any;
         this.totalAmount = 0;
         this.TotalTax = 0;
         this.paymentTermArray = [];
-        for(var i =0 ;i<res.chalanPoMateriaRelationship.length;i++){
-          this.totalAmount = this.totalAmount + (res.chalanPoMateriaRelationship[i].matQty * res.chalanPoMateriaRelationship[i].matCost)
-          this.TotalTax = this.TotalTax + ((res.chalanPoMateriaRelationship[i].matQty * res.chalanPoMateriaRelationship[i].matCost ) * res.chalanPoMateriaRelationship[i].tax/100)
+        if(res.woType == 'all' || (res.woType == 'null')){
+          for(var i =0 ;i<res.siteMaterialWORelationship.length;i++){
+            this.totalAmount = this.totalAmount + (res.siteMaterialWORelationship[i].matQty * res.siteMaterialWORelationship[i].matCost)
+            this.TotalTax = this.TotalTax + ((res.siteMaterialWORelationship[i].matQty * res.siteMaterialWORelationship[i].matCost ) * res.siteMaterialWORelationship[i].tax/100)
+          }
+  
+        }else{
+          // for(var i =0 ;i<res.chalanPoMateriaRelationship.length;i++){
+          //   this.totalAmount = this.totalAmount + (res.chalanPoMateriaRelationship[i].matQty * res.chalanPoMateriaRelationship[i].matCost)
+          //   this.TotalTax = this.TotalTax + ((res.chalanPoMateriaRelationship[i].matQty * res.chalanPoMateriaRelationship[i].matCost ) * res.chalanPoMateriaRelationship[i].tax/100)
+          // }
+  
         }
         this.totalText  = (this.totalAmount+this.TotalTax).toString();
         this.roundOff = this.totalText.split(".");
@@ -80,11 +89,7 @@ grandTotal:any;
         if(this.getData.supplier.stateCode < 10){
           this.getData.supplier.stateCode ='0' +this.getData.supplier.stateCode
         }
-        
-
-        if(this.getData.poType){}else{
-          this.getData.poType = 'Purchase'
-        }
+     
         this.getData.destination = 'Noida'
         this.getData.supplierRef = res.chPoNo;
 
