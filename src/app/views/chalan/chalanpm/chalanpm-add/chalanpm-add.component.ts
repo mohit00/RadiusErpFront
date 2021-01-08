@@ -18,7 +18,7 @@ import { materialService } from '../../../material-management/material.serivce'
 export class ChalanpmAddComponent implements OnInit {
   firstFormGroup: FormGroup;
   secountFormGroup:FormGroup;
-  searchCtrl:any;
+  searchCtrl:any ='';
   constructor(private chalanService: ChalanService,private WorkorderService:WorkorderService, private departmentService: departmentService, private verticalService: verticalService, private CompanyService: CompanyService, private navService: NavigationService,
     private Router: Router, private fb: FormBuilder, private AppLoaderService: AppLoaderService, private dialog: AppConfirmService, private materialService: materialService) {
   }
@@ -181,7 +181,7 @@ export class ChalanpmAddComponent implements OnInit {
       return false;
     }
     for(var i =0 ;i<this.materialData.length;i++){
-      console.log(this.materialData[i].materialcost.toString())
+    
       this.materialData[i].materialcost = this.materialData[i].materialcost.toString()
     }
      dataJson.materialList = this.materialData;
@@ -241,7 +241,7 @@ export class ChalanpmAddComponent implements OnInit {
   pageType;any;
   userdata:any;
   public bankFilterCtrl: FormControl = new FormControl();
-
+   
   updateForm(data){
     this.paymentTermList=[]
     for(var j =0 ;j<data.paymentTerm.length;j++){
@@ -258,8 +258,8 @@ export class ChalanpmAddComponent implements OnInit {
           name:data.chalanPoMateriaRelationship[j].name,
           materialqty:data.chalanPoMateriaRelationship[j].matQty,
           materialcost:data.chalanPoMateriaRelationship[j].matCost,
-          matSend:data.chalanPoMateriaRelationship[j].matSend
-
+          matSend:data.chalanPoMateriaRelationship[j].matSend,
+          description:data.chalanPoMateriaRelationship[j].description
           })
     }
     this.materialData= this.materialData.reverse()

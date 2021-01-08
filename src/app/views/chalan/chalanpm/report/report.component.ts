@@ -2,7 +2,15 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'environments/environment';
 import { ChalanService } from '../../chalan/chalan.service'
 var converter = require('number-to-words');
-
+import { ToWords } from 'to-words';
+const toWords = new ToWords({
+  localeCode: 'en-IN',
+  converterOptions: {
+    currency: true,
+    ignoreDecimal: false,
+    ignoreZeroCurrency: false,
+  }
+});
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -50,13 +58,13 @@ grandTotal:any;
         this.floatroundoff = parseFloat('0.'+this.roundOff[1]);
         if(this.floatroundoff < 0.5){
           this.grandTotal = parseInt(this.totalAmount +this.TotalTax)
-          this.numberText = converter.toWords( this.grandTotal);
+          this.numberText = toWords.convert(this.grandTotal);  
 
         }else{
           this.floatroundoff = 1-this.floatroundoff;
           this.grandTotal = parseInt(this.totalAmount +this.TotalTax) +1
 
-          this.numberText = converter.toWords(this.grandTotal );
+          this.numberText =toWords.convert(this.grandTotal);  
 
         }
 

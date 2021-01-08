@@ -138,7 +138,7 @@ export class ChalanAddComponent implements OnInit {
     for(var i =0;i<this.materialData.length;i++){
       if(this.materialData[i].materialqty){ 
       }else{
-this.materialData[i].materialqty = 0;
+this.materialData[i].materialqty = "0";
       }
     }
     let dataJson = this.firstFormGroup.value;
