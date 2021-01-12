@@ -78,7 +78,13 @@ if(data.differentBilling){
   this.isdifferentBilling();
 
 }
+  if(data.materialArray){
     this.siteselectedMaterialList = data.materialArray;
+
+  }else{
+    this.siteselectedMaterialList = data.materialArray2;
+
+  }
     this.paymentTermList = [];
     for (var i = 0; i < data.paymentTerm.length; i++) {
       this.paymentTermList.push({
@@ -156,7 +162,7 @@ if(data.differentBilling){
     })
   }
   getMaterialGet() {
-  this.materialService.materialList().subscribe(res => {
+  this.materialService.getCompanymaterial("").subscribe(res => {
 
       this.materialList = res.data;
 
