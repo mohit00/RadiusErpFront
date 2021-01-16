@@ -1,242 +1,297 @@
-<mat-card class="p-0" *ngIf ="clanData">
-  <mat-card-title class="" style="text-align: center;">
-    <div class="card-title-text">Delivery Note</div>
-    <mat-divider></mat-divider>
-  </mat-card-title>
-  <mat-card-content>
-    <div fxLayout="row wrap">
-      <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
-        <mat-card style="padding: 0;">
-          <div fxLayout="row wrap" style="border:1px solid black;     padding: 12px; ">
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
 
-              <p style="font-weight: 600;">{{clanData.parentCompany.name}}</p>
-              <p style="margin: 0;">{{clanData.parentCompany.address}}</p>
-              <p style="margin: 0;">Email: admin@radius.Co.in</p>
-              <p style="margin: 0;"> Website : {{clanData.parentCompany.website}}</p>
-              <p style="margin: 0;"> STATE CODE: {{clanData.parentCompany.stateCode}}</p>
-              <p style="margin: 0;"> PH:-{{clanData.parentCompany.phoneNumber}}</p>
-              <p style="margin: 0;">GSTIN/UIN: {{clanData.parentCompany.gstno}}</p>
-              <p style="margin: 0;"> State Name : {{clanData.parentCompany.state}}, Code : {{clanData.parentCompany.stateCode}}</p>
-              <p style="margin: 0;">CIN: {{clanData.parentCompany.cnio}}</p>
-            </div>
+<mat-card class="p-0" id="pRef" *ngIf ="getData">
+  <button mat-icon-button aria-label="Example icon-button with a heart icon" (click)="GetHtml()" style="float: right;
+              ;">
+  <mat-icon>cloud_download</mat-icon>
+</button>
+  <div style="width: 100%;float: left;" #pRef>
+    <p style="    text-align: center;
+margin-top: 10px;
+margin-bottom: 0px;
+font-size: 20px;
+font-weight: 600;" >Delivery Note </p>
+ 
 
-          </div>
-        </mat-card>
-        <mat-card style="padding: 0;">
-          <div fxLayout="row wrap" style="border:1px solid black;     padding: 12px; ">
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
-<p style="margin: 0;">Buyer (if other than consignee)</p>
-              <p style="font-weight: 600;">{{clanData.companyGroup.name}}</p>
-              <p style="margin: 0;">Site-:{{clanData.companyGroup.address}}</p>
-                <p style="margin: 0;">GSTIN/UIN: {{clanData.companyGroup.gstno}}</p>
-              <p style="margin: 0;"> State Name : {{clanData.companyGroup.state}}, Code : {{clanData.companyGroup.stateCode}}</p>
-             </div>
+    <div style="width:100%;border:1px solid;    width: 100%;
+border: 1px solid;
+float: left;
 
-          </div>
+ ">
+      <div style="width:100%;     width: 100%;
+ border-bottom: 1px solid;
+ float: left;
+ padding: 10px;
+ 
+  ">
+        <div style="width:50%;float: left;">
+          <p style="    margin: 0px;
+  font-size: 14px;
+  font-weight: 600;">Invoice To:</p>
+          <p style="    margin: 0;
+  font-size: 16px;
+  font-weight: 600;">{{getData.parentCompany.name}}</p>
+          <p style="   margin: 0; 
+    font-size: 12px;">{{getData.parentCompany.address}}</p>
+          <p style="    margin: 0;font-size: 12px; ">E-Mail : {{getData.parentCompany.companyEmail}}</p>
+          <p style="   margin: 0;font-size: 12px; ">WebSite : {{getData.parentCompany.website}}</p>
+          <p style="   margin: 0;font-size: 12px; ">CIN : {{getData.parentCompany.cnio}}</p>
+          <p style="   margin: 0;font-size: 12px; ">Phone : {{getData.parentCompany.phoneNumber}}</p>
 
-        </mat-card>
+        </div>
+        <div style="width: 40%;
+        float: right;
+        text-align: left;
+    ">
+          <p style="margin-bottom: 0px;
+  margin-top: 0px;
+  font-size: 14px;
+  font-weight: 600;">GSTIN : {{getData.parentCompany.gstno}}</p>
+          <p style="font-size: 14px;
+  font-weight: 600;">PAN No. : {{getData.parentCompany.pan}}</p>
+          <p style="margin-bottom: 0px;margin-top: 0px;font-size: 14px;
+  ">State : {{getData.parentCompany.state}}</p>
+          <p style="font-size: 14px;
+   ">State Code : {{getData.parentCompany.stateCode}}</p>
+        </div>
+      </div>
 
-        <mat-card style="padding: 0;">
-          <div fxLayout="row wrap" style="border:1px solid black;     padding: 12px; ">
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
 
-              <p style="margin: 0;">Consignee</p>
-              <p style="font-weight: 600;">{{clanData.companyClient.name}}</p>
-              <p style="margin: 0;">Site-:{{clanData.companyClient.address}}</p>
-                <p style="margin: 0;">GSTIN/UIN: {{clanData.companyClient.gstno}}</p>
-              <p style="margin: 0;"> State Name : {{clanData.companyClient.state}}, Code : {{clanData.companyClient.stateCode}}</p>
-              <p style="margin: 0;"> Place of Supply : {{clanData.companyClient.state}} </p>
+      <div style="width:100%;     
+border-bottom: 1px solid;
+float: left;
 
-            </div>
+ ">
 
-          </div>
+        <div style="width: 50%;
+      float: left;
+      padding: 10px 0px 0px 10px;
+      border-right: 1px solid; ">
+          <p style="    
+ margin-top: 10px;
+ margin-bottom: 0px;
+ font-size: 16px;
+ font-weight: 600;">Work Order No : {{getData.woDetail.woNo}}</p>
+          <p style="    
+  margin-top: 10px;
+  margin-bottom: 0px;
+  font-size: 16px;
+  font-weight: 600;">Work Order Date : {{getData.woDetail.woDate |date: 'dd/MM/yyyy'}}</p>
+          <p style="    
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 16px;
+    font-weight: 600;">Supplier ref or order no. : <span (click) ="SupplierRefText()" >
+<ng-container *ngIf ="!showSupplierRefText">
+  {{getData.supplierRef}}
+</ng-container>
+</span> 
+<ng-container *ngIf ="showSupplierRefText">
+  <input name = "destination" [(ngModel)] ="getData.supplierRef"  (blur) ="SupplierRefText()" [ngModelOptions]="{standalone: true}">
+</ng-container></p>
+        </div>
+        <div style="width: 40%;
+      float: left;
+      text-align: left; padding-left: 10px;">
 
-        </mat-card>
+          <p style="    
+margin-top: 10px;
+margin-bottom: 0px;
+font-size: 16px;
+font-weight: 600;">Delivery Term : {{getData.deliveryTerm}} </p>
+          <p style="    
+  margin: 0px;
+ font-size: 16px;
+ font-weight: 600;">Mode/Term Of payment : <span *ngFor="let list of paymentTermArray">{{list.value}}%
+              {{list.name}}</span></p>
+          <p style="    
+  margin-top: 10px;
+ font-size: 16px;
+ font-weight: 600;">Destination : <span (click) ="Destination()" >
+<ng-container *ngIf ="!showDestinationText">
+  {{getData.destination}}
+</ng-container>
+</span>
+<ng-container *ngIf ="showDestinationText">
+  <input name = "destination" [(ngModel)] ="getData.destination"  (blur) ="Destination()" [ngModelOptions]="{standalone: true}">
+</ng-container></p>
+        </div>
+      </div>
+      <div style="width:100%;float:left;padding: 10px;background: gainsboro">
+        <div style="width:50%;margin: 0px;font-weight: 600; float: left;   font-size: 14px;">Buyer(if other than consignee):: </div>
+        <div style="width:40%;margin: 0px;font-weight: 600;  float: left;  font-size: 14px; "> Consignee :</div>
 
       </div>
-      <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
-        <mat-card style="padding: 0;">
-          <div fxLayout="row wrap">
+      <div style="width:100%;float:left;   margin-bottom: 10px; ">
+        <div style="width: 50%;float:left;border-right:1px solid ;">
+          <!-- <p style="padding: 10px;background: gainsboro;margin: 0px;font-weight: 600;    font-size: 14px;">
+          
+        </p> -->
+          <p style="    padding-left: 10px;
+        font-size: 12px;
+        font-weight: 600;
+        margin: 0;">
+            Name : {{getData.companyClient.name}}.
 
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-              <p style="font-weight: 600;    margin-bottom: 5px;">Delivery Note No.</p>
-              <p style="margin: 0;">{{clanData.poNo}}</p>
+          </p>
+          <p style="    padding-left: 10px;
+        font-size: 12px;
+        font-weight: 600;
+        margin: 0;margin-bottom: 10px;">
+            Add. : {{getData.companyClient.address}}
 
-            </div>
+          </p>
+          <p style="margin-bottom: 0px;padding-left: 10px;
+        margin-top: 0px;
+        font-size: 14px;
+        font-weight: 600;">GSTIN : {{getData.companyClient.gstno}}</p>
+          <p style="margin-bottom: 0px;
+           margin-top: 0px;padding-left: 10px;
+           font-size: 14px;
+           font-weight: 600;">Mobile\Ph. no. : {{getData.companyClient.phoneNumber}}</p>
+        </div>
+        <div style="width: 40%;float:left; ">
+          <!-- <p style="padding: 10px;background: gainsboro;margin: 0px;font-weight: 600;    font-size: 14px;">
+          Supplier:
+        </p>
+          -->
+          <p style="    padding-left: 10px;
+        font-size: 12px;
+        font-weight: 600;
+        margin: 0;">
+            Name : {{getData.companyClient.name}}.
 
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-              <p style="font-weight: 600;    margin-bottom: 5px;">Dated</p>
-              <p style="margin: 0;">2-may-2020</p>
+          </p>
+          <p style="    padding-left: 10px;
+        font-size: 12px;
+        font-weight: 600;
+        margin: 0;margin-bottom: 10px;">
+            Add. : {{getData.companyClient.address}}
 
-            </div>
-          </div>
-          <div fxLayout="row wrap">
+          </p>
+          <p style="margin-bottom: 0px;
+        margin-top: 0px;padding-left: 10px;
+        font-size: 14px;
+        font-weight: 600;">State : {{getData.companyClient.stateCode}}-{{getData.companyClient.state}}</p>
+          <p style="margin-bottom: 0px;padding-left: 10px;
+        margin-top: 0px;
+        font-size: 14px;
+        font-weight: 600;">GSTIN : {{getData.companyClient.gstno}}</p>
 
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-              <!-- <p style="font-weight: 600;    margin-bottom: 5px;">Delivery Note No.</p>
-              <p style="margin: 0;">dsad</p> -->
-
-            </div>
-
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-              <p style="font-weight: 600;    margin-bottom: 5px;">Mode/Terms of Payment</p>
-              <p style="margin: 0;"> </p>
-
-            </div>
-          </div>
-          <div fxLayout="row wrap">
-
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-               <p style="font-weight: 600;    margin-bottom: 5px;">Supplier’s Ref..</p>
-              <p style="margin: 0;"> </p>  
-
-            </div>
-
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-              <p style="font-weight: 600;    margin-bottom: 5px;">Other Reference(s)</p>
-              <p style="margin: 0;"> </p>
-
-            </div>
-          </div>
-          <div fxLayout="row wrap">
-
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-               <p style="font-weight: 600;    margin-bottom: 5px;">Buyer’s Order No.</p>
-               <p style="margin: 0;">{{clanData.woDetail.woNo}}</p>
-
-            </div>
-
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-              <p style="font-weight: 600;    margin-bottom: 5px;">Dated</p>
-              <p style="margin: 0;"> </p>
-
-            </div>
-          </div>
-          <div fxLayout="row wrap">
-
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-               <p style="font-weight: 600;    margin-bottom: 5px;">Despatch Document No.</p>
-              <p style="margin: 0;">s </p>  
-
-            </div>
-
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-              <p style="font-weight: 600;    margin-bottom: 5px;"> </p>
-              <p style="margin: 0;"> </p>
-
-            </div>
-          </div>
-          <div fxLayout="row wrap">
-
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-               <p style="font-weight: 600;    margin-bottom: 5px;">Despatched through.</p>
-              <p style="margin: 0;"> </p>  
-
-            </div>
-
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-              <p style="font-weight: 600;    margin-bottom: 5px;">Destination </p>
-              <p style="margin: 0;"> </p>
-
-            </div>
-          </div>
-          <div fxLayout="row wrap">
-
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-               <p style="font-weight: 600;    margin-bottom: 5px;">Vessel/Flight No.</p>
-              <p style="margin: 0;"> </p>  
-
-            </div>
-
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-              <p style="font-weight: 600;    margin-bottom: 5px;">Place of receipt by shipper: </p>
-              <p style="margin: 0;"> </p>
-
-            </div>
-          </div>
-          <div fxLayout="row wrap">
-
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-               <p style="font-weight: 600;    margin-bottom: 5px;">City/Port of Loading</p>
-              <p style="margin: 0;"> </p>  
-
-            </div>
-
-            <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-              <p style="font-weight: 600;    margin-bottom: 5px;">City/Port of Discharge </p>
-              <p style="margin: 0;"> </p>
-
-            </div>
-          </div>
-          <div fxLayout="row wrap">
-
-            <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100" style="border:1px solid black;     padding: 12px; ">
-               <p style="font-weight: 600;    margin-bottom: 5px;">Terms of Delivery</p>
-              <p style="margin: 0;"> </p>  
-
-            </div>
-
-           </div>
-        </mat-card>
+        </div>
 
       </div>
-      <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
-        <table id="customers">
-          <tr>
-            <th>Sl No.</th>
-            <th>Description of Goods</th>
-            <th>HSN/SAC</th>
-            <th>Quantity</th>
-            <th>Rate</th>
-            <th>per</th>
-            <th>Amount</th>
+      <table style="width: 100%;;  margin-top: 10px;  border: 1px solid black;
+    border-collapse: collapse;
+  ">
+        <tr>
+          <th style="width: 10px;text-align: left;  border: 1px solid black;
+        border-collapse: collapse;
+       ;">S.No.</th>
+          <th style="width: 300px;text-align: left;  border: 1px solid black;
+        border-collapse: collapse;
+       ;">Description of Goods</th>
+           
+          <th style="width: 75px;text-align: left;  border: 1px solid black;
+        border-collapse: collapse;
+       ;">Qty</th>
+          <th style="width: 75px;text-align: left;  border: 1px solid black;
+        border-collapse: collapse;
+       ;">Rate</th>
+          <th style="width: 75px;text-align: left;  border: 1px solid black;
+        border-collapse: collapse;
+       ;">Per</th>
+          <th style="width: 75px;text-align: left;  border: 1px solid black;
+        border-collapse: collapse;
+       ;">Amount</th>
 
-          </tr>
-          <tr *ngFor ="let list of clanData.woDetail.materialArray let i =index">
-            <td>{{i+1}}</td>
-            <td> {{list.name}}</td>
-            <td></td>
-            <td>{{list.qty}}</td>
-            <td>{{list.rate}}</td>
-            <td></td>
-            <td></td>
+        </tr>
+        <tr *ngFor="let list of getData.woDetail.materialArray.reverse();let i =index">
+          <td style="border: 1px solid black;
+        border-collapse: collapse;text-align: left;
+       ;">{{i +1}}</td>
+          <td style="border: 1px solid black;
+        border-collapse: collapse;text-align: left;
+       ;"><span>{{list.name}}<br> {{list.description}}</span></td>
 
-          </tr>
-          <tr >
-            <td></td>
-            <td>Total</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+          
 
-          </tr>
-        </table>
-</div>
-<div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
-  <p>E. & O.E</p>
-  <p>Company PAN:{{clanData.parentCompany.pan}}</p>
-</div>
-<div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="100">
+          <td style="border: 1px solid black;
+        border-collapse: collapse;text-align: left;
+       ;">{{list.qty}} {{list.unit}}</td>
+          <td style="border: 1px solid black;
+        border-collapse: collapse;text-align: left;
+       ;">{{list.rate }}</td>
+          <td style="border: 1px solid black;
+        border-collapse: collapse;text-align: left;
+       ;">{{list.unit}}</td>
+          <td style="border: 1px solid black;
+        border-collapse: collapse;text-align: left;
+       ;"> {{list.qty * list.rate | number:'1.2-2'}}</td>
+        </tr>
+      </table>
+      <div style="width: 100%; 
+    float: left;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-top: 1px solid;
+    border-bottom: 1px solid;text-align: right;">
+        <div style="width: 50%;float: left;"></div>
+        <div style="width: 40%;
+        float: right;
+        margin-right: 10px;
+        margin-top: 10px;
+    ">
+          <div style="width: 50%;float: left">Total Amonunt</div>
+          <div style="width: 50%;float: left">{{totalAmount | number:'1.2-2' }}</div>
+      
+          <div style="width: 50%;float: left" *ngIf ="!showIgst">Add SGST</div>
+          <div style="width: 50%;float: left"  *ngIf ="!showIgst">{{TotalTax/2| number:'1.2-2'}}</div>
+          <div style="width: 50%;float: left" *ngIf ="!showIgst">Add CGST</div>
+          <div style="width: 50%;float: left" *ngIf ="!showIgst">{{TotalTax/2| number:'1.2-2'}}</div>
+          <div style="width: 50%;float: left" *ngIf ="showIgst">Add IGST</div>
+          <div style="width: 50%;float: left" *ngIf ="showIgst">{{TotalTax| number:'1.2-2'}}</div>
+          <div style="width: 50%;float: left">Round Off</div>
+          <div style="width: 50%;float: left">{{floatroundoff| number:'1.2-2'}}</div>
+          <div style="width: 50%;float: left;font-size: 16px;font-weight: 600;">Grand Total</div>
+          <div style="width: 50%;float: left;font-size: 16px;font-weight: 600;">{{grandTotal}}</div>
+        </div>
 
-<div fxLayout="row wrap">
-
-  <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-     <p style="font-weight: 600;    margin-bottom: 5px;">Recd. in Good Condition</p>
-    <p style="margin: 0;"> </p>  
-
-  </div>
-
-  <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" style="border:1px solid black;     padding: 12px; ">
-    <p style="font-weight: 600;    margin-bottom: 5px;">for Radius Synergies International P Ltd. </p>
-    <p style="margin: 0;">Authorised Signatory </p>
-
-  </div>
-</div>
-</div>
+      </div>
+      <div style="width: 100%; 
+    float: left;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-top: 1px solid;
+    border-bottom: 1px solid;margin: 0px;">
+        <p>Rs {{numberText}}  </p>
+      </div>
+      <div style="width: 100%; float: left;">
+        <div style="width: 60%; float: left;">
+          <p>Term & Condition</p>
+          <ol style="    font-size: 12px;">
+            <li> We certify that the particulars given above are true and correct and the amount indicate
+              repersent price actually.</li>
+            <li> Goods once delivered will not be taken back. For Radius Synergies International Pvt. Ltd.</li>
+            <li> the purchase shall check the delivered Goods immediately after reciept. complaints of any kind shall be ruled out if they within 30 days after the reciept of the Goods.
+            </li>
+            <li> All disputes shall be the jurisdictions of court at Gautam Budha Nagar, U.P</li>
+              
+          </ol>
+        </div>
+        <div style="    width: 30%;
+        float: right;
+        /* border: 1px solid; */
+        border-left: 1px solid;
+        border-top: 1px solid;
+        border-bottom: 1px solid;
+        /* padding-top: 6px; */
+        /* margin: 25px; */
+        padding: 21px;
+        margin: 25px 0px 0px 0px;padding-left: 10px;">
+          <p style="font-size: 12px;">For {{getData.parentCompany.name}}</p>
+          <p style="margin-top: 20px;margin-top: 66px;margin-bottom: 0px;font-size: 12px">Authorized Sign</p>
+        </div>
+      </div>
     </div>
-
-  </mat-card-content>
+  </div>
 </mat-card>
