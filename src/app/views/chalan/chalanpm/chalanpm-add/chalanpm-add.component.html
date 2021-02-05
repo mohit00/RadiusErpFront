@@ -46,7 +46,7 @@
             </div>
             <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="25">
               <mat-form-field appearance="outline">
-                <mat-label>Select Client</mat-label>
+                <mat-label>Select Vendor</mat-label>
                 <mat-select formControlName="vendor">
                   <mat-option *ngFor="let list of clinetList" [value]="list.uuid">{{list.name}} </mat-option>
                 </mat-select>

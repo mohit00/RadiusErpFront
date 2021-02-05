@@ -256,7 +256,7 @@ export class ChalanpmAddComponent implements OnInit {
         {
            materialuuid:  (data.chalanPoMateriaRelationship[j].uuid) ,
           name:data.chalanPoMateriaRelationship[j].name,
-          materialqty:data.chalanPoMateriaRelationship[j].matQty,
+          materialqty:data.chalanPoMateriaRelationship[j].matQty.toString(),
           materialcost:data.chalanPoMateriaRelationship[j].matCost,
           matSend:data.chalanPoMateriaRelationship[j].matSend,
           description:data.chalanPoMateriaRelationship[j].description
@@ -272,12 +272,12 @@ export class ChalanpmAddComponent implements OnInit {
       uuid:[data.uuid],poType:[data.poType]
     });
     this.secountFormGroup = this.fb.group({
-      deliveryToClient: [false, [
+      deliveryToClient: [data.deliveryClient, [
       ]],
-      clientuuid:[''],
-      groupuuid:[''],
+      clientuuid:[data.clientuuid],
+      groupuuid:[data.groupuuid],
       deliverTerm: [data.deliverTerm],
-      isGroup:[false],
+      isGroup:[data.isGroup],
       termOfPayment: ['']
     });
   }
