@@ -1,6 +1,6 @@
 <mat-card class="p-0">
   <mat-card-title class="">
-    <div class="card-title-text">Chalan {{pageType}}</div>
+    <div class="card-title-text">Delivey Note {{pageType}}</div>
     <mat-divider></mat-divider>
   </mat-card-title>
   <mat-card-content>
@@ -45,7 +45,9 @@
         <mat-form-field appearance="outline">
           <mat-label>Select Material</mat-label>
           <mat-select   formControlName="materialId" >
-            <mat-option  *ngFor ="let list of materialList" [value] ="list">{{list.name}} </mat-option>
+            <ngx-mat-select-search [(ngModel)]="searchMaterial" [placeholderLabel]="'Search...'"
+                  [noEntriesFoundLabel]="'Not found'" name="search"  [ngModelOptions]="{standalone: true}"></ngx-mat-select-search>
+            <mat-option  *ngFor ="let list of materialList |stringFilterBy:searchMaterial:'name'" [value] ="list">{{list.name}} ({{list.description}})</mat-option>
           </mat-select>                
         </mat-form-field>
         </div>
@@ -65,8 +67,7 @@
              <th>Material  Quantity</th>
             <th>Unit</th>
             <th>Description</th>
-              <th>Cost</th>
-           </tr>
+            </tr>
          </thead>
          <tbody *ngIf="materialData.length>0; else paymentTermNoData">
            <tr *ngFor="let item of materialData;let index = index">
@@ -82,14 +83,7 @@
              <td>{{ item.unit }}</td>
              <td>{{ item.description }}</td>
 
-             <td nowrap> 
-              <mat-form-field  appearance="outline">
-                <mat-label>Cost</mat-label>
-                <input matInput placeholder="Placeholder"  type ="text" [(ngModel)]= "item.materialcost"  [ngModelOptions]="{standalone: true}" >
-               
-    
-              </mat-form-field></td>
-   
+           
              <td nowrap>
    
    

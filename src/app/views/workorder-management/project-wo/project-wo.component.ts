@@ -69,8 +69,8 @@ export class ProjectWoComponent implements OnInit {
     this.rows = rows;
   }
   paymenTermEdit(data){
-sessionStorage.setItem("workorderSelecteduuid",data);
-this.router.navigate(['workorder/Update'])
+sessionStorage.setItem("chalanOutUUid",data);
+this.router.navigate(['chalan/out/Update'])
 
   }
   report(data){

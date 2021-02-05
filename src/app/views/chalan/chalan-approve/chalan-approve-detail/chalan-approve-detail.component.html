@@ -1,6 +1,6 @@
 <mat-card class="p-0">
   <mat-card-title class="">
-    <div class="card-title-text">Chalan Approve</div>
+    <div class="card-title-text">Delivery Note Approve</div>
     <mat-divider></mat-divider>
   </mat-card-title>
   <mat-card-content>
@@ -63,8 +63,9 @@
            <tr>
              <th width="30%"> Name</th>
              <th>Material  Quantity</th>
+             <th>Warehouse Quantity</th>
 
-              <th>Cost</th>
+            <th>Description</th>
            </tr>
          </thead>
          <tbody *ngIf="materialData.length>0; else paymentTermNoData">
@@ -72,9 +73,12 @@
              <td>{{ item.name }}</td>
           
              <td nowrap> 
-               {{item.matQty}}</td>
-             <td nowrap> 
-              {{item.matCost}}</td>
+               {{item.matQty}} {{item.unit}}</td>
+               <td nowrap>{{item.totalQty}} {{item.unit}}</td>
+
+               <td nowrap>{{item.description}}</td>
+             <!-- <td nowrap> 
+              {{item.matCost}}</td> -->
    
            
            </tr>

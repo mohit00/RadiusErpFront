@@ -39,6 +39,8 @@ export class WorkorderAddComponent implements OnInit {
   clientCompany: any;
   siteselectedMaterialList: any = [];
   billingSite: any;
+  searchGroup:any= '';
+  searchClient:any =''
   constructor(private materialService:materialService,private warehouseService: warehouseService, private WorkorderService: WorkorderService, private departmentService: departmentService, private verticalService: verticalService, private CompanyService: CompanyService, private navService: NavigationService,
     private Router: Router, private fb: FormBuilder, private AppLoaderService: AppLoaderService, private dialog: AppConfirmService) {
   }
@@ -66,7 +68,7 @@ export class WorkorderAddComponent implements OnInit {
       paymentTerm: ['', [
       ]],
       wareuuid: [data.wareuuid],
-
+      isGroup:[data.isGroup]
 
 
     });

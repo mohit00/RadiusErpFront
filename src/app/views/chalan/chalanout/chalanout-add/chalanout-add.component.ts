@@ -58,13 +58,14 @@ export class ChalanoutAddComponent implements OnInit {
     })
   }
   materialList: any = [];
+  searchMaterial:any=''
   createForm() {
     this.firstFormGroup = this.fb.group({
       poNo: ['', [
       ]],
       parentCompany: ['', [
       ]],
-      workorderuuid:[''],
+      workorderuuid:[{value:sessionStorage.getItem('workuuid'),disabled:true}],
        client: [''],
       materialId: [''],
       wareuuid: ['']
@@ -73,10 +74,13 @@ export class ChalanoutAddComponent implements OnInit {
   }
   materialData: any = [];
   addMaterial() {
-     this.materialData.push(
+      this.materialData.push(
       {
          materialuuid:  (this.firstFormGroup.value.materialId).uuid ,
-        name: (this.firstFormGroup.value.materialId).name 
+        name: (this.firstFormGroup.value.materialId).name ,
+        description: (this.firstFormGroup.value.materialId).description,
+        unit:(this.firstFormGroup.value.materialId).unit ,
+        materialcost:"0"
         })
   }
   change(data) {
@@ -126,14 +130,14 @@ export class ChalanoutAddComponent implements OnInit {
     })
   }
   createCompany() {
-    let dataJson = this.firstFormGroup.value;
+    let dataJson = this.firstFormGroup.getRawValue();
     dataJson.materialList = this.materialData;
-     this.AppLoaderService.open();
+      this.AppLoaderService.open();
     this.chalanService.poCreate(dataJson).subscribe(res => {
       if (res.code == "200") {
         let datasend = {
           title: 'Success',
-          message: res.message
+          message: "You Have Succesfully Created Delivery Note"
         }
         this.dialog.confirm(datasend).subscribe(res1 => {
           if(this.userdata.role =='Project'){
@@ -175,6 +179,11 @@ export class ChalanoutAddComponent implements OnInit {
 
     this.href = this.Router.url;
     if (this.href == '/chalan/out/Add') {
+      this.pageType = 'Add';
+      this.createForm();
+
+    }
+    if (this.href == '/chalan/out/Update') {
       this.pageType = 'Add';
       this.createForm();
 

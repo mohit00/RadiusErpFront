@@ -13,6 +13,7 @@
 
             <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="100" *ngIf="userdata.role =='Admin'">
               <mat-form-field class="margin-333" appearance="outline">
+                
                 <mat-label>Select Company</mat-label>
                 <mat-select (selectionChange)="change('company')" formControlName="parentuuid">
                   <mat-option *ngFor="let list of companyLists" [value]="list.uuid">
@@ -31,7 +32,9 @@
                 <mat-label>Select Group</mat-label>
                 <mat-select (selectionChange)="clientOfgroup(firstFormGroup.value.groupuuid,'group')"
                   formControlName="groupuuid">
-                  <mat-option *ngFor="let list of companyGroupLists" [value]="list.uuid">
+                  <ngx-mat-select-search [(ngModel)]="searchGroup" [placeholderLabel]="'Search...'"
+                  [noEntriesFoundLabel]="'Not found'" name="search"  [ngModelOptions]="{standalone: true}"></ngx-mat-select-search>
+                  <mat-option *ngFor="let list of companyGroupLists |stringFilterBy:searchGroup:'name'" [value]="list.uuid">
                     {{list.name}}
                   </mat-option>
                 </mat-select>
@@ -42,7 +45,9 @@
                 <mat-label>Select Site</mat-label>
                 <mat-select (selectionChange)="clientOfgroup(firstFormGroup.value.siteuuid,'client')"
                   formControlName="siteuuid">
-                  <mat-option *ngFor="let list of clientCompany" [value]="list.uuid">
+                  <ngx-mat-select-search [(ngModel)]="searchClient" [placeholderLabel]="'Search...'"
+                  [noEntriesFoundLabel]="'Not found'" name="search"  [ngModelOptions]="{standalone: true}"></ngx-mat-select-search>
+                  <mat-option *ngFor="let list of clientCompany |stringFilterBy:searchClient:'name'" [value]="list.uuid">
                     {{list.name}}
                   </mat-option>
                 </mat-select>
