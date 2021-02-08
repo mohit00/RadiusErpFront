@@ -66,6 +66,8 @@
              <th width="30%"> Name</th>
              <th>Material  Quantity</th>
             <th>Unit</th>
+            <th>Cost</th>
+
             <th>Description</th>
             </tr>
          </thead>
@@ -80,7 +82,15 @@
               
    
              </mat-form-field></td>
+          
              <td>{{ item.unit }}</td>
+             <td nowrap> 
+              <mat-form-field  appearance="outline">
+              <mat-label>Cost</mat-label>
+              <input matInput placeholder="Placeholder"  type ="text" [(ngModel)]= "item.materialcost"  [ngModelOptions]="{standalone: true}" >
+             
+  
+            </mat-form-field></td>
              <td>{{ item.description }}</td>
 
            

@@ -61,7 +61,7 @@
                   <mat-icon>edit</mat-icon>
                 </button>    
                 <button mat-icon-button aria-label="Example icon-button with a heart icon" (click) = "report(row.uuid)" style="float: left
-                ;">
+                ;" *ngIf ="row.isApproved">
                     <mat-icon>remove_red_eye</mat-icon>
                   </button>    
            </ng-template>

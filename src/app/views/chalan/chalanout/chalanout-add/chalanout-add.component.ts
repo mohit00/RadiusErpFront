@@ -79,9 +79,8 @@ export class ChalanoutAddComponent implements OnInit {
          materialuuid:  (this.firstFormGroup.value.materialId).uuid ,
         name: (this.firstFormGroup.value.materialId).name ,
         description: (this.firstFormGroup.value.materialId).description,
-        unit:(this.firstFormGroup.value.materialId).unit ,
-        materialcost:"0"
-        })
+        unit:(this.firstFormGroup.value.materialId).unit  
+         })
   }
   change(data) {
     this.getWorkorderCompanyList(this.firstFormGroup.value.parentCompany)
@@ -94,8 +93,7 @@ export class ChalanoutAddComponent implements OnInit {
   }
   changePo(data){
     this.chalanService.chalanPoDetail(this.firstFormGroup.value.chalanPONouuid).subscribe(res=>{
-      console.log(JSON.stringify(res))
-      this.firstFormGroup = this.fb.group({
+       this.firstFormGroup = this.fb.group({
         chalanNo: [this.firstFormGroup.value.chalanNo, [
         ]],
         parentCompany: [this.firstFormGroup.value.parentCompany, [
