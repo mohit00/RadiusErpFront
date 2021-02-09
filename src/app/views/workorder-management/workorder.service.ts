@@ -148,7 +148,7 @@ export class WorkorderService {
     let headerJson = {
       'authorization': 'Bearer ' + sessionStorage.getItem("access")
     };  
-    return this._http.get(environment.LOCAL_BASE + `sitematerial/get/${data}`,    {
+    return this._http.get(environment.LOCAL_BASE + `sitematerial/get`,    {
       headers: headerJson 
     }).pipe(
       // eg. "map" without a dot before

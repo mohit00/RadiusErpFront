@@ -200,7 +200,7 @@
                 <mat-form-field class="margin-333" appearance="outline">
                   <mat-label>Select Site Material</mat-label>
                   <mat-select [(ngModel)]="selectedSiteMaterial" [ngModelOptions]="{standalone: true}">
-                    <mat-option *ngFor="let list of siteMaterialList" [value]="list.uuid">
+                    <mat-option *ngFor="let list of siteMaterialList" [value]="list.uuid" >
                       {{list.name}}
                     </mat-option>
                   </mat-select>

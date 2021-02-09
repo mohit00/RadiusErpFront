@@ -157,9 +157,9 @@ if(data.differentBilling){
     }
   }
   getsiteMaterialGet() {
-    this.WorkorderService.siteMaterialGet(this.firstFormGroup.value.siteuuid).subscribe(res => {
+    this.WorkorderService.siteMaterialGet('this.firstFormGroup.value.siteuuid').subscribe(res => {
 
-      this.siteMaterialList = res.data;
+      this.siteMaterialList = res.data.filter(word => word.companyuuid == null);;
      
     })
   }
@@ -404,9 +404,11 @@ if(data.differentBilling){
   userdata: any;
   ngOnInit() {
     this.userdata = JSON.parse(sessionStorage.getItem('user'));
+
     this.getMaterialGet();
     this.companyList();
     this.createForm();
+    this.getsiteMaterialGet();
     this.href = this.Router.url;
     if (this.href == '/workorder/Update') {
       this.pageType = "Update"

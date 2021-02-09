@@ -61,7 +61,7 @@ export class SitematerialComponent implements OnInit {
   userdata:any;
   ngOnInit() {
     this.userdata = JSON.parse(sessionStorage.getItem('user'));
-    this.companyList();
+    this.getpaymenTermList(this.selectedCompany)
 
     if(this.userdata.role =='Admin'){
 
