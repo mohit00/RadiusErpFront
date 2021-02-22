@@ -19,26 +19,7 @@
           </mat-select>
         </mat-form-field>
 </div>
-    <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="100" *ngIf ="userdata.role != 'Admin'">
-        <mat-form-field class="margin-333"  >
-            <mat-label>Select Group Company</mat-label>
-            <mat-select (selectionChange)="companyUnderList($event)" [(ngModel)] = "selectedgCompany">
-              <mat-option *ngFor="let list of companyLists" [value]="list.uuid">
-                {{list.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-</div>
-<div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="100" *ngIf ="userdata.role != 'Admin'">
-  <mat-form-field class="margin-333"  >
-      <mat-label>Select Site Company</mat-label>
-      <mat-select (selectionChange)="change($event)" [(ngModel)] = "selectedCompany">
-        <mat-option *ngFor="let list of companygLists" [value]="list.uuid">
-          {{list.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-</div>
+   
 <div fxFlex="100" fxFlex.gt-sm="40" fxFlex.sm="40">
   <mat-form-field class="margin-333" style="width: 100%">
     <input 
@@ -66,6 +47,11 @@
       <ngx-datatable-column name="Name" [sortable]="true">
           <ng-template let-row="row" ngx-datatable-cell-template>
               {{row.name}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Is New" [sortable]="true">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.new}}
             </ng-template>
         </ngx-datatable-column>
       <ngx-datatable-column name="created Date">

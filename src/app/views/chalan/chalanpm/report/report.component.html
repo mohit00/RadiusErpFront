@@ -1,16 +1,15 @@
-
-<mat-card class="p-0" id="pRef" *ngIf ="getData">
+<mat-card class="p-0" id="pRef" *ngIf="getData">
   <button mat-icon-button aria-label="Example icon-button with a heart icon" (click)="GetHtml()" style="float: right;
               ;">
-  <mat-icon>cloud_download</mat-icon>
-</button>
+    <mat-icon>cloud_download</mat-icon>
+  </button>
   <div style="width: 100%;float: left;" #pRef>
     <p style="    text-align: center;
 margin-top: 10px;
 margin-bottom: 0px;
 font-size: 20px;
-font-weight: 600;" >{{getData.poType}} Order</p>
- 
+font-weight: 600;">{{getData.poType}} Order</p>
+
 
     <div style="width:100%;border:1px solid;    width: 100%;
 border: 1px solid;
@@ -18,17 +17,17 @@ float: left;
 
  ">
       <div style="width:100%;     width: 100%;
- border-bottom: 1px solid;
- float: left;
+  float: left;
  padding: 10px;
- 
+    padding-top: 0px;
+    padding-bottom: 0px; 
   ">
         <div style="width:50%;float: left;">
           <p style="    margin: 0px;
   font-size: 14px;
   font-weight: 600;">Invoice To:</p>
           <p style="    margin: 0;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;">{{getData.chalanBy.name}}</p>
           <p style="   margin: 0; 
     font-size: 12px;">{{getData.chalanBy.address}}</p>
@@ -57,7 +56,8 @@ float: left;
 
 
       <div style="width:100%;     
-border-bottom: 1px solid;
+border: 1px solid;
+
 float: left;
 
  ">
@@ -65,58 +65,62 @@ float: left;
         <div style="width: 50%;
       float: left;
       padding: 10px 0px 0px 10px;
-      border-right: 1px solid; ">
+      border-right: 1px solid;    padding-top: 0px; ">
           <p style="    
- margin-top: 10px;
- margin-bottom: 0px;
- font-size: 16px;
- font-weight: 600;">{{getData.poType}} Order No : {{getData.chPoNo}}</p>
-          <p style="    
-  margin-top: 10px;
   margin-bottom: 0px;
-  font-size: 16px;
-  font-weight: 600;">{{getData.poType}} Order Date : {{getData.poDate |date: 'dd/MM/yyyy'}}</p>
+ font-size: 14px;
+ "><span style=" font-weight: 600;">{{getData.poType}} Order No :</span> <span
+              style="  font-size: 13px;">{{getData.chPoNo}}</span> </p>
           <p style="    
-    margin-top: 10px;
-    margin-bottom: 0px;
-    font-size: 16px;
-    font-weight: 600;">Supplier ref or order no. : <span (click) ="SupplierRefText()" >
-<ng-container *ngIf ="!showSupplierRefText">
-  {{getData.supplierRef}}
-</ng-container>
-</span> 
-<ng-container *ngIf ="showSupplierRefText">
-  <input name = "destination" [(ngModel)] ="getData.supplierRef"  (blur) ="SupplierRefText()" [ngModelOptions]="{standalone: true}">
-</ng-container></p>
+   margin-bottom: 0px;
+  font-size: 14px;
+ "><span style=" font-weight: 600;">{{getData.poType}} Order Date : </span> <span style="  font-size: 13px;">
+              {{getData.poDate |date: 'dd/MM/yyyy'}}</span></p>
+          <p style="    
+     margin-bottom: 0px;
+    font-size: 14px;
+   "> <span style=" font-weight: 600;">Supplier ref or order no. :</span> <span (click)="SupplierRefText()"
+              style="font-size: 13px;">
+              <ng-container *ngIf="!showSupplierRefText">
+                {{getData.supplierRef}}
+              </ng-container>
+            </span>
+            <ng-container *ngIf="showSupplierRefText">
+              <input name="destination" [(ngModel)]="getData.supplierRef" (blur)="SupplierRefText()"
+                [ngModelOptions]="{standalone: true}">
+            </ng-container>
+          </p>
         </div>
         <div style="width: 40%;
       float: left;
       text-align: left; padding-left: 10px;">
 
           <p style="    
-margin-top: 10px;
-margin-bottom: 0px;
-font-size: 16px;
-font-weight: 600;">Delivery Term : {{getData.deliveryTerm}} </p>
+ margin-bottom: 0px;
+font-size: 14px;
+"><span style="font-weight: 600;">Delivery Term :</span> <span style="font-size: 13px;">{{getData.deliveryTerm}}
+            </span></p>
           <p style="    
   margin: 0px;
- font-size: 16px;
- font-weight: 600;">Mode/Term Of payment : <span *ngFor="let list of paymentTermArray">{{list.value}}%
+ font-size: 14px;
+"> <span style=" font-weight: 600;">Mode/Term Of payment :</span> <span *ngFor="let list of paymentTermArray"
+              style="font-size: 13px;">{{list.value}}%
               {{list.name}}</span></p>
           <p style="    
-  margin-top: 10px;
- font-size: 16px;
- font-weight: 600;">Destination : <span (click) ="Destination()" >
-<ng-container *ngIf ="!showDestinationText">
-  {{getData.destination}}
-</ng-container>
-</span>
-<ng-container *ngIf ="showDestinationText">
-  <input name = "destination" [(ngModel)] ="getData.destination"  (blur) ="Destination()" [ngModelOptions]="{standalone: true}">
-</ng-container></p>
+  font-size: 14px;
+"><span style=" font-weight: 600;">Destination :</span> <span (click)="Destination()">
+              <ng-container *ngIf="!showDestinationText">
+                <span style="font-size: 13px;"> {{getData.destination}}</span>
+              </ng-container>
+            </span>
+            <ng-container *ngIf="showDestinationText">
+              <input name="destination" [(ngModel)]="getData.destination" (blur)="Destination()"
+                [ngModelOptions]="{standalone: true}">
+            </ng-container>
+          </p>
         </div>
       </div>
-      <div style="width:100%;float:left;padding: 10px;background: gainsboro">
+      <div style="width:99%;float:left;padding: 10px 0px 10px 10px;background: gainsboro">
         <div style="width:50%;margin: 0px;font-weight: 600; float: left;   font-size: 14px;">Dispatch To: </div>
         <div style="width:40%;margin: 0px;font-weight: 600;  float: left;  font-size: 14px; "> Supplier:</div>
 
@@ -193,14 +197,14 @@ font-weight: 600;">Delivery Term : {{getData.deliveryTerm}} </p>
           <th style="width: 75px;text-align: left;  border: 1px solid black;
         border-collapse: collapse;
        ;">HSN/SAC</th>
-       
+
           <th style="width: 75px;text-align: left;  border: 1px solid black;
         border-collapse: collapse;
        ;">Qty</th>
           <th style="width: 75px;text-align: left;  border: 1px solid black;
         border-collapse: collapse;
        ;">Rate</th>
-        <th style="width: 75px;text-align: left;  border: 1px solid black;
+          <th style="width: 75px;text-align: left;  border: 1px solid black;
         border-collapse: collapse;
        ;">Tax</th>
           <th style="width: 75px;text-align: left;  border: 1px solid black;
@@ -217,7 +221,7 @@ font-weight: 600;">Delivery Term : {{getData.deliveryTerm}} </p>
        ;">{{i +1}}</td>
           <td style="border: 1px solid black;
         border-collapse: collapse;text-align: left;
-       ;"><span>{{list.name}}<br> {{list.description}}</span></td>
+       ;"><span>{{list.name}}<br> <span style="font-size: 11px;"> {{list.description}}</span></span></td>
 
           <td style="border: 1px solid black;
         border-collapse: collapse;text-align: left;
@@ -229,7 +233,7 @@ font-weight: 600;">Delivery Term : {{getData.deliveryTerm}} </p>
           <td style="border: 1px solid black;
         border-collapse: collapse;text-align: left;
        ;">{{list.matCost }}</td>
-        <td style="border: 1px solid black;
+          <td style="border: 1px solid black;
         border-collapse: collapse;text-align: left;
        ;">{{list.tax }}%</td>
           <td style="border: 1px solid black;
@@ -242,8 +246,8 @@ font-weight: 600;">Delivery Term : {{getData.deliveryTerm}} </p>
       </table>
       <div style="width: 100%; 
     float: left;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 14px;
+    margin-bottom: 14px;
     border-top: 1px solid;
     border-bottom: 1px solid;text-align: right;">
         <div style="width: 50%;float: left;"></div>
@@ -254,43 +258,49 @@ font-weight: 600;">Delivery Term : {{getData.deliveryTerm}} </p>
     ">
           <div style="width: 50%;float: left">Total Amonunt</div>
           <div style="width: 50%;float: left">{{totalAmount | number:'1.2-2' }}</div>
-      
-          <div style="width: 50%;float: left" *ngIf ="!showIgst">Add SGST</div>
-          <div style="width: 50%;float: left"  *ngIf ="!showIgst">{{TotalTax/2| number:'1.2-2'}}</div>
-          <div style="width: 50%;float: left" *ngIf ="!showIgst">Add CGST</div>
-          <div style="width: 50%;float: left" *ngIf ="!showIgst">{{TotalTax/2| number:'1.2-2'}}</div>
-          <div style="width: 50%;float: left" *ngIf ="showIgst">Add IGST</div>
-          <div style="width: 50%;float: left" *ngIf ="showIgst">{{TotalTax| number:'1.2-2'}}</div>
+
+          <div style="width: 50%;float: left" *ngIf="!showIgst">Add SGST</div>
+          <div style="width: 50%;float: left" *ngIf="!showIgst">{{TotalTax/2| number:'1.2-2'}}</div>
+          <div style="width: 50%;float: left" *ngIf="!showIgst">Add CGST</div>
+          <div style="width: 50%;float: left" *ngIf="!showIgst">{{TotalTax/2| number:'1.2-2'}}</div>
+          <div style="width: 50%;float: left" *ngIf="showIgst">Add IGST</div>
+          <div style="width: 50%;float: left" *ngIf="showIgst">{{TotalTax| number:'1.2-2'}}</div>
           <div style="width: 50%;float: left">Round Off</div>
           <div style="width: 50%;float: left">{{floatroundoff| number:'1.2-2'}}</div>
-          <div style="width: 50%;float: left;font-size: 16px;font-weight: 600;">Grand Total</div>
-          <div style="width: 50%;float: left;font-size: 16px;font-weight: 600;">{{grandTotal}}</div>
+          <div style="width: 50%;float: left;font-size: 14px;font-weight: 600;">Grand Total</div>
+          <div style="width: 50%;float: left;font-size: 14px;font-weight: 600;">{{grandTotal}}</div>
         </div>
 
       </div>
       <div style="width: 100%; 
     float: left;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 14px;
+    margin-bottom: 14px;
     border-top: 1px solid;
     border-bottom: 1px solid;margin: 0px;">
-        <p>Rs {{numberText}}  </p>
+        <p>Rs {{numberText}} </p>
       </div>
       <div style="width: 100%; float: left;">
         <div style="width: 60%; float: left;">
-          <p>Term & Condition</p>
-          <ol style="    font-size: 12px;">
-            <li>Goods Supplied and processed against this order must be Properly Packed.</li>
-            <li>"Delivery Time" is the essence of this order and must be strictly adhered to. </li>
-            <li>If the Supplier fails to deliver the goods in time, the purchaser shall accept late delivery, subject to
+          <p style="margin-bottom: 0px;">Term & Condition</p>
+          <ol style="    font-size: 12px; 
+          padding-top: 0px;
+          margin-top: 6px;">
+            <li style="font-size: 11px;">Goods Supplied and processed against this order must be Properly Packed.</li>
+            <li style="font-size: 11px;">"Delivery Time" is the essence of this order and must be strictly adhered to.
+            </li>
+            <li style="font-size: 11px;">If the Supplier fails to deliver the goods in time, the purchaser shall accept
+              late delivery, subject to
               a deduction in the payment @1% of the total order price on every week.
             </li>
-            <li>Any amendments or additions or alterations to the purchase order shall be accepted only on the written
+            <li style="font-size: 11px;">Any amendments or additions or alterations to the purchase order shall be
+              accepted only on the written
               consent of the Purchaser, prior to the packaging/dispatch of the Goods.</li>
-            <li>Any loss or damage due to inferior quality/excess/short supply of material, if any, will be debited to
+            <li style="font-size: 11px;">Any loss or damage due to inferior quality/excess/short supply of material, if
+              any, will be debited to
               the Supplier’s account in full.
             </li>
-            <li>All disputes shall be the jurisdiction of courts at Gautam Budha Nagar, U.P.
+            <li style="font-size: 11px;">All disputes shall be the jurisdiction of courts at Gautam Budha Nagar, U.P.
             </li>
           </ol>
         </div>

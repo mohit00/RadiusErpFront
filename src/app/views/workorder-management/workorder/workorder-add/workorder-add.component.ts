@@ -158,8 +158,8 @@ if(data.differentBilling){
   }
   getsiteMaterialGet() {
     this.WorkorderService.siteMaterialGet('this.firstFormGroup.value.siteuuid').subscribe(res => {
-
-      this.siteMaterialList = res.data.filter(word => word.companyuuid == null);;
+      // alert(JSON.stringify(res.data))
+      this.siteMaterialList = res.data.filter(word => word.new  );;
      
     })
   }
