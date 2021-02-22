@@ -5,18 +5,18 @@
   <mat-icon>cloud_download</mat-icon>
 </button>
   <div style="width: 100%;float: left;" #pRef>
-    <p style="    text-align: center;
-margin-top: 10px;
-margin-bottom: 0px;
-font-size: 20px;
-font-weight: 600;" >Delivery Note </p>
+    <p  style="    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 20px;
+    font-weight: 600;">Delivery Note </p>
  
 
     <div style="width:100%;border:1px solid;    width: 100%;
-border: 1px solid;
-float: left;
-
- ">
+    border: 1px solid;
+    float: left;
+    
+     ">
       <div style="width:100%;     width: 100%;
  border-bottom: 1px solid;
  float: left;
@@ -24,11 +24,9 @@ float: left;
  
   ">
         <div style="width:50%;float: left;">
-          <p style="    margin: 0px;
-  font-size: 14px;
-  font-weight: 600;">Invoice To:</p>
+        
           <p style="    margin: 0;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;">{{getData.parentCompany.name}}</p>
           <p style="   margin: 0; 
     font-size: 12px;">{{getData.parentCompany.address}}</p>
@@ -62,61 +60,56 @@ float: left;
 
  ">
 
-        <div style="width: 50%;
-      float: left;
-      padding: 10px 0px 0px 10px;
-      border-right: 1px solid; ">
-          <p style="    
- margin-top: 10px;
- margin-bottom: 0px;
- font-size: 16px;
- font-weight: 600;">Work Order No : {{getData.woDetail.woNo}}</p>
-          <p style="    
-  margin-top: 10px;
-  margin-bottom: 0px;
-  font-size: 16px;
-  font-weight: 600;">Work Order Date : {{getData.woDetail.woDate |date: 'dd/MM/yyyy'}}</p>
-          <p style="    
-    margin-top: 10px;
-    margin-bottom: 0px;
-    font-size: 16px;
-    font-weight: 600;">Supplier ref or order no. : <span (click) ="SupplierRefText()" >
-<ng-container *ngIf ="!showSupplierRefText">
-  {{getData.supplierRef}}
-</ng-container>
-</span> 
-<ng-container *ngIf ="showSupplierRefText">
-  <input name = "destination" [(ngModel)] ="getData.supplierRef"  (blur) ="SupplierRefText()" [ngModelOptions]="{standalone: true}">
-</ng-container></p>
+  
+<div style="width: 50%;
+float: left;
+padding: 10px 0px 0px 10px;
+border-right: 1px solid;    padding-top: 0px; ">
+     
+     
+     <p style="    
+     margin-bottom: 0px;
+    font-size: 14px;
+    "><span style=" font-weight: 600;">Work Order No :</span> <span
+                 style="  font-size: 13px;">{{getData.woDetail.woNo}}</span> </p>
+                 <p style="    
+                 margin-bottom: 0px;
+                font-size: 14px;
+               "><span style=" font-weight: 600;">Work Order Date : </span> <span style="  font-size: 13px;">
+                            {{getData.woDetail.woDate |date: 'dd/MM/yyyy'}}</span></p>
+       
+ 
         </div>
         <div style="width: 40%;
       float: left;
       text-align: left; padding-left: 10px;">
-
-          <p style="    
-margin-top: 10px;
-margin-bottom: 0px;
-font-size: 16px;
-font-weight: 600;">Delivery Term : {{getData.deliveryTerm}} </p>
-          <p style="    
-  margin: 0px;
- font-size: 16px;
- font-weight: 600;">Mode/Term Of payment : <span *ngFor="let list of paymentTermArray">{{list.value}}%
-              {{list.name}}</span></p>
-          <p style="    
-  margin-top: 10px;
- font-size: 16px;
- font-weight: 600;">Destination : <span (click) ="Destination()" >
-<ng-container *ngIf ="!showDestinationText">
-  {{getData.destination}}
-</ng-container>
-</span>
-<ng-container *ngIf ="showDestinationText">
-  <input name = "destination" [(ngModel)] ="getData.destination"  (blur) ="Destination()" [ngModelOptions]="{standalone: true}">
-</ng-container></p>
+   <p style="    
+   margin-bottom: 0px;
+  font-size: 14px;
+  "><span style="font-weight: 600;">Delivery Term :</span> <span style="font-size: 13px;">{{getData.deliveryTerm}}
+              </span></p>
+   
+              <p style="    
+              margin: 0px;
+             font-size: 14px;
+            "> <span style=" font-weight: 600;">Mode/Term Of payment :</span> <span *ngFor="let list of paymentTermArray"
+                          style="font-size: 13px;">{{list.value}}%
+                          {{list.name}}</span></p>
+                          <p style="    
+                          font-size: 14px;
+                        "><span style=" font-weight: 600;">Destination :</span> <span (click)="Destination()">
+                                      <ng-container *ngIf="!showDestinationText">
+                                        <span style="font-size: 13px;"> {{getData.destination}}</span>
+                                      </ng-container>
+                                    </span>
+                                    <ng-container *ngIf="showDestinationText">
+                                      <input name="destination" [(ngModel)]="getData.destination" (blur)="Destination()"
+                                        [ngModelOptions]="{standalone: true}">
+                                    </ng-container>
+                                  </p>
         </div>
       </div>
-      <div style="width:100%;float:left;padding: 10px;background: gainsboro">
+      <div style="width:99%;float:left;padding: 10px 0px 10px 10px;background: gainsboro">
         <div style="width:50%;margin: 0px;font-weight: 600; float: left;   font-size: 14px;">Buyer(if other than consignee):: </div>
         <div style="width:40%;margin: 0px;font-weight: 600;  float: left;  font-size: 14px; "> Consignee :</div>
 
@@ -210,8 +203,8 @@ font-weight: 600;">Delivery Term : {{getData.deliveryTerm}} </p>
         border-collapse: collapse;text-align: left;
        ;">{{i +1}}</td>
           <td style="border: 1px solid black;
-        border-collapse: collapse;text-align: left;
-       ;"><span>{{list.name}}<br> {{list.description}}</span></td>
+          border-collapse: collapse;text-align: left;
+         ;"><span>{{list.name}}<br> <span style="font-size: 11px;"> {{list.description}}</span></span></td>
 
           
 
@@ -252,8 +245,8 @@ font-weight: 600;">Delivery Term : {{getData.deliveryTerm}} </p>
           <div style="width: 50%;float: left" *ngIf ="showIgst">{{TotalTax| number:'1.2-2'}}</div>
           <div style="width: 50%;float: left">Round Off</div>
           <div style="width: 50%;float: left">{{floatroundoff| number:'1.2-2'}}</div>
-          <div style="width: 50%;float: left;font-size: 16px;font-weight: 600;">Grand Total</div>
-          <div style="width: 50%;float: left;font-size: 16px;font-weight: 600;">{{grandTotal}}</div>
+          <div style="width: 50%;float: left;font-size: 14px;font-weight: 600;">Grand Total</div>
+          <div style="width: 50%;float: left;font-size: 14px;font-weight: 600;">{{grandTotal}}</div>
         </div>
 
       </div>
@@ -269,12 +262,12 @@ font-weight: 600;">Delivery Term : {{getData.deliveryTerm}} </p>
         <div style="width: 60%; float: left;">
           <p>Term & Condition</p>
           <ol style="    font-size: 12px;">
-            <li> We certify that the particulars given above are true and correct and the amount indicate
+            <li style="font-size: 11px;"> We certify that the particulars given above are true and correct and the amount indicate
               repersent price actually.</li>
-            <li> Goods once delivered will not be taken back. For Radius Synergies International Pvt. Ltd.</li>
-            <li> the purchase shall check the delivered Goods immediately after reciept. complaints of any kind shall be ruled out if they within 30 days after the reciept of the Goods.
+            <li style="font-size: 11px;"> Goods once delivered will not be taken back. For Radius Synergies International Pvt. Ltd.</li>
+            <li style="font-size: 11px;"> the purchase shall check the delivered Goods immediately after reciept. complaints of any kind shall be ruled out if they within 30 days after the reciept of the Goods.
             </li>
-            <li> All disputes shall be the jurisdictions of court at Gautam Budha Nagar, U.P</li>
+            <li style="font-size: 11px;"> All disputes shall be the jurisdictions of court at Gautam Budha Nagar, U.P</li>
               
           </ol>
         </div>
