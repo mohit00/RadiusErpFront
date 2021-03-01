@@ -2,7 +2,15 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'environments/environment';
 import { WorkorderService } from '../workorder.service';
 var converter = require('number-to-words');
-
+import { ToWords } from 'to-words';
+const toWords = new ToWords({
+  localeCode: 'en-IN',
+  converterOptions: {
+    currency: true,
+    ignoreDecimal: false,
+    ignoreZeroCurrency: false,
+  }
+});
 @Component({
   selector: 'app-workorder-report',
   templateUrl: './workorder-report.component.html',
@@ -37,63 +45,58 @@ showIgst:Boolean = false;
 grandTotal:any;
   getPoDetail(){
       this.ChalanService.workorderReport( sessionStorage.getItem("wouuid")).subscribe(res=>{
-      
-        this.totalAmount = 0;
-        this.TotalTax = 0;
-        this.paymentTermArray = [];
-        if(res.woType == 'all' || (res.woType == 'null')){
-          for(var i =0 ;i<res.siteMaterialWORelationship.length;i++){
-            this.totalAmount = this.totalAmount + (res.siteMaterialWORelationship[i].matQty * res.siteMaterialWORelationship[i].matCost)
-            this.TotalTax = this.TotalTax + ((res.siteMaterialWORelationship[i].matQty * res.siteMaterialWORelationship[i].matCost ) * res.siteMaterialWORelationship[i].tax/100)
-          }
-  
-        }else{
-          // for(var i =0 ;i<res.chalanPoMateriaRelationship.length;i++){
-          //   this.totalAmount = this.totalAmount + (res.chalanPoMateriaRelationship[i].matQty * res.chalanPoMateriaRelationship[i].matCost)
-          //   this.TotalTax = this.TotalTax + ((res.chalanPoMateriaRelationship[i].matQty * res.chalanPoMateriaRelationship[i].matCost ) * res.chalanPoMateriaRelationship[i].tax/100)
-          // }
-  
-        }
-        this.totalText  = (this.totalAmount+this.TotalTax).toString();
-        this.roundOff = this.totalText.split(".");
-        this.floatroundoff = parseFloat('0.'+this.roundOff[1]);
-        if(this.floatroundoff < 0.5){
-          this.grandTotal = parseInt(this.totalAmount +this.TotalTax)
-          this.numberText = converter.toWords( this.grandTotal);
+      console.log(JSON.stringify(res))
+        // this.totalAmount = 0;
+        // this.TotalTax = 0;
+        // this.paymentTermArray = [];
+        // for(var i =0 ;i<res.chalanPoMateriaRelationship.length;i++){
+        //   this.totalAmount = this.totalAmount + (res.chalanPoMateriaRelationship[i].matQty * res.chalanPoMateriaRelationship[i].matCost)
+        //   this.TotalTax = this.TotalTax + ((res.chalanPoMateriaRelationship[i].matQty * res.chalanPoMateriaRelationship[i].matCost ) * res.chalanPoMateriaRelationship[i].tax/100)
+        // }
+        // this.totalText  = (this.totalAmount+this.TotalTax).toString();
+        // this.roundOff = this.totalText.split(".");
+        // this.floatroundoff = parseFloat('0.'+this.roundOff[1]);
+        // if(this.floatroundoff < 0.5){
+        //   this.grandTotal = parseInt(this.totalAmount +this.TotalTax)
+        //   this.numberText = toWords.convert(this.grandTotal);  
 
-        }else{
-          this.floatroundoff = 1-this.floatroundoff;
-          this.grandTotal = parseInt(this.totalAmount +this.TotalTax) +1
+        // }else{
+        //   this.floatroundoff = 1-this.floatroundoff;
+        //   this.grandTotal = parseInt(this.totalAmount +this.TotalTax) +1
 
-          this.numberText = converter.toWords(this.grandTotal );
+        //   this.numberText =toWords.convert(this.grandTotal);  
 
-        }
+        // }
 
-        for(var i =0 ;i<res.paymentTerm.length ;i++){
-          this.paymentTermArray.push({
-            name:res.paymentTerm[i].split("=")[0],
-            value:res.paymentTerm[i].split("=")[1]
-          })
+        // for(var i =0 ;i<res.paymentTerm.length ;i++){
+        //   this.paymentTermArray.push({
+        //     name:res.paymentTerm[i].split("=")[0],
+        //     value:res.paymentTerm[i].split("=")[1]
+        //   })
           
           
-        }
-        this.getData = res;
+        // }
+        // this.getData = res;
         
-        if(this.getData.supplier.stateCode != this.getData.chalanBy.stateCode ){
-          this.showIgst = true;
-        }
+        // if(this.getData.supplier.stateCode != this.getData.chalanBy.stateCode ){
+        //   this.showIgst = true;
+        // }
 
-        if(this.getData.chalanBy.stateCode < 10){
-          this.getData.chalanBy.stateCode ='0' +this.getData.chalanBy.stateCode
-        }
-        if(this.getData.supplier.stateCode < 10){
-          this.getData.supplier.stateCode ='0' +this.getData.supplier.stateCode
-        }
-     
-        this.getData.destination = 'Noida'
-        this.getData.supplierRef = res.chPoNo;
+        // if(this.getData.chalanBy.stateCode < 10){
+        //   this.getData.chalanBy.stateCode ='0' +this.getData.chalanBy.stateCode
+        // }
+        // if(this.getData.supplier.stateCode < 10){
+        //   this.getData.supplier.stateCode ='0' +this.getData.supplier.stateCode
+        // }
+        
 
-        console.log(JSON.stringify(res))
+        // if(this.getData.poType){}else{
+        //   this.getData.poType = 'Purchase'
+        // }
+        // this.getData.destination = 'Noida'
+        // this.getData.supplierRef = res.chPoNo;
+
+        // console.log(JSON.stringify(res))
       })
   }
 GetHtml(){

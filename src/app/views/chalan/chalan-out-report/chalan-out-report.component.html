@@ -9,7 +9,7 @@
     margin-top: 10px;
     margin-bottom: 0px;
     font-size: 20px;
-    font-weight: 600;">Delivery Note </p>
+    font-weight: 600;">Delivery Challan </p>
  
 
     <div style="width:100%;border:1px solid;    width: 100%;
@@ -17,7 +17,7 @@
     float: left;
     
      ">
-      <div style="width:100%;     width: 100%;
+      <div style="      width: 97%;
  border-bottom: 1px solid;
  float: left;
  padding: 10px;
@@ -40,15 +40,14 @@
         float: right;
         text-align: left;
     ">
-          <p style="margin-bottom: 0px;
-  margin-top: 0px;
-  font-size: 14px;
+          <p style=" 
+   font-size: 12px;
   font-weight: 600;">GSTIN : {{getData.parentCompany.gstno}}</p>
-          <p style="font-size: 14px;
+          <p style="font-size: 12px;
   font-weight: 600;">PAN No. : {{getData.parentCompany.pan}}</p>
-          <p style="margin-bottom: 0px;margin-top: 0px;font-size: 14px;
+          <p style=" font-size: 12px;
   ">State : {{getData.parentCompany.state}}</p>
-          <p style="font-size: 14px;
+          <p style="font-size: 12px;
    ">State Code : {{getData.parentCompany.stateCode}}</p>
         </div>
       </div>
@@ -75,9 +74,18 @@ border-right: 1px solid;    padding-top: 0px; ">
                  <p style="    
                  margin-bottom: 0px;
                 font-size: 14px;
-               "><span style=" font-weight: 600;">Work Order Date : </span> <span style="  font-size: 13px;">
-                            {{getData.woDetail.woDate |date: 'dd/MM/yyyy'}}</span></p>
-       
+               "><span style=" font-weight: 600;">Delivery Note Date : </span> <span style="  font-size: 13px;">
+                            {{getData.createdDate |date: 'dd/MM/yyyy'}}</span></p>
+                            <p style="    
+                            margin-bottom: 0px;
+                           font-size: 14px;
+                          "><span style=" font-weight: 600;">Delivery Note No. : </span> <span style="  font-size: 13px;">
+                                       {{getData.poNo}}</span></p>
+                                       <p style="    
+                                       margin-bottom: 0px;
+                                      font-size: 14px;
+                                     "><span style=" font-weight: 600;">E way Bill. : </span> <span style="  font-size: 13px;">
+                                                  </span></p>
  
         </div>
         <div style="width: 40%;
@@ -86,16 +94,16 @@ border-right: 1px solid;    padding-top: 0px; ">
    <p style="    
    margin-bottom: 0px;
   font-size: 14px;
-  "><span style="font-weight: 600;">Delivery Term :</span> <span style="font-size: 13px;">{{getData.deliveryTerm}}
+  "><span style="font-weight: 600;">Dispatch Through :</span> <span style="font-size: 13px;">{{getData.deliveryTerm}}
               </span></p>
    
               <p style="    
               margin: 0px;
              font-size: 14px;
-            "> <span style=" font-weight: 600;">Mode/Term Of payment :</span> <span *ngFor="let list of paymentTermArray"
+            "> <span style=" font-weight: 600;">Dockect No. :</span> <span *ngFor="let list of paymentTermArray"
                           style="font-size: 13px;">{{list.value}}%
                           {{list.name}}</span></p>
-                          <p style="    
+                          <p style="    margin: 0px;
                           font-size: 14px;
                         "><span style=" font-weight: 600;">Destination :</span> <span (click)="Destination()">
                                       <ng-container *ngIf="!showDestinationText">
@@ -107,14 +115,19 @@ border-right: 1px solid;    padding-top: 0px; ">
                                         [ngModelOptions]="{standalone: true}">
                                     </ng-container>
                                   </p>
+                                  <p style="    
+                                  margin: 0px;
+                                 font-size: 14px;
+                                "><span style=" font-weight: 600;"> Verticle /Department: </span> <span style="  font-size: 13px;">
+                                          {{getData.woDetail.verticaluuid }} /   {{getData.woDetail.departmentuuid }}  </span></p>
         </div>
       </div>
-      <div style="width:99%;float:left;padding: 10px 0px 10px 10px;background: gainsboro">
+      <div style="width:99%;float:left;padding: 10px 0px 10px 10px;background: gainsboro;    border-right: 1px solid;">
         <div style="width:50%;margin: 0px;font-weight: 600; float: left;   font-size: 14px;">Buyer(if other than consignee):: </div>
         <div style="width:40%;margin: 0px;font-weight: 600;  float: left;  font-size: 14px; "> Consignee :</div>
 
       </div>
-      <div style="width:100%;float:left;   margin-bottom: 10px; ">
+      <div style="width:100%;float:left;   ; ">
         <div style="width: 50%;float:left;border-right:1px solid ;">
           <!-- <p style="padding: 10px;background: gainsboro;margin: 0px;font-weight: 600;    font-size: 14px;">
           
@@ -129,15 +142,14 @@ border-right: 1px solid;    padding-top: 0px; ">
           <p style="    padding-left: 10px;
         font-size: 12px;
         font-weight: 600;
-        margin: 0;margin-bottom: 10px;">
+        margin: 0;;">
             Add. : {{getData.companyClient.address}}
 
           </p>
-          <p style="margin-bottom: 0px;padding-left: 10px;
-        margin-top: 0px;
-        font-size: 14px;
+          <p style=" padding-left: 10px;
+         font-size: 14px;
         font-weight: 600;">GSTIN : {{getData.companyClient.gstno}}</p>
-          <p style="margin-bottom: 0px;
+          <p style=" 
            margin-top: 0px;padding-left: 10px;
            font-size: 14px;
            font-weight: 600;">Mobile\Ph. no. : {{getData.companyClient.phoneNumber}}</p>
@@ -157,7 +169,7 @@ border-right: 1px solid;    padding-top: 0px; ">
           <p style="    padding-left: 10px;
         font-size: 12px;
         font-weight: 600;
-        margin: 0;margin-bottom: 10px;">
+        margin: 0;" >
             Add. : {{getData.companyClient.address}}
 
           </p>
@@ -180,7 +192,7 @@ border-right: 1px solid;    padding-top: 0px; ">
           <th style="width: 10px;text-align: left;  border: 1px solid black;
         border-collapse: collapse;
        ;">S.No.</th>
-          <th style="width: 300px;text-align: left;  border: 1px solid black;
+          <th style="width: 270px;text-align: left;  border: 1px solid black;
         border-collapse: collapse;
        ;">Description of Goods</th>
            
@@ -228,7 +240,13 @@ border-right: 1px solid;    padding-top: 0px; ">
     margin-bottom: 15px;
     border-top: 1px solid;
     border-bottom: 1px solid;text-align: right;">
-        <div style="width: 50%;float: left;"></div>
+        <div style="width: 50%;float: left;">
+          <div style="width: 100%;float: left;text-align: left;">Receiver Name:</div>
+       
+          <div style="width: 100%;float: left;text-align: left"  >Receiver Department + Verticle:</div>
+          <div style="width: 100%;float: left;text-align: left"  >Receiving Date:</div>
+
+        </div>
         <div style="width: 40%;
         float: right;
         margin-right: 10px;

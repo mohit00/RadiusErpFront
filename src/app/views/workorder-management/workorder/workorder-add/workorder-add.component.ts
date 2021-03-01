@@ -73,20 +73,27 @@ export class WorkorderAddComponent implements OnInit {
 
     });
 this.woType = data.woType;
-for(var i =0 ;i<data.materialArray.length;i++){
-  data.materialArray[i].rate= data.materialArray[i].rate.toString();
+if(this.woType == 'direct'){
+  for(var i =0 ;i<data.materialArray2.length;i++){
+    data.materialArray2[i].rate= data.materialArray2[i].rate.toString();
+    data.materialArray2[i].qty= data.materialArray2[i].qty.toString();
+
+    this.siteselectedMaterialList = data.materialArray2;
+
+  }
+}else{
+  for(var i =0 ;i<data.materialArray.length;i++){
+    data.materialArray[i].rate= data.materialArray[i].rate.toString();
+    this.siteselectedMaterialList = data.materialArray;
+
+  }
 }
+
 if(data.differentBilling){
   this.isdifferentBilling();
 
 }
-  if(data.materialArray){
-    this.siteselectedMaterialList = data.materialArray;
-
-  }else{
-    this.siteselectedMaterialList = data.materialArray2;
-
-  }
+ 
     this.paymentTermList = [];
     for (var i = 0; i < data.paymentTerm.length; i++) {
       this.paymentTermList.push({

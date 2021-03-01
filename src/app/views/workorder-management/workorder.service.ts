@@ -275,6 +275,7 @@ export class WorkorderService {
     let headerJson = {
       'authorization': 'Bearer ' + sessionStorage.getItem("access")
     };  
+    alert(data)
     return this._http.get(environment.LOCAL_BASE + `report/wo/${data}`,    {
       headers: headerJson 
     }).pipe(

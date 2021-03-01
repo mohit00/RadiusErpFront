@@ -281,11 +281,11 @@ font-size: 14px;
         <p>Rs {{numberText}} </p>
       </div>
       <div style="width: 100%; float: left;">
-        <div style="width: 60%; float: left;">
-          <p style="margin-bottom: 0px;">Term & Condition</p>
+        <div style="width: 60%; float: left;padding-left: 2px;">
+          <p style="margin-bottom: 0px;margin-right: 2px;">I. <span style="text-decoration: underline;">Term & Condition</span> </p>
           <ol style="    font-size: 12px; 
           padding-top: 0px;
-          margin-top: 6px;">
+          margin-top: 6px;" *ngIf ="getData.poType == 'Purchase'">
             <li style="font-size: 11px;">Goods Supplied and processed against this order must be Properly Packed.</li>
             <li style="font-size: 11px;">"Delivery Time" is the essence of this order and must be strictly adhered to.
             </li>
@@ -303,6 +303,22 @@ font-size: 14px;
             <li style="font-size: 11px;">All disputes shall be the jurisdiction of courts at Gautam Budha Nagar, U.P.
             </li>
           </ol>
+          <ol style="    font-size: 12px; 
+          padding-top: 0px;
+          margin-top: 6px;" *ngIf ="getData.poType == 'Service'">
+            <li style="font-size: 11px;">Service promised and provided against this Service Order must be as per agreed terms.</li>
+            <li style="font-size: 11px;">Service time is the essence of this order and must be strictly adhered to.
+            </li>
+            <li style="font-size: 11px;">If Service provider fails to render services in given time and/or any loss or damage due to inferior service quality, penalty may be levied @ 1% of the total order value. This is completely at the discretion of the purchaser.
+            </li>
+            <li style="font-size: 11px;">Any amendments or additions or alterations to the service order shall be accepted only on the written consent of the purchaser.</li>
+            <li style="font-size: 11px;">All disputes shall be under the jurisdiction of courts at Gautam Budha Nagar, U.P.
+              <p style="font-size: 11px;
+              float: right;">Please Turn Over(PTO)</p>
+            </li>
+             
+          </ol>
+     
         </div>
         <div style="    width: 30%;
         float: right;

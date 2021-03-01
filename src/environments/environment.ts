@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   apiURL: 'developmentApi',
-  LOCAL_BASE:'http://13.232.166.46:8080/erp-0.0.1-SNAPSHOT/'
+  LOCAL_BASE:'http://localhost:8080/'
 };
