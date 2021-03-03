@@ -19,8 +19,14 @@ const toWords = new ToWords({
 })
 export class ChalanOutReportComponent implements OnInit {
   @ViewChild('pRef', {static: false}) pRef: ElementRef;
+  EwayBill(){
+    this.showEwayBillText = !this.showEwayBillText;
 
+  }
+  showdescText:any=[]
   showDestinationText:Boolean = false;
+  showEwayBillText:Boolean = false;
+
   showSupplierRefText:Boolean = false;
   totalText: any;
   roundOff: any;
@@ -51,6 +57,7 @@ grandTotal:any;
         this.TotalTax = 0;
         this.paymentTermArray = [];
         for(var i =0 ;i<res.woDetail.materialArray.length;i++){
+           this.showdescText.push({desc:false})
           this.totalAmount = this.totalAmount + (res.woDetail.materialArray[i].qty * res.woDetail.materialArray[i].rate)
           this.TotalTax = this.TotalTax + ((res.woDetail.materialArray[i].qty * res.woDetail.materialArray[i].rate ) * res.woDetail.materialArray[i].tax/100)
         }

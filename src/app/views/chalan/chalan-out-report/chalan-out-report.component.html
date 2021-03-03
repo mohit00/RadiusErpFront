@@ -84,8 +84,16 @@ border-right: 1px solid;    padding-top: 0px; ">
                                        <p style="    
                                        margin-bottom: 0px;
                                       font-size: 14px;
-                                     "><span style=" font-weight: 600;">E way Bill. : </span> <span style="  font-size: 13px;">
-                                                  </span></p>
+                                     "><span style=" font-weight: 600;"><span (click)="EwayBill()">E way Bill. :</span> </span> <span style="  font-size: 13px;">
+                                                  </span><span (click)="EwayBill()">
+                                                    <ng-container *ngIf="!showEwayBillText">
+                                                      <span style="font-size: 13px;"> {{getData.eway}}</span>
+                                                    </ng-container>
+                                                  </span>
+                                                  <ng-container *ngIf="showEwayBillText">
+                                                    <input name="destination" [(ngModel)]="getData.eway" (blur)="EwayBill()"
+                                                      [ngModelOptions]="{standalone: true}">
+                                                  </ng-container></p>
  
         </div>
         <div style="width: 40%;
@@ -216,7 +224,19 @@ border-right: 1px solid;    padding-top: 0px; ">
        ;">{{i +1}}</td>
           <td style="border: 1px solid black;
           border-collapse: collapse;text-align: left;
-         ;"><span>{{list.name}}<br> <span style="font-size: 11px;"> {{list.description}}</span></span></td>
+         ;"><span>   <span (click)="showdescText[i].desc = !showdescText[i].desc">{{list.name}}</span> <br><span style="font-size: 11px;"> 
+         
+         <span (click)="showdescText[i].desc = !showdescText[i].desc">
+          <ng-container *ngIf="!showdescText[i].desc">
+            <span style="font-size: 13px;"> {{list.description}}</span>
+          </ng-container>
+        </span>
+        
+          <ng-container *ngIf="showdescText[i].desc">
+            <textarea name="destination" [(ngModel)]="list.description" (blur)="showdescText[i].desc =!showdescText[i].desc" style="width: 80%;"
+            [ngModelOptions]="{standalone: true}"></textarea>
+        </ng-container> 
+        </span></span></td>
 
           
 
@@ -245,6 +265,7 @@ border-right: 1px solid;    padding-top: 0px; ">
        
           <div style="width: 100%;float: left;text-align: left"  >Receiver Department + Verticle:</div>
           <div style="width: 100%;float: left;text-align: left"  >Receiving Date:</div>
+          <div style="width: 100%;float: left;text-align: left"  >Receiving Signature:</div>
 
         </div>
         <div style="width: 40%;
